@@ -12,5 +12,6 @@ def index():
 def get_user(user_id):
     return User.query.get(user_id)
 
+'''hihi thay doi ne'''
 if __name__ == "__main__":
     app.run(port=8999, debug=True)
