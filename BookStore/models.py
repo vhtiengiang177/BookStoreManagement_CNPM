@@ -4,8 +4,6 @@ from __init__ import db
 from datetime import date
 from flask_login import UserMixin
 
-
-
 class Category(db.Model):
     __tablename__ = 'Category'
 

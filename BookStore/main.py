@@ -28,6 +28,7 @@ def login_admin():
             err_msg = "Login failed !"
 
     return redirect('/admin')
-'''hihi thay doi ne'''
+
+
 if __name__ == "__main__":
     app.run(port=8999, debug=True) 
