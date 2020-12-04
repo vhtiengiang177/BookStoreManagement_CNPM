@@ -1,10 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+
+
+{% block body %}
+<div>
+    <form method="post" action="{{url_for('admin_login')}}">
+        <div class="form-group">
+            <label>Username</label>
+            <input namme = "tentao" type="text" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Password</label>
+            <input name = "password" type="password" class="form-control">
+        </div>
+        <div class="form-group">
+            <input type="submit" value="LOGIN" class="btn btn-danger"/>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

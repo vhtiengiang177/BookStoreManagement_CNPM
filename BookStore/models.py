@@ -13,6 +13,9 @@ class Category(db.Model):
     name = Column(String(50), nullable=False)
     books = relationship('Book', backref='Category', lazy=True)
 
+    def __str__(self):
+        return self.name
+
 
 class Book(db.Model):
     __tablename__ = 'Book'
@@ -24,7 +27,13 @@ class Book(db.Model):
     decription = Column(String(255))
     sold = Column(Integer, default=0)
     pulisher = Column(String(50))
+    price = Column(Integer, nullable=False)
     idCategory = Column(Integer, ForeignKey(Category.id))
+
+    books = relationship('Bill', backref='Book', lazy=True)
+
+    def __str__(self):
+        return self.name
 
 
 class Voucher(db.Model):
@@ -37,6 +46,9 @@ class Voucher(db.Model):
     discount = Column(Float, default=0)
     bills = relationship('Bill', backref = 'Voucher', lazy=True)
 
+    def __str__(self):
+        return self.name
+
 class Customer(db.Model):
     __tablename__ = 'Customer'
     id = Column(Integer, primary_key=True, autoincrement=True)
@@ -46,6 +58,9 @@ class Customer(db.Model):
     phone =  Column(String(50))
     gender = Column(Boolean, default=True)  #True = 1= Nam, False = 0= Nữ
     bill = relationship('Bill', backref='Customer', lazy=True)
+
+    def __str__(self):
+        return self.name
 
 class Bill(db.Model):
     __tablename__ = "Bill"
@@ -57,6 +72,7 @@ class Bill(db.Model):
     idVoucher = Column(Integer, ForeignKey(Voucher.id))
     totalCost = Column(Float)
     idCustomer = Column(Integer, ForeignKey(Customer.id))
+    idBook = Column(Integer, ForeignKey(Book.id))
 
 class User(db.Model, UserMixin):
     __tablename__ = 'User'
