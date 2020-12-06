@@ -74,7 +74,7 @@ class UserType(db.Model):
     idUser = relationship("User", backref = "UserType", lazy=True)
 
     def __str__(self):
-        return self.name
+        return self.name_type
 
 class User(db.Model, UserMixin):
     __tablename__ = 'User'
@@ -95,7 +95,7 @@ class User(db.Model, UserMixin):
     idCart = relationship("Cart", backref = "User", lazy = True)
 
     def __str__(self):
-        return self.name
+        return self.lname + self.fname
 
 
 

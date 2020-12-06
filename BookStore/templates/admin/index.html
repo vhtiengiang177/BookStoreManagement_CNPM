@@ -14,6 +14,8 @@ $END$
 {%block body %}
     {% if current_user.is_authenticated%}
         <h1>CHAO MUNG DEN VOI WEB BAN SACH</h1>
+        <h3> Admin: {{current_user.lname + " " + current_user.fname}}</h3>
+
     {% else %}
         {% include 'admin/loginNew.html'%}
     {% endif %}
