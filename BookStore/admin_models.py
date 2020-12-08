@@ -6,6 +6,13 @@ from flask_login import logout_user, current_user
 from flask import redirect
 
 
+
+
+
+class AuthenticatedView(ModelView):
+    def is_accessible(self):
+        return current_user.is_authenticated and current_user.idUserType == 1
+
 class LogoutView(BaseView):
     @expose('/')
     def index(self):
@@ -13,12 +20,7 @@ class LogoutView(BaseView):
         return redirect('/admin')
 
     def is_accessible(self):
-        return current_user.is_authenticated
-
-
-class AuthenticatedView(ModelView):
-    def is_accessible(self):
-        return current_user.is_authenticated
+        return current_user.is_authenticated and current_user.idUserType == 1
 
 # class InfoAccount(AuthenticatedView):
 #     can_edit = True
@@ -39,6 +41,5 @@ admin.add_view(AuthenticatedView(Cart, db.session))
 admin.add_view(AuthenticatedView(CartItem, db.session))
 admin.add_view(AuthenticatedView(Bill, db.session))
 admin.add_view(AuthenticatedView(BillDetail, db.session))
-# admin.add_view(AuthenticatedView(current_user, db.session))
 admin.add_view(LogoutView(name="Logout"))
 

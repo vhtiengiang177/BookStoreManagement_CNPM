@@ -3,7 +3,7 @@ from flask import Flask, render_template, request, redirect, flash
 from admin_models import *
 from __init__ import login
 from models import User
-from flask_login import login_user
+from flask_login import login_user, logout_user
 import hashlib
 
 @app.route("/")
@@ -21,9 +21,10 @@ def login_admin():
     if request.method == 'POST':
         username = request.form.get("username")
         password = request.form.get("password", "")
-        password = hashlib.md5(password.strip().encode("utf-8")).hexdigest()
-        user = User.query.filter(User.username == username.strip(), User.password==password.strip()).first()
+        password = hashlib.md5(password.encode("utf-8")).hexdigest()
+        user = User.query.filter(User.username == username, User.password == password).first()
 
+        print(username, password)
         if user:
             flash('Logged in successfully.')
             login_user(user=user)
@@ -31,7 +32,17 @@ def login_admin():
         else:
             flash("Login failed !", category='error')
 
-    return redirect('/admin')
+    return redirect('/')
+
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect('/')
+
+
+@app.route('/index')
+def index2():
+    return render_template('base/base.html')
 
 
 if __name__ == "__main__":

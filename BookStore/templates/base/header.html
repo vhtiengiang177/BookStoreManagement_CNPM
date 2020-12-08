@@ -1,10 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+<div class="header" id="home1">
+    <div class="container">
+        <div style="float: left;"><img src="{{url_for('static', filename='images/brand-png.png')}}"></div>
+        <div class="w3l_logo">
+            <h1><a href="/">Book Store<span>A book is a dream that you hold in your hand.</span></a></h1>
+        </div>
+        <div class="search">
+            <input class="search_box" type="checkbox" id="search_box">
+            <label class="icon-search" for="search_box"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></label>
+            <div class="search_form">
+                <form action="#" method="post">
+                    <input type="text" name="Search" placeholder="Tìm kiếm...">
+                    <input type="submit" value="Tìm">
+                </form>
+            </div>
+        </div>
+        <div class="w3l_login">
+            {%if current_user.is_authenticated %}
+            <div class = "w3l_logo" aria-hidden="true">
+                <a href="{{'/logout'}}">
+                    <img src="{{url_for('static', filename=current_user.avatar)}}" style="width:40px;height:40px;"/>
+                </a>
+                <h5>{{current_user.fname}}</h5>
+<!--                {{ current_user.avatar }}-->
+            </div>
+            {%else%}
+            <a href="#" data-toggle="modal" data-target="#myModal88"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a>
+
+            {%endif%}
+
+        </div>
+        <div class="cart cart box_1">
+            <form action="#" method="post" class="last">
+                <input type="hidden" name="cmd" value="_cart" />
+                <input type="hidden" name="display" value="1" />
+                <button class="w3view-cart" type="submit" name="submit" value=""><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></button>
+            </form>
+        </div>
+    </div>
+</div>
