@@ -1,14 +1,15 @@
 from __init__ import app
-from flask import Flask, render_template, request, redirect, flash
+from flask import Flask, render_template, request, redirect, flash, session, jsonify
 from admin_models import *
 from __init__ import login
 from models import User
 from flask_login import login_user, logout_user
 import hashlib
+import utils
 
 @app.route("/")
 def index():
-    return render_template('base/base.html')
+    return render_template('base/base.html',  list_book= utils.load_Book(), list_book_image=utils.load_book_image())
 
 @login.user_loader
 def get_user(user_id):
@@ -24,15 +25,49 @@ def login_admin():
         password = hashlib.md5(password.encode("utf-8")).hexdigest()
         user = User.query.filter(User.username == username, User.password == password).first()
 
-        print(username, password)
         if user:
             flash('Logged in successfully.')
             login_user(user=user)
-            # admin.add_view(LogoutView(name="Logout"))
         else:
             flash("Login failed !", category='error')
 
     return redirect('/')
+
+# @app.route('/1')
+# def listBook():
+#     return render_template('base/banner_bottom.html', list_book= utils.load_Book(), list_book_image=utils.load_book_image())
+
+@app.route('/api/cart', methods=['get' , 'post'])
+def add_to_cart():
+    if 'cart' not in session:
+        session['cart'] = {}
+
+    cart = session['cart']
+    data = request.json
+    id = str(data.get('id'))
+    name = data.get('name')
+    price = data.get('price')
+
+    if id in cart:      #co hang trong gio
+        cart[id]['quantity'] +=1
+
+    else:
+        cart[id] = {
+            "id": id,
+            "name": name,
+            "price": price,
+            "quantity": 1
+        }
+    session['cart'] = cart
+
+
+    total_quantity, total_amount = utils.cart_stats(cart)
+
+    return jsonify({
+        "total_amount": total_amount,
+        "total_quantity": total_quantity,
+        "cart": cart
+    })
 
 @app.route('/logout')
 def logout():
