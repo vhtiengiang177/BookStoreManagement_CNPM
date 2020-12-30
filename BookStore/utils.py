@@ -32,3 +32,10 @@ def list_item_of_user(id_user):
     list_item = CartItem.query.filter(CartItem.idCart == id_cart).all()
 
     return id_cart, list_item
+
+def list_item_of_user_name_book(id_user):
+    id_cart = Cart.query.filter(Cart.id_user == id_user).first().id
+
+    list_item = CartItem.query.filter(CartItem.idCart == id_cart).join(Book, Book.id == CartItem.idBook).add_column(Book.name).all()
+
+    return id_cart, list_item

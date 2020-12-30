@@ -50,13 +50,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	<script type="text/javascript" src="{{url_for('static', filename='js/bootstrap-3.1.1.min.js')}}"></script>
 	<!-- //for bootstrap working -->
 
-	<!-- header_modal -->
 
-	{% block header_modal %}
-		{% include 'base/header_modal.html' %}
-	{% endblock %}
-
-	<!-- //header_modal -->
 
 
 	<!-- header -->
@@ -66,12 +60,21 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 	<!-- //header -->
 	<!-- navigation -->
-
+	{% block content %}
 	{% block nav %}
 		{% include 'base/nav.html' %}
 	{% endblock %}
 
 	<!-- //navigation -->
+
+	<!-- header_modal -->
+
+	{% block header_modal %}
+		{% include 'base/header_modal.html' %}
+	{% endblock %}
+
+	<!-- //header_modal -->
+
 	<!-- banner -->
 
 	{% block banner %}
@@ -93,7 +96,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	{% endblock %}
 	<!-- //new-products -->
 	<!-- footer -->
-
+	{% endblock %}
 	{% block footer %}
 		{% include 'base/footer.html' %}
 	{% endblock %}

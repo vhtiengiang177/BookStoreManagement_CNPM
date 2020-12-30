@@ -82,6 +82,12 @@ def add_to_cart():
     #     # "cart": cart
     # })
 
+
+@app.route('/pay')
+def payment():
+    id_cart, list_item = utils.list_item_of_user_name_book(current_user.id)
+    return render_template('payment.html', id_cart = id_cart, list_item = list_item)
+
 @app.route('/logout')
 def logout():
     logout_user()

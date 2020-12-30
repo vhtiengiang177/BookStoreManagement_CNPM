@@ -1,0 +1,35 @@
+{% extends 'base/base.html' %}
+
+
+{% block content %}
+<h1 class="text-center text-danger">TRANG THANH TOAN</h1>
+<div class="container">
+    <table class="table">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Quantity</th>
+        </tr>
+        {% if id_cart != [] and list_item != [] %}
+        {% for p in list_item %}
+        <tr>
+            <td>{{p[0].id}}</td>
+            <td>{{p[1]}}</td>
+            <td>{{p[0].price}}</td>
+            <td>{{p[0].discount}}</td>
+            <td>
+                <div class="form-group">
+                    <input class="form-control" type="number" value="{{p[0].quantity}}" />
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+        {% else %}
+        <tr>
+            <td colspan="4">KHONG CO SAN PHAM NAO TRONG GIO </td>
+        </tr>
+        {% endif %}
+    </table>
+</div>
+{% endblock %}
