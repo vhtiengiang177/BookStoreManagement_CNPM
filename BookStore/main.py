@@ -39,35 +39,48 @@ def login_admin():
 
 @app.route('/api/cart', methods=['get' , 'post'])
 def add_to_cart():
-    if 'cart' not in session:
-        session['cart'] = {}
+    # if 'cart' not in session:
+    #     session['cart'] = {}
 
-    cart = session['cart']
+    # cart = session['cart']
     data = request.json
-    id = str(data.get('id'))
+    id_book = str(data.get('id'))
     name = data.get('name')
     price = data.get('price')
 
-    if id in cart:      #co hang trong gio
-        cart[id]['quantity'] +=1
+    id_cart, list_item = utils.list_item_of_user(1)
 
-    else:
-        cart[id] = {
-            "id": id,
-            "name": name,
-            "price": price,
-            "quantity": 1
-        }
-    session['cart'] = cart
+    flag = 0
+    for item in list_item:
+        if (str(item.idBook) == id_book):
+            item.quantity += 1
+            flag = 1
+            db.session.commit()
+    if (flag == 0):
+        newitem = CartItem(idCart=id_cart, idBook=id_book, quantity=1, price=price, discount=price)
+        db.session.add(newitem)
+        db.session.commit()
 
+    # if id_book in cart:      #co hang trong gio
+    #     cart[id]['quantity'] +=1
+    #
+    # else:
+    #     cart[id] = {
+    #         "id": id,
+    #         "name": name,
+    #         "price": price,
+    #         "quantity": 1
+    #     }
+    # session['cart'] = cart
+    #
+    #
+    # total_quantity, total_amount = utils.cart_stats(cart)
 
-    total_quantity, total_amount = utils.cart_stats(cart)
-
-    return jsonify({
-        "total_amount": total_amount,
-        "total_quantity": total_quantity,
-        "cart": cart
-    })
+    # return jsonify({
+    #     "total_amount": 1,
+    #     "total_quantity": 1,
+    #     # "cart": cart
+    # })
 
 @app.route('/logout')
 def logout():

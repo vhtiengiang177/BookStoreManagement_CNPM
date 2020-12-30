@@ -1,5 +1,5 @@
 # from BookStore import db
-from models import Book, Image, BookCategory, User
+from models import Book, Image, BookCategory, User, Cart, CartItem
 # from flask import session, sessions
 # from BookStore.models import User
 
@@ -25,3 +25,10 @@ def cart_stats(cart):
         count = count + i['quantity']
         price = price + i['quantity'] * i['price']
     return count, price
+
+def list_item_of_user(id_user):
+    id_cart = Cart.query.filter(Cart.id_user == id_user).first().id
+
+    list_item = CartItem.query.filter(CartItem.idCart == id_cart).all()
+
+    return id_cart, list_item
