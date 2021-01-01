@@ -7,6 +7,12 @@ from flask_login import login_user, logout_user
 import hashlib
 import utils
 
+
+@app.route('/pay')
+def payment():
+    return render_template('payment.html')
+
+
 @app.route("/")
 def index():
     return render_template('base/base.html',  list_book= utils.load_Book(), list_book_image=utils.load_book_image())
