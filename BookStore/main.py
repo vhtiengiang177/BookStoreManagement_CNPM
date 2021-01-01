@@ -86,7 +86,8 @@ def add_to_cart():
 @app.route('/pay')
 def payment():
     id_cart, list_item = utils.list_item_of_user_name_book(current_user.id)
-    return render_template('payment.html', id_cart = id_cart, list_item = list_item)
+    total_quantity, total_amount = utils.cart_stats(current_user.id)
+    return render_template('payment.html', id_cart = id_cart, list_item = list_item, total_amount = total_amount, total_quantity=total_quantity)
 
 @app.route('/logout')
 def logout():
@@ -98,6 +99,9 @@ def logout():
 def index2():
     return render_template('base/base.html')
 
+@app.route('/api/pay', methods=['post'])
+def pay():
+    pass
 
 if __name__ == "__main__":
     app.run(port=8999, debug=True)

@@ -121,6 +121,7 @@ class CartItem(db.Model):
     quantity = Column(Integer, default=1)
     price = Column(Integer)
     discount = Column(Float)
+    would_buy = Column(Integer, default=1)
 
     # def __str__(self):
     #     return self.name
@@ -170,8 +171,7 @@ class Image(db.Model):
 
 
 if __name__ == '__main__':
-    pass
-    # db.drop_all()
+    # pass
     # db.create_all()
     #
     # cat1 = BookCategory(name='Tiểu thuyết')
@@ -198,6 +198,10 @@ if __name__ == '__main__':
     # img4 = Image(img='images/6.jpg', id_book=3)
     # img5 = Image(img='images/7.jpg', id_book=3)
     # img6 = Image(img='images/8.jpg', id_book=3)
+    typeAdmin = UserType(name_type = 'admin')
+    db.session.add(typeAdmin)
+    admin = User(lname='Lê', fname='Nguyễn Gia Bảo', username='admin', password = '202cb962ac59075b964b07152d234b70', avatar='images/avt.jpg', idUserType=1)
+    db.session.add(admin)
     # db.session.add(cat1)
     # db.session.add(cat2)
     # db.session.add(cat3)
@@ -224,4 +228,6 @@ if __name__ == '__main__':
     # db.session.add(img4)
     # db.session.add(img5)
     # db.session.add(img6)
-    # db.session.commit()
+
+
+    db.session.commit()
