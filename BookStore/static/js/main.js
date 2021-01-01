@@ -9,9 +9,25 @@ function addToCart(id, name, price){
     'headers':{
         'Content-Type':'application/json'
         }
-    }  ).then(res=>res.json()).then(data=>{
-        console.info(data);
-        var stats = document.getElementById("cart-stats")
-        stats.innerText=`${data.total_quantity} - ${data.total_amount} VND`;
+    }  ).then(res=>res.json())
+    .then(data=>{
+        alert(data.message);
+    })
+}
+
+function pay(id_user, cart){
+    fetch('/api/pay' , {
+        'method': 'post',
+        'body': JSON.stringify({
+            'id_user': id_user,
+            'cart': cart
+    }),
+    'headers':{
+        'Content-Type':'application/json'
+        }
+    }  ).then(res=>res.json())
+    .then(data=>{
+        alert(data.message);
+        location.reload();
     })
 }

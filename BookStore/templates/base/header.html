@@ -3,7 +3,7 @@
         <div style="float: left;"><img src="{{url_for('static', filename='images/brand-png.png')}}"></div>
         <div class="w3l_logo">
             <h1><a href="/">Book Store<span>A book is a dream that you hold in your hand.</span></a></h1>
-            <h1><span id="cart-stats" class = "badge badge-primary">0</span></h1>
+            <h1><a href="{{url_for('payment')}}" id="cart-stats" class = "badge badge-primary">0</a></h1>
         </div>
         <div class="search">
             <input class="search_box" type="checkbox" id="search_box">
