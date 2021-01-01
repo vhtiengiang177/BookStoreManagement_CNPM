@@ -39,10 +39,6 @@ def login_admin():
 
 @app.route('/api/cart', methods=['get' , 'post'])
 def add_to_cart():
-    # if 'cart' not in session:
-    #     session['cart'] = {}
-
-    # cart = session['cart']
     data = request.json
     id_book = str(data.get('id'))
     name = data.get('name')
@@ -76,23 +72,22 @@ def add_to_cart():
     #
     # total_quantity, total_amount = utils.cart_stats(cart)
 
-    # return jsonify({
-    #     "total_amount": 1,
-    #     "total_quantity": 1,
-    #     # "cart": cart
-    # })
+    return jsonify({
+        "message": "Them thanh cong"
+        # "cart": cart
+    })
 
 
 @app.route('/pay')
 def payment():
-    id_cart, list_item = utils.list_item_of_user_name_book(current_user.id)
+    id_cart, list_item = utils.list_item_of_user(current_user.id)
     total_quantity, total_amount = utils.cart_stats(current_user.id)
     return render_template('payment.html', id_cart = id_cart, list_item = list_item, total_amount = total_amount, total_quantity=total_quantity)
 
 @app.route('/logout')
 def logout():
     logout_user()
-    return redirect('/')
+    return redirect('/pay')
 
 
 @app.route('/index')
@@ -101,7 +96,24 @@ def index2():
 
 @app.route('/api/pay', methods=['post'])
 def pay():
-    pass
+    data = request.json
+    id_user = data.get('id_user')
+    id_cart = data.get('cart')
+    bill = Bill(idUser = id_user, address_delivery='1', phone_delivery='1', name_delivery='1')
+    db.session.add(bill)
+    cart = utils.get_item_by_id_cart(id_cart)
+    for p in cart:
+        bill_detail = BillDetail(Bill=bill, idBook=p.idBook, price=p.discount, quantity=p.quantity)
+        db.session.add(bill_detail)
+        db.session.delete(p)
+
+    db.session.commit()
+    return jsonify({
+        'message':'success'
+    })
+
+
+    # return redirect(payment())
 
 if __name__ == "__main__":
     app.run(port=8999, debug=True)

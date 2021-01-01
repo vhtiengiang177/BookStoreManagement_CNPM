@@ -66,3 +66,7 @@ def add_receipt(id_user):
 
     id_cart, list_item = list_item_of_user(id_user)
 
+def get_item_by_id_cart(id_cart):
+    return CartItem.query.filter(CartItem.idCart == id_cart).all()
+
+

@@ -19,13 +19,15 @@
         {% if id_cart != [] and list_item != [] %}
         {% for p in list_item %}
         <tr>
-            <td>{{p[0].id}}</td>
-            <td>{{p[1]}}</td>
-            <td>{{p[0].price}}</td>
-            <td>{{p[0].discount}}</td>
+
+
+            <td>{{p.id}}</td>
+            <td>{{p.idBook}}</td>
+            <td>{{p.price}}</td>
+            <td>{{p.discount}}</td>
             <td>
                 <div class="form-group">
-                    <input class="form-control" type="number" value="{{p[0].quantity}}" />
+                    <input class="form-control" type="number" value="{{p.quantity}}" />
                 </div>
             </td>
             <td>
@@ -41,5 +43,11 @@
         </tr>
         {% endif %}
     </table>
+    <div>
+        <input type="button"
+               value="Thanh Toan"
+               onclick="pay({{ 1 }}, {{ id_cart }})"
+               class="btn btn-primary" />
+    </div>
 </div>
 {% endblock %}
