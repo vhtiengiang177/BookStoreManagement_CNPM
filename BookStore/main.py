@@ -171,7 +171,7 @@ def book():
     #     found_book=next(name for name in Book if Book.name==name)
     #     cursor.executemany('''select * from Book where name = %s''', )
     #     return render_template("search.html", records=cursor.fetchall())
-    return render_template('list-book.html', products=products)
+    return render_template('listbook.html', products=products,list_book_category=utils.get_book_category())
 
 @app.route('/single/<int:id_book>', methods=['GET'])
 def load_detail_book_by_id(id_book):

@@ -230,12 +230,7 @@ if __name__ == '__main__':
     # db.session.add(img4)
     # db.session.add(img5)
     # db.session.add(img6)
-<<<<<<< HEAD
-    #
-    #
-    # db.session.commit()
-=======
+
 
     #db.session.commit()
 
->>>>>>> 730be2da66971547166513c82399a838b62f4f44
