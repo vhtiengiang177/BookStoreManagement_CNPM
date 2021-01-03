@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 
 app.secret_key='ansfhkashfkshfnmsagashfska1111'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:18110402@localhost/bookstore5?charset=utf8mb4'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:18110402@localhost/bookstore6?charset=utf8mb4'
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 

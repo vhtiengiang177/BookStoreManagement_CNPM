@@ -172,7 +172,7 @@ class Image(db.Model):
 
 if __name__ == '__main__':
     pass
-    # db.create_all()
+    #db.create_all()
     #
     # cat1 = BookCategory(name='Tiểu thuyết')
     # cat2 = BookCategory(name='Truyện ngắn')
@@ -230,4 +230,4 @@ if __name__ == '__main__':
     # db.session.add(img6)
 
 
-    # db.session.commit()
+    #db.session.commit()

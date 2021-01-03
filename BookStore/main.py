@@ -8,9 +8,9 @@ import hashlib
 import utils
 
 
-@app.route('/pay')
-def payment():
-    return render_template('payment.html')
+@app.route('/info')
+def info():
+    return render_template('info.html')
 
 
 @app.route("/")
