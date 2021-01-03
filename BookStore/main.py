@@ -57,24 +57,8 @@ def add_to_cart():
         db.session.add(newitem)
         db.session.commit()
 
-    # if id_book in cart:      #co hang trong gio
-    #     cart[id]['quantity'] +=1
-    #
-    # else:
-    #     cart[id] = {
-    #         "id": id,
-    #         "name": name,
-    #         "price": price,
-    #         "quantity": 1
-    #     }
-    # session['cart'] = cart
-    #
-    #
-    # total_quantity, total_amount = utils.cart_stats(cart)
-
     return jsonify({
         "message": "Them thanh cong"
-        # "cart": cart
     })
 
 
@@ -112,8 +96,11 @@ def pay():
         'message':'success'
     })
 
+@app.route('/single/<int:id_book>', methods=['GET'])
+def load_detail_book_by_id(id_book):
+    book=utils.get_book_by_id(id_book)
+    return render_template('single.html', book = book, list_image = utils.get_image_by_id_book(id_book))
 
-    # return redirect(payment())
 
 if __name__ == "__main__":
     app.run(port=8999, debug=True)

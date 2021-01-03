@@ -8,8 +8,21 @@ def load_Book():
     return Book.query.all()
 
 def load_book_image():
-    return Book.query.join(Image, Image.id_book == Book.id).add_column(Image.img)
-
+    list_book = load_Book()
+    list_image =[]
+    list_temp=[]
+    for item in list_book:
+        image = Image.query.filter(Image.id_book == item.id).all()
+        list_temp.append(image)
+    for i in list_temp:
+        item2 = i*8
+        item2 = item2[0:8]
+        list_image.append(item2)
+        # item = item[0:8]
+    print(list_image)
+    return list_image
+    # return Book.query.join(Image, Image.id_book == Book.id).add_column(Image.img)
+load_book_image()
 
 def chek_login(username, password):
     print(username, password)
@@ -72,5 +85,11 @@ def get_item_by_id_cart(id_cart):
 
 def get_book_category():
     return BookCategory.query.all()
+
+def get_book_by_id(id_book):
+    return Book.query.filter(Book.id == id_book).first()
+
+def get_image_by_id_book(id_book):
+    return Image.query.filter(Image.id_book ==id_book).all()
 
 
