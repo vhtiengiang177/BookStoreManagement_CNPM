@@ -32,7 +32,24 @@
             </td>
             <td>
                 <div class="form-group">
-                    <input class="form-control" type="checkbox" id="{{p.id}}" checked onclick="check_would_buy({{p.id}})"/>
+                    {% if p.would_buy == 1 %}
+                    <input class="form-control" type="checkbox" id="{{p.id}}" onclick="check_would_buy({{p.id}})"/>
+
+
+                    <script>
+                    window.onload = function() {check_checkbox2({{p.id}})};
+
+                    function check_checkbox2({{p.id}}) {
+                      document.getElementById({{p.id}}).checked = true;
+                    }
+                    </script>
+<!--                    <script type="text/javascript">-->
+<!--                            function check_checkbox({{p.id}}) {-->
+<!--                                alert('ok');-->
+<!--                            }-->
+<!--                            window.onload = check_checkbox({{p.id}});-->
+<!--                            </script>-->
+                    {% endif %}
                 </div>
             </td>
         </tr>

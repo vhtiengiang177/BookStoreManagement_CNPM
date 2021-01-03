@@ -231,5 +231,6 @@ if __name__ == '__main__':
     # db.session.add(img5)
     # db.session.add(img6)
 
+
     #db.session.commit()
 

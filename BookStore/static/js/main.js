@@ -48,6 +48,11 @@ function check_would_buy(id) {
         }
     }  ).then(res=>res.json())
     .then(data=>{
-        alert(checkBox.checked);
+        alert(data.message);
     })
+}
+
+function check_checkbox(id) {
+    document.getElementById(id).checked = true;
+    alert("ok2");
 }
