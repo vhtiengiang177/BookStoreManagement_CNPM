@@ -6,6 +6,7 @@ from models import User
 from flask_login import login_user, logout_user
 import hashlib
 import utils
+from elasticsearch import Elasticsearch
 
 @app.route("/")
 def index():
@@ -112,6 +113,24 @@ def pay():
         'message':'success'
     })
 
+@app.route('/search', methods=['GET', 'POST'])
+def search():
+    # if request.method == "POST":
+    #     name=request.form.get('Search')
+    #     found_book=next(name for name in Book if Book.name==name)
+    #     cursor.executemany('''select * from Book where name = %s''', )
+    #     return render_template("search.html", records=cursor.fetchall())
+     return render_template('search.html')
+
+@app.route('/book')
+def book():
+    products = Book.query.all()
+    # if request.method == "POST":
+    #     name=request.form.get('Search')
+    #     found_book=next(name for name in Book if Book.name==name)
+    #     cursor.executemany('''select * from Book where name = %s''', )
+    #     return render_template("search.html", records=cursor.fetchall())
+    return render_template('list-book.html', products=products)
 
     # return redirect(payment())
 
