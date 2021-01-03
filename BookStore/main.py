@@ -49,17 +49,18 @@ def add_to_cart():
     id_book = str(data.get('id'))
     name = data.get('name')
     price = data.get('price')
+    quantity = data.get('quantity')
 
     id_cart, list_item = utils.list_item_of_user(1)
 
     flag = 0
     for item in list_item:
         if (str(item.idBook) == id_book):
-            item.quantity += 1
+            item.quantity += quantity
             flag = 1
             db.session.commit()
     if (flag == 0):
-        newitem = CartItem(idCart=id_cart, idBook=id_book, quantity=1, price=price, discount=price)
+        newitem = CartItem(idCart=id_cart, idBook=id_book, quantity=quantity, price=price, discount=price)
         db.session.add(newitem)
         db.session.commit()
 
@@ -106,6 +107,24 @@ def pay():
 def load_detail_book_by_id(id_book):
     book=utils.get_book_by_id(id_book)
     return render_template('single.html', book = book, list_image = utils.get_image_by_id_book(id_book))
+
+@app.route('/api/check_would_buy', methods=['POST'])
+def check_would_buy():
+    data = request.json
+    id_cart_item = data.get('id')
+    check = data.get('checked')
+    cart_item = utils.get_item_cart_by_id(id_cart_item)
+    t=2
+    if(check=='true'):
+        t=1
+        utils.get_item_cart_by_id(id_cart_item).would_buy = 1
+    else:
+        t=0
+        utils.get_item_cart_by_id(id_cart_item).would_buy = 0
+    db.session.commit()
+    return jsonify({
+        'message': t
+    })
 
 
 if __name__ == "__main__":

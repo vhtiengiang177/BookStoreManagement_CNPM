@@ -27,12 +27,12 @@
             <td>{{p.discount}}</td>
             <td>
                 <div class="form-group">
-                    <input class="form-control" type="number" value="{{p.quantity}}" />
+                    <input class="form-control" type="number" value="{{p.quantity}}" >
                 </div>
             </td>
             <td>
                 <div class="form-group">
-                    <input class="form-control" type="checkbox" />
+                    <input class="form-control" type="checkbox" id="{{p.id}}" checked onclick="check_would_buy({{p.id}})"/>
                 </div>
             </td>
         </tr>

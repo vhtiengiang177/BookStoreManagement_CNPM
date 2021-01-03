@@ -63,7 +63,7 @@
                                     <p><span>{{ list_book[i].price }}</span> <i class="item_price">{{ list_book[i].price*(1-list_book[i].discount) }}</i></p>
                                     </div>
                                     <input type="button" value="Dat Hang"
-                                       onclick="addToCart({{ list_book[i].id }}, '{{ list_book[i].name }}', {{ list_book[i].price }})"
+                                       onclick="addToCart({{ list_book[i].id }}, '{{ list_book[i].name }}', {{ list_book[i].price }}, 1)"
                                        class="btn btn-primary"
                                         />
                                 </div>

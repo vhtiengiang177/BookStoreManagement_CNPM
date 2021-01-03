@@ -82,7 +82,7 @@
             <div class="simpleCart_shelfItem">
                 <p><span>{{book.price}}</span> <i class="item_price">{{book.price *(1-book.discount)}}</i></p>
                 <input type="button" value="Dat Hang"
-                       onclick="addToCart({{ book.id }}, '{{ book.name }}', {{ book.price }})"
+                       onclick="addToCart({{ book.id }}, '{{ book.name }}', {{ book.price }}, ('.value1').val())"
                        class="btn btn-primary"
                         />
             </div>
