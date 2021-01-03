@@ -55,7 +55,7 @@
                             </ul>
                         </div>
                     </div>
-                    <h5><a href="single.html">{{ p.name }}</a></h5>
+                    <h5><a href="{{url_for('load_detail_book_by_id', id_book=p.id )}}">{{ p.name }}</a></h5>
                     <div class="simpleCart_shelfItem">
                         <p><span>${{ p.price }}</span> <i class="item_price">${{ p.price*(1-p.discount) }}</i></p>
                         <form action="#" method="post">

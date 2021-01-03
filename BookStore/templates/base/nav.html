@@ -22,7 +22,7 @@
                                     <ul class="multi-column-dropdown">
 
                                         {% for i in range(0, 5) %}
-                                        <li><a href="{{url_for('searchCategory',id_category='list_book_category[i].id')}}" >{{list_book_category[i].name}}</a></li>
+                                        <li><a href="{{url_for('searchCategory',id_category=list_book_category[i].id)}}" >{{list_book_category[i].name}}</a></li>
                                         {% endfor %}
 
                                     </ul>

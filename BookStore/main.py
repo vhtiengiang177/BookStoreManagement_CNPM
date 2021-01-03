@@ -167,7 +167,7 @@ def pay():
 @app.route('/search/<id_category>', methods=['GET', 'POST'])
 def searchCategory(id_category):
     listcate = Book.query.filter(Book.idCategory == id_category).all()
-    return render_template('search.html', listBook=listcate, list_book_category=utils.get_book_category())
+    return render_template('search.html', listBook=listcate, list_book_category=utils.get_book_category(),list_book= utils.load_Book(), list_book_image=utils.load_book_image())
 
 @app.route('/book')
 def book():
@@ -182,7 +182,7 @@ def book():
 @app.route('/single/<int:id_book>', methods=['GET'])
 def load_detail_book_by_id(id_book):
     book=utils.get_book_by_id(id_book)
-    return render_template('single.html', book = book, list_image = utils.get_image_by_id_book(id_book))
+    return render_template('single.html', book = book, list_image = utils.get_image_by_id_book(id_book),list_book_category=utils.get_book_category())
 
 
 
