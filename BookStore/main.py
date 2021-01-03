@@ -15,7 +15,7 @@ def info():
 
 @app.route("/")
 def index():
-    return render_template('base/base.html',  list_book= utils.load_Book(), list_book_image=utils.load_book_image())
+    return render_template('base/base.html',  list_book= utils.load_Book(), list_book_image=utils.load_book_image(), list_book_category=utils.get_book_category())
 
 @login.user_loader
 def get_user(user_id):

@@ -73,3 +73,7 @@ def get_item_by_id_cart(id_cart):
     return CartItem.query.filter(CartItem.idCart == id_cart).all()
 
 
+def get_book_category():
+    return BookCategory.query.all()
+
+
