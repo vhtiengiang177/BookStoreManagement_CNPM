@@ -111,7 +111,7 @@ def load_detail_book_by_id(id_book):
 @app.route('/api/check_would_buy', methods=['POST'])
 def check_would_buy():
     data = request.json
-    id_cart_item = data.get('id')
+    id_cart_item = str(data.get('id'))
     check = data.get('checked')
     cart_item = utils.get_item_cart_by_id(id_cart_item)
     t=2
