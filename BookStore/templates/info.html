@@ -1,0 +1,157 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+
+<div class="container emp-profile">
+            <form method="post" >
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="profile-img">
+                            <img src="{{url_for('static', filename=current_user.avatar)}}" alt=""/>
+                            <div class="file btn btn-lg btn-primary">
+                                Change Photo
+                                <input type="file" name="file"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="profile-head">
+                                    <h5>
+                                       {{current_user.name}}
+                                    </h5>
+                                    <h3>
+                                       Wellcome to my bookstore !
+                                    </h3>
+                            <h2>Your infomation</h2>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <a href="#" data-toggle="modal" data-target="#myModal88"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a>
+<!--                        <input type="submit" class="profile-edit-btn" name="btnAddMore" value="Edit Profile"/>-->
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="profile-work">
+                             <span>{{current_user.id}}</span>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                            <div class="information" >
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>User Id</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>{{current_user.id}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Name</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>{{current_user.fname + current_user.lname }}  </p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Genger</label>
+                                            </div>
+                                            <div class="col-md-6">
+
+                                                {% if( current_user.gender == 0)%}
+                                                     <p>Nam</p>
+                                                {% else %}
+                                                     <p>Nữ</p>
+
+                                                {%endif%}
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Phone</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>{{current_user.phone}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Birthday</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>{{current_user.birthday}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Address</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>{{current_user.address}}</p>
+                                            </div>
+                                        </div>
+                            </div>
+
+
+                    </div>
+                </div>
+            </form>
+<div class="modal fade" id="myModal88" tabindex="-1" role="dialog" aria-labelledby="myModal88"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class = "modal-content" >
+          <div class = " modal-info">
+        <div class="wrapper wrapper--w780">
+            <div class="card card-3">
+                <div class="card-heading"></div>
+                <div class="card-body">
+                    <h2 class="title">Edit Info</h2>
+                    <form method="POST">
+                        <div class="input-group">
+                            <input class="input--style-3" type="text" placeholder="Name" name="name" value = "{{current_user.fname + current_user.lname }}">
+                        </div>
+                        <div class="input-group">
+                            <input class="input--style-3 js-datepicker" type="text" placeholder="Birthdate" name="birthday" value="{{current_user.birthday}}">
+                            <i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i>
+                        </div>
+                        <div class="input-group">
+                            <div class="rs-select2 js-select-simple select--no-search">
+                                <select name="gender">
+                                    <option disabled="disabled" selected="selected">Gender</option>
+                                    <option>Male</option>
+                                    <option>Female</option>
+                                    <option>Other</option>
+                                </select>
+                                <div class="select-dropdown"></div>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <input class="input--style-3" type="email" placeholder="Address" name="address" value = "{{current_user.address}}">
+                        </div>
+                        <div class="input-group">
+                            <input class="input--style-3" type="text" placeholder="Phone" name="phone" value = "{{current_user.phone}}">
+                        </div>
+                        <div class="p-t-10">
+                            <button class="btn btn--pill btn--green" type="submit">Submit</button>
+                        </div>
+                    </form>
+
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+    </div>
+        </div>
+    <!-- Jquery JS-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <!-- Vendor JS-->
+    <script src="vendor/select2/select2.min.js"></script>
+    <script src="vendor/datepicker/moment.min.js"></script>
+    <script src="vendor/datepicker/daterangepicker.js"></script>
+
+    <!-- Main JS-->
+    <script src="js/global.js"></script>
+{% endblock %}

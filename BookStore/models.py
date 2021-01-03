@@ -171,20 +171,22 @@ class Image(db.Model):
 
 
 if __name__ == '__main__':
-    # pass
-    # db.create_all()
+
+    pass
+    #db.create_all()
+
     #
-    cat1 = BookCategory(name='Tiểu thuyết')
-    cat2 = BookCategory(name='Truyện ngắn')
-    cat3 = BookCategory(name='Ngôn tình')
-    cat4 = BookCategory(name = '12 cung hoàng đạo')
-    cat5 = BookCategory(name='Trinh thám')
-    cat6 = BookCategory(name = 'Quản trị- Lãnh đạo')
-    cat7 = BookCategory(name = 'Marketing')
-    cat8 = BookCategory(name = 'Phân tích kinh tế')
-    cat9 = BookCategory(name = 'Truyện thiếu nhi')
-    cat10 = BookCategory(name = 'Tô màu, luyện chữ')
-    cat11 = BookCategory(name = 'Sách kiến thức- kĩ năng sống cho trẻ')
+    # cat1 = BookCategory(name='Tiểu thuyết')
+    # cat2 = BookCategory(name='Truyện ngắn')
+    # cat3 = BookCategory(name='Ngôn tình')
+    # cat4 = BookCategory(name = '12 cung hoàng đạo')
+    # cat5 = BookCategory(name='Trinh thám')
+    # cat6 = BookCategory(name = 'Quản trị- Lãnh đạo')
+    # cat7 = BookCategory(name = 'Marketing')
+    # cat8 = BookCategory(name = 'Phân tích kinh tế')
+    # cat9 = BookCategory(name = 'Truyện thiếu nhi')
+    # cat10 = BookCategory(name = 'Tô màu, luyện chữ')
+    # cat11 = BookCategory(name = 'Sách kiến thức- kĩ năng sống cho trẻ')
     #
     # b1 = Book(name = 'Con chim xanh biếc bay về', quantity=10, author='Nguyễn Nhật Ánh', decription='Truyện ngắn', sold=0, pulisher='Nhà xuất bản Trẻ', price = 112000, discount = 0.2, idCategory=2)
     #
@@ -202,17 +204,17 @@ if __name__ == '__main__':
     # db.session.add(typeAdmin)
     # admin = User(lname='Lê', fname='Nguyễn Gia Bảo', username='admin', password = '202cb962ac59075b964b07152d234b70', avatar='images/avt.jpg', idUserType=1)
     # db.session.add(admin)
-    db.session.add(cat1)
-    db.session.add(cat2)
-    db.session.add(cat3)
-    db.session.add(cat4)
-    db.session.add(cat5)
-    db.session.add(cat6)
-    db.session.add(cat7)
-    db.session.add(cat8)
-    db.session.add(cat9)
-    db.session.add(cat10)
-    db.session.add(cat11)
+    # db.session.add(cat1)
+    # db.session.add(cat2)
+    # db.session.add(cat3)
+    # db.session.add(cat4)
+    # db.session.add(cat5)
+    # db.session.add(cat6)
+    # db.session.add(cat7)
+    # db.session.add(cat8)
+    # db.session.add(cat9)
+    # db.session.add(cat10)
+    # db.session.add(cat11)
     # db.session.add(b1)
     # db.session.add(b2)
     # db.session.add(b3)
@@ -229,5 +231,5 @@ if __name__ == '__main__':
     # db.session.add(img5)
     # db.session.add(img6)
 
+    #db.session.commit()
 
-    db.session.commit()

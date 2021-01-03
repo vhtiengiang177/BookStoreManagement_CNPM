@@ -4,6 +4,9 @@ from __init__ import db
 # from flask import session, sessions
 # from BookStore.models import User
 
+def infoUser(id_user):
+    return User.query.filter(User.id_user == id_user).first()
+
 def load_Book():
     return Book.query.all()
 

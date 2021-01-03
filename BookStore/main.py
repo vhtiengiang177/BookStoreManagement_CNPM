@@ -7,6 +7,12 @@ from flask_login import login_user, logout_user
 import hashlib
 import utils
 
+
+@app.route('/info')
+def info():
+    return render_template('info.html')
+
+
 @app.route("/")
 def index():
     return render_template('base/base.html',  list_book= utils.load_Book(), list_book_image=utils.load_book_image(), list_book_category=utils.get_book_category())
