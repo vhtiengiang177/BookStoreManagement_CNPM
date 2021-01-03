@@ -6,6 +6,9 @@ from models import User
 from flask_login import login_user, logout_user
 import hashlib
 import utils
+
+from elasticsearch import Elasticsearch
+
 import os
 import urllib.request
 from flask import flash, url_for
@@ -150,10 +153,31 @@ def pay():
         'message':'success'
     })
 
+
+@app.route('/search', methods=['GET', 'POST'])
+def search():
+    # if request.method == "POST":
+    #     name=request.form.get('Search')
+    #     found_book=next(name for name in Book if Book.name==name)
+    #     cursor.executemany('''select * from Book where name = %s''', )
+    #     return render_template("search.html", records=cursor.fetchall())
+     return render_template('search.html')
+
+@app.route('/book')
+def book():
+    products = Book.query.all()
+    # if request.method == "POST":
+    #     name=request.form.get('Search')
+    #     found_book=next(name for name in Book if Book.name==name)
+    #     cursor.executemany('''select * from Book where name = %s''', )
+    #     return render_template("search.html", records=cursor.fetchall())
+    return render_template('listbook.html', products=products,list_book_category=utils.get_book_category())
+
 @app.route('/single/<int:id_book>', methods=['GET'])
 def load_detail_book_by_id(id_book):
     book=utils.get_book_by_id(id_book)
     return render_template('single.html', book = book, list_image = utils.get_image_by_id_book(id_book))
+
 
 
 if __name__ == "__main__":
