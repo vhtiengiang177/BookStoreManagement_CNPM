@@ -6,6 +6,34 @@ from models import User
 from flask_login import login_user, logout_user
 import hashlib
 import utils
+import os
+import urllib.request
+from flask import flash, url_for
+from werkzeug.utils import secure_filename
+
+ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
+
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
+@app.route('/infoImage', methods=['get', 'post'])
+def upload_image():
+    file = request.files['file']
+    filename = secure_filename(file.filename)
+    file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+    # print('upload_image filename: ' + filename)
+    id = request.form.get("idUser")
+    user = User.query.get(id)
+    user.avatar = 'images/' + filename
+    db.session.commit()
+    return render_template('info.html')
+
+@app.route('/display/<filename>')
+def display_image(filename):
+    # print('display_image filename: ' + filename)
+    return redirect(url_for('static', filename='images/' + filename), code=301)
 
 
 @app.route('/info')
@@ -20,6 +48,26 @@ def index():
 @login.user_loader
 def get_user(user_id):
     return User.query.get(user_id)
+
+
+@app.route('/info', methods = ['get', 'post'])
+def updateInfoUser():
+    err_msg = ""
+    if request.method == 'POST':
+        id = request.form.get("idUser")
+        user = User.query.get(id)
+        user.lname = request.form.get("lname")
+        user.fname = request.form.get("fname")
+        user.birthday = request.form.get("birthday")
+        user.phone = request.form.get("phone")
+        user.address = request.form.get("address")
+
+        db.session.commit()
+
+        return jsonify({
+            "message": "Sua thanh cong"
+            # "cart": cart
+        })
 
 
 @app.route('/login', methods = ['get', 'post'])
