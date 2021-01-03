@@ -41,44 +41,32 @@
                 <div id="myTabContent" class="tab-content">
                     <div role="tabpanel" class="tab-pane fade active in" id="bestseller" aria-labelledby="bestseller-tab">
                         <div class="agile_ecommerce_tabs">
-                            {% for p in list_book %}
+                            {% for i in range(0, list_book|length) %}
                             <div class="col-md-4 agile_ecommerce_tab_left">
                                 <div>
                                 <div class="hs-wrapper">
-                                    <a href="#">
-                                        {% for img in list_book_image %}
-                                        {% if img[0].id == p.id %}
-                                        <img src="{{url_for('static', filename = img[1] )}}" alt="{{p.name}}" class="img-responsive" />
-                                        {% endif %}
+<!--                                    <a href="{{url_for('load_detail_book_by_id', id_book=list_book[i].id)}}">-->
+                                        {% for j in list_book_image[i] %}
+                                            <img src="{{url_for('static', filename = j.img )}}" alt="{{list_book[i].name}}" class="img-responsive" />
                                         {% endfor %}
-                                    </a>
-                                    <div class="w3_hs_bottom">
-                                        <ul>
-                                            <li>
-                                                <a href="#" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
-                                            </li>
-                                        </ul>
-                                    </div>
+<!--                                    </a>-->
+<!--                                    <div class="w3_hs_bottom">-->
+<!--                                        <ul>-->
+<!--                                            <li>-->
+<!--                                                <a href="#" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>-->
+<!--                                            </li>-->
+<!--                                        </ul>-->
+<!--                                    </div>-->
                                 </div>
-                                <h5><a href="single.html">{{ p.name }}</a></h5>
+                                <h5><a href="{{url_for('load_detail_book_by_id', id_book=list_book[i].id)}}">{{ list_book[i].name }}</a></h5>
                                     <div class="simpleCart_shelfItem">
-                                    <p><span>{{ p.price }}</span> <i class="item_price">{{ p.price*(1-p.discount) }}</i></p>
+                                    <p><span>{{ list_book[i].price }}</span> <i class="item_price">{{ list_book[i].price*(1-list_book[i].discount) }}</i></p>
                                     </div>
                                     <input type="button" value="Dat Hang"
-                                       onclick="addToCart({{ p.id }}, '{{ p.name }}', {{ p.price }})"
+                                       onclick="addToCart({{ list_book[i].id }}, '{{ list_book[i].name }}', {{ list_book[i].price }})"
                                        class="btn btn-primary"
                                         />
                                 </div>
-<!--                                <div class="simpleCart_shelfItem">-->
-<!--                                    <p><span>{{ p.price }}</span> <i class="item_price">{{ p.price*(1-p.discount) }}</i></p>-->
-<!--                                    <form action="#" method="post">-->
-<!--                                        <input type="hidden" name="cmd" value="_cart" />-->
-<!--                                        <input type="hidden" name="add" value="{{p.id}}" />-->
-<!--                                        <input type="hidden" name="w3ls_item" value="{{ p.name }}" />-->
-<!--                                        <input type="hidden" name="amount" value="{{ p.price*(1-p.discount)}}" />-->
-<!--                                        <button type="submit" class="w3ls-cart">Thêm vào giỏ</button>-->
-<!--                                    </form>-->
-<!--                                </div>-->
                             </div>
 
                             {% endfor %}

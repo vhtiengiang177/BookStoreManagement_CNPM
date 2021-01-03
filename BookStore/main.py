@@ -6,15 +6,71 @@ from models import User
 from flask_login import login_user, logout_user
 import hashlib
 import utils
+
 from elasticsearch import Elasticsearch
+
+import os
+import urllib.request
+from flask import flash, url_for
+from werkzeug.utils import secure_filename
+
+ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
+
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
+@app.route('/infoImage', methods=['get', 'post'])
+def upload_image():
+    file = request.files['file']
+    filename = secure_filename(file.filename)
+    file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+    # print('upload_image filename: ' + filename)
+    id = request.form.get("idUser")
+    user = User.query.get(id)
+    user.avatar = 'images/' + filename
+    db.session.commit()
+    return render_template('info.html')
+
+@app.route('/display/<filename>')
+def display_image(filename):
+    # print('display_image filename: ' + filename)
+    return redirect(url_for('static', filename='images/' + filename), code=301)
+
+
+@app.route('/info')
+def info():
+    return render_template('info.html')
+
 
 @app.route("/")
 def index():
-    return render_template('base/base.html',  list_book= utils.load_Book(), list_book_image=utils.load_book_image())
+    return render_template('base/base.html',  list_book= utils.load_Book(), list_book_image=utils.load_book_image(), list_book_category=utils.get_book_category())
 
 @login.user_loader
 def get_user(user_id):
     return User.query.get(user_id)
+
+
+@app.route('/info', methods = ['get', 'post'])
+def updateInfoUser():
+    err_msg = ""
+    if request.method == 'POST':
+        id = request.form.get("idUser")
+        user = User.query.get(id)
+        user.lname = request.form.get("lname")
+        user.fname = request.form.get("fname")
+        user.birthday = request.form.get("birthday")
+        user.phone = request.form.get("phone")
+        user.address = request.form.get("address")
+
+        db.session.commit()
+
+        return jsonify({
+            "message": "Sua thanh cong"
+            # "cart": cart
+        })
 
 
 @app.route('/login', methods = ['get', 'post'])
@@ -58,24 +114,8 @@ def add_to_cart():
         db.session.add(newitem)
         db.session.commit()
 
-    # if id_book in cart:      #co hang trong gio
-    #     cart[id]['quantity'] +=1
-    #
-    # else:
-    #     cart[id] = {
-    #         "id": id,
-    #         "name": name,
-    #         "price": price,
-    #         "quantity": 1
-    #     }
-    # session['cart'] = cart
-    #
-    #
-    # total_quantity, total_amount = utils.cart_stats(cart)
-
     return jsonify({
         "message": "Them thanh cong"
-        # "cart": cart
     })
 
 
@@ -113,6 +153,7 @@ def pay():
         'message':'success'
     })
 
+
 @app.route('/search', methods=['GET', 'POST'])
 def search():
     # if request.method == "POST":
@@ -132,7 +173,12 @@ def book():
     #     return render_template("search.html", records=cursor.fetchall())
     return render_template('list-book.html', products=products)
 
-    # return redirect(payment())
+@app.route('/single/<int:id_book>', methods=['GET'])
+def load_detail_book_by_id(id_book):
+    book=utils.get_book_by_id(id_book)
+    return render_template('single.html', book = book, list_image = utils.get_image_by_id_book(id_book))
+
+
 
 if __name__ == "__main__":
     app.run(port=8999, debug=True)
