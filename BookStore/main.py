@@ -123,7 +123,7 @@ def add_to_cart():
 def payment():
     id_cart, list_item = utils.list_item_of_user(current_user.id)
     total_quantity, total_amount = utils.cart_stats(current_user.id)
-    return render_template('payment.html', id_cart = id_cart, list_item = list_item, total_amount = total_amount, total_quantity=total_quantity)
+    return render_template('payment.html', id_cart = id_cart, list_item = list_item, total_amount = total_amount, total_quantity=total_quantity,list_book_category=utils.get_book_category())
 
 @app.route('/logout')
 def logout():
@@ -133,7 +133,7 @@ def logout():
 
 @app.route('/index')
 def index2():
-    return render_template('base/base.html')
+    return render_template('base/base.html',list_book_category=utils.get_book_category())
 
 @app.route('/api/pay', methods=['post'])
 def pay():
@@ -154,14 +154,20 @@ def pay():
     })
 
 
-@app.route('/search', methods=['GET', 'POST'])
-def search():
-    # if request.method == "POST":
-    #     name=request.form.get('Search')
-    #     found_book=next(name for name in Book if Book.name==name)
-    #     cursor.executemany('''select * from Book where name = %s''', )
-    #     return render_template("search.html", records=cursor.fetchall())
-     return render_template('search.html')
+# @app.route('/search', methods=['GET', 'POST'])
+# def search():
+#     if request.method == "POST":
+#         name=request.form.get('Search')
+#     #     found_book=next(name for name in Book if Book.name==name)
+#     #     cursor.executemany('''select * from Book where name = %s''', )
+#     #     return render_template("search.html", records=cursor.fetchall())
+#     return render_template('search.html',list_book_category=utils.get_book_category())
+
+
+@app.route('/search/<id_category>', methods=['GET', 'POST'])
+def searchCategory(id_category):
+    listcate = Book.query.filter(Book.idCategory == id_category).all()
+    return render_template('search.html', listBook=listcate, list_book_category=utils.get_book_category())
 
 @app.route('/book')
 def book():
