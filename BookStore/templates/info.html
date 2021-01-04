@@ -14,11 +14,11 @@
                                 <img class = "img" src="{{url_for('static', filename=current_user.avatar)}}" alt=""/>
                             </div>
                         <div id = "changeImg" >
-                                 <input id = "changeImgBtn" class = "btnInfo" type="button" value=" Change Photo">
+                               <input onclick="displayChooseImage()" id = "changeImgBtn" class = "btnInfo" type="button" value=" Change Photo">
                             </div>
                         <div id = "fileImg" >
                                 <input class = "btnInfo" type="file" name="file" />
-                                 <input id = "img" class = "btnInfo"  type="submit" value=" Change Photo">
+                                 <input onclick="unDisplayChooseImage()" id = "img" class = "btnInfo"  type="submit" value=" Change Photo">
                             </div>
                     </div>
 
@@ -31,7 +31,7 @@
                                     <h3>
                                        Wellcome to my bookstore !
                                     </h3>
-                            <h2>Your infomation</h2>
+                            <h4>Your infomation</h4>
                         </div>
                     </div>
                     <div class="col-md-2">
@@ -41,33 +41,31 @@
                 </div>
                 <div class="row">
                     <div class="col-md-4">
-                        <div class="profile-work">
-                             <span>{{current_user.id}}</span>
-                        </div>
+
                     </div>
                     <div class="col-md-8">
                             <div class="information" >
                                         <div class="row">
-                                            <div class="col-md-6">
-                                                <label>User Id</label>
+                                            <div class="col-md-3">
+                                                <label>Your Id:</label>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-3">
                                                 <p>{{current_user.id}}</p>
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Name</label>
+                                            <div class="col-md-3">
+                                                <label>Name:</label>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-3">
                                                 <p>{{current_user.fname + current_user.lname }}  </p>
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Genger</label>
+                                            <div class="col-md-3">
+                                                <label>Genger:</label>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-3">
 
                                                 {% if( current_user.gender == 0)%}
                                                      <p>Nam</p>
@@ -78,26 +76,26 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Phone</label>
+                                            <div class="col-md-3">
+                                                <label>Phone:</label>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-3">
                                                 <p>{{current_user.phone}}</p>
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Birthday</label>
+                                            <div class="col-md-3">
+                                                <label>Birthday:</label>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-3">
                                                 <p>{{current_user.birthday}}</p>
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Address</label>
+                                            <div class="col-md-3">
+                                                <label>Address:</label>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-3">
                                                 <p>{{current_user.address}}</p>
                                             </div>
                                         </div>
@@ -147,7 +145,7 @@
                             <input class="input--style-3" type="text" placeholder="Phone" name="phone" value = "{{current_user.phone}}">
                         </div>
                         <div class="p-t-10">
-                            <button class="btn btn--pill btn--green" type="submit">Submit</button>
+                            <button class="btn btn--pill btn--green" type="submit">Edit</button>
                         </div>
                     </form>
 
@@ -160,17 +158,17 @@
         </div>
 </div>
 
-<script language="javascript">
+<script type="text/javascript">
 
-            document.getElementById("imgBtn").onclick = function () {
-                document.getElementById("fileImg").style.display = 'none';
-                document.getElementById("changeImg").style.display = 'block';
-            };
+    function displayChooseImage() {
+    document.getElementById("fileImg").style.display = 'block';
+    document.getElementById("changeImg").style.display = 'none';
+    }
 
-            document.getElementById("changeImgBtn").onclick = function () {
-                document.getElementById("fileImg").style.display = 'block';
-                document.getElementById("changeImg").style.display = 'none';
-            };
+    function unDisplayChooseImage() {
+    document.getElementById("fileImg").style.display = 'none';
+    document.getElementById("changeImg").style.display = 'block';
+    }
 
         </script>
     <!-- Jquery JS-->

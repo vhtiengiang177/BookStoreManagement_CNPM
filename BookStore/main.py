@@ -68,11 +68,7 @@ def updateInfoUser():
         user.address = request.form.get("address")
 
         db.session.commit()
-
-        return jsonify({
-            "message": "Sua thanh cong"
-            # "cart": cart
-        })
+        return render_template('info.html', list_book_category=utils.get_book_category())
 
 
 @app.route('/login', methods = ['get', 'post'])
