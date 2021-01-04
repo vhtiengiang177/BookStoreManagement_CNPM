@@ -16,11 +16,16 @@
         </div>
         <div class="w3l_login">
             {% if current_user.is_authenticated %}
-            <div class = "w3l_logo" aria-hidden="true">
+            <div class = "w3l_login" aria-hidden="true">
                 <a href="{{'/info'}}">
                     <img src="{{url_for('static', filename=current_user.avatar)}}" style="width:40px;height:40px;"/>
                 </a>
-                <h5>{{current_user.fname}}</h5>
+
+                <h4>{{current_user.fname}}</h4>
+
+                <form action="{{url_for('logout')}}">
+                    <input type="submit" value="Đăng Xuất" class="btn btn-link" />
+                </form>
 <!--                {{ current_user.avatar }}-->
             </div>
             {%else%}

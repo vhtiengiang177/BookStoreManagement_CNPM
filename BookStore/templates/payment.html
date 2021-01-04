@@ -10,11 +10,11 @@
     </div>
     <table class="table">
         <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Discount</th>
-            <th>Quantity</th>
+            <th>Mã</th>
+            <th>Tên</th>
+            <th>Giá gốc</th>
+            <th>Giá khuyến mãi</th>
+            <th>Số lượng</th>
         </tr>
         {% if id_cart != [] and list_item != [] %}
         {% for p in list_item %}
@@ -32,25 +32,15 @@
             </td>
             <td>
                 <div class="form-group">
+                    {% set check ='' %}
                     {% if p.would_buy == 1 %}
-                    <input class="form-control" type="checkbox" id="{{p.id}}" onclick="check_would_buy({{p.id}})"/>
-
-
-                    <script>
-                    window.onload = function() {check_checkbox2({{p.id}})};
-
-                    function check_checkbox2({{p.id}}) {
-                      document.getElementById({{p.id}}).checked = true;
-                    }
-                    </script>
-<!--                    <script type="text/javascript">-->
-<!--                            function check_checkbox({{p.id}}) {-->
-<!--                                alert('ok');-->
-<!--                            }-->
-<!--                            window.onload = check_checkbox({{p.id}});-->
-<!--                            </script>-->
+                    {% set check = 'checked' %}
                     {% endif %}
+                    <input class="form-control" type="checkbox" id="{{p.id}}" {{check}} onclick="check_would_buy({{p.id}})"/>
                 </div>
+            </td>
+            <td>
+                <a href="javascript:;" onclick="del_item({{p.id}})">Xóa</a>
             </td>
         </tr>
         {% endfor %}

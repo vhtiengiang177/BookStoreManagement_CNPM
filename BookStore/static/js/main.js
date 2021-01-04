@@ -52,7 +52,17 @@ function check_would_buy(id) {
     })
 }
 
-function check_checkbox(id) {
-    document.getElementById(id).checked = true;
-    alert("ok2");
+function del_item(item_id){
+    if(confirm("Bạn có chắc chắn muốn xóa khỏi giỏ hàng?") == true){
+        fetch(`/api/delete/${item_id}`,{
+        'method': 'delete',
+        'headers':{
+            'Content-Type':'application/json'
+        }
+    }  ).then(res=>res.json())
+    .then(data=>{
+        alert(data.message);
+        location.reload();
+    }).catch(err=> alert('Xóa thất bại'))
+}
 }
