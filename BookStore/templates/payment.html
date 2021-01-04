@@ -5,12 +5,12 @@
 <h1 class="text-center text-danger">TRANG THANH TOAN</h1>
 <div class="container">
     <div class="alert alert-warning">
-        <h3>SO LUONG SAN PHAM: {{total_quantity}}</h3>
-        <h3>TONG TIEN: {{total_amount}} VND</h3>
+        <h3>SO LUONG SAN PHAM: <span id="total_quantity">{{total_quantity}}</span></h3>
+        <h3>TONG TIEN: <span id="total_amount">{{total_amount}}</span> VND</h3>
     </div>
     <table class="table">
         <tr>
-            <th>Mã</th>
+<!--            <th>Mã</th>-->
             <th>Tên</th>
             <th>Giá gốc</th>
             <th>Giá khuyến mãi</th>
@@ -19,15 +19,17 @@
         {% if id_cart != [] and list_item != [] %}
         {% for p in list_item %}
         <tr>
-
-
-            <td>{{p.id}}</td>
-            <td>{{p.idBook}}</td>
+<!--            <td>{{p.id}}</td>-->
+            {% for b in list_book %}
+            {% if b.id == p.idBook %}
+            <td>{{b.name}}</td>
+            {% endif %}
+            {% endfor %}
             <td>{{p.price}}</td>
             <td>{{p.discount}}</td>
             <td>
                 <div class="form-group">
-                    <input class="form-control" type="number" value="{{p.quantity}}" >
+                    <input class="form-control" type="number" value="{{p.quantity}}" onchange="update_item(this, {{p.id}}   )" >
                 </div>
             </td>
             <td>

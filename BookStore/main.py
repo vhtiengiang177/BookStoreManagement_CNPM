@@ -106,12 +106,14 @@ def register():
 
 
 
+
 @app.route('/api/cart', methods=['get' , 'post'])
 def add_to_cart():
     data = request.json
     id_book = str(data.get('id'))
     name = data.get('name')
     price = data.get('price')
+    discount = data.get('discount')
     quantity = data.get('quantity')
 
     id_cart, list_item = utils.list_item_of_user(current_user.id)
@@ -123,7 +125,7 @@ def add_to_cart():
             flag = 1
             db.session.commit()
     if (flag == 0):
-        newitem = CartItem(idCart=id_cart, idBook=id_book, quantity=quantity, price=price, discount=price)
+        newitem = CartItem(idCart=id_cart, idBook=id_book, quantity=quantity, price=price, discount=price * (1 - discount))
         db.session.add(newitem)
         db.session.commit()
 
@@ -137,7 +139,7 @@ def add_to_cart():
 def payment():
     id_cart, list_item = utils.list_item_of_user(current_user.id)
     total_quantity, total_amount = utils.cart_stats(current_user.id)
-    return render_template('payment.html', id_cart = id_cart, list_item = list_item, total_amount = total_amount, total_quantity=total_quantity,list_book_category=utils.get_book_category())
+    return render_template('payment.html', id_cart = id_cart, list_item = list_item, total_amount = total_amount, total_quantity=total_quantity, list_book = utils.load_Book(),list_book_category=utils.get_book_category())
 
 @app.route('/logout')
 def logout():
@@ -175,11 +177,9 @@ def pay():
 
 @app.route('/api/delete/<item_id>', methods=['delete'])
 def delete_item(item_id):
-    print(item_id)
     id_cart, list_item =utils.list_item_of_user(current_user.id)
     for item in list_item:
         if(str(item.id) == item_id):
-            print(item.id == item_id)
             db.session.delete(item)
             db.session.commit()
             return jsonify({
@@ -188,6 +188,27 @@ def delete_item(item_id):
     return jsonify({
         'message': 'Xóa thất bại'
     })
+
+
+@app.route('/api/cart/<item_id>', methods=['post'])
+def update_item(item_id):
+    id_cart, list_item = utils.list_item_of_user(current_user.id)
+    data = request.json
+    for item in list_item:
+        if (str(item.id) == item_id):
+            if('quantity' in data):
+                item.quantity = int(data['quantity'])
+                db.session.commit()
+                total_quantity, total_amount = utils.cart_stats(current_user.id)
+                return jsonify(({
+                    'code': 200,
+                    'total_quantity': total_quantity,
+                    'total_amount': total_amount
+                }))
+    return  jsonify(({
+        'code': 500
+    }))
+
 
 
 @app.route('/search', methods=['GET', 'POST'])
