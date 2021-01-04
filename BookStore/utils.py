@@ -1,6 +1,7 @@
 # from BookStore import db
 from models import Book, Image, BookCategory, User, Cart, CartItem, BillDetail, Bill
 from __init__ import db
+from sqlalchemy import desc,  asc
 # from flask import session, sessions
 # from BookStore.models import User
 
@@ -108,5 +109,11 @@ def get_image_by_id_book(id_book):
 
 def get_item_cart_by_id(id_item):
     return CartItem.query.filter(CartItem.id == id_item).first()
+
+def best_sale_book():
+    return Book.query.order_by(desc(Book.sold)).all()[0:3]
+
+def recommend_book():
+    return Book.query.all()[::-1][0:3]
 
 
