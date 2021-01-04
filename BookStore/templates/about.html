@@ -1,0 +1,142 @@
+{% extends 'base/base.html'%}
+{% block content %}
+<!-- about -->
+
+	{% block header_modal %}
+		{% include 'base/header_modal.html' %}
+	{% endblock %}
+
+	<!-- //header_modal -->
+
+	<!-- banner -->
+
+	{% block banner %}
+		{% include 'base/banner.html' %}
+	{% endblock %}
+
+
+
+	<div class="about">
+		<div class="container">
+			<div class="w3ls_about_grids">
+				<div class="col-md-6 w3ls_about_grid_left">
+					<p> "Vào khoảnh khắc mà chúng ta quyết thuyết phục đứa trẻ, bất cứ đứa trẻ nào, bước qua bậc thềm ấy, bậc thềm màu nhiệm dẫn vào thư viện, ta thay đổi cuộc sống của nó mãi mãi, theo cách tốt đẹp hơn.”
+						<br/>- Barack Obama</p>
+					<div class="col-xs-2 w3ls_about_grid_left1">
+						<span class="glyphicon glyphicon-new-window" aria-hidden="true"></span>
+					</div>
+					<div class="col-xs-10 w3ls_about_grid_left2">
+						<p>"Có hai cách để hạnh phúc. Một là dùng tiền mua những thứ có thể khiến bạn hạnh phúc.
+							Hai là dùng tri thức để biết hạnh phúc với những gì mình đang có."</p>
+					</div>
+					<div class="clearfix"> </div>
+					<div class="col-xs-2 w3ls_about_grid_left1">
+						<span class="glyphicon glyphicon-flash" aria-hidden="true"></span>
+					</div>
+					<div class="col-xs-10 w3ls_about_grid_left2">
+						<p> "Hai bàn tay của ta giống như những người bạn thân, luôn chia sẻ với ta mọi vui buồn trong cuộc sống.
+							Bạn cứ ngẫm mà xem, có phải khi bạn mừng rỡ hay phấn khích,
+							hai bàn tay hăng hái vỗ vào nhau để nhân đôi niềm vui trong lòng bạn.
+							Khi bạn khóc, hai bàn tay lại thay phiên nhau kiên trì lau khô những giọt lệ lăn tròn trên gò má bạn.
+							Hai bàn tay lúc đó giống như những chú chim vàng anh trong cổ tích, cần mẫn tha từng hạt cườm long lanh trên mặt bạn đem gởi vào nắng, vào gió, vào mưa để một chốc sau sự tươi tỉnh lại nhuộm hồng gương mặt mới đây còn tái xanh của bạn."
+							(trích "Tôi Thấy Hoa Vàng Trên Cỏ Xanh" - Nguyễn Nhật Ánh)</p>
+					</div>
+					<div class="clearfix"> </div>
+				</div>
+				<div class="col-md-6 w3ls_about_grid_right">
+					<img src="{{url_for('static', filename = 'images/mainAbout.jpg')}}" alt=" " class="img-responsive" />
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+		</div>
+	</div>
+	<!-- //about -->
+	<!-- team -->
+	<div class="team">
+		<div class="container">
+			<h3>Meet Our Team</h3>
+			<div class="wthree_team_grids">
+				<div class="col-md-3 wthree_team_grid">
+					<img class = "imgAbout" src="{{url_for('static', filename = 'images/bao.jpg')}}" alt=" " class="img-responsive" />
+					<h4>Lê Nguyễn Gia Bảo <span>Manager</span></h4>
+					<div class="agileits_social_button">
+						<ul>
+							<li><a href="#" class="facebook"> </a></li>
+							<li><a href="#" class="twitter"> </a></li>
+							<li><a href="#" class="google"> </a></li>
+							<li><a href="#" class="pinterest"> </a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-md-3 wthree_team_grid">
+					<img class = "imgAbout" src="{{url_for('static', filename = 'images/yen.jpg')}}" alt=" " class="img-responsive" />
+					<h4>Lê Thị Ngọc Yến <span>Designer</span></h4>
+					<div class="agileits_social_button">
+						<ul>
+							<li><a href="#" class="facebook"> </a></li>
+							<li><a href="#" class="twitter"> </a></li>
+							<li><a href="#" class="google"> </a></li>
+							<li><a href="#" class="pinterest"> </a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-md-3 wthree_team_grid">
+					<img class = "imgAbout" src="{{url_for('static', filename = 'images/thao.jpg')}}" alt=" " class="img-responsive" />
+					<h4>Nguyễn Thị Thảo <span>Director</span></h4>
+					<div class="agileits_social_button">
+						<ul>
+							<li><a href="#" class="facebook"> </a></li>
+							<li><a href="#" class="twitter"> </a></li>
+							<li><a href="#" class="google"> </a></li>
+							<li><a href="#" class="pinterest"> </a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-md-3 wthree_team_grid">
+					<img class = "imgAbout" src="{{url_for('static', filename = 'images/giang.jpg')}}" alt=" " class="img-responsive" />
+					<h4>Võ Hồng Tiên Giang <span>Quality Checker</span></h4>
+					<div class="agileits_social_button">
+						<ul>
+							<li><a href="#" class="facebook"> </a></li>
+							<li><a href="#" class="twitter"> </a></li>
+							<li><a href="#" class="google"> </a></li>
+							<li><a href="#" class="pinterest"> </a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="clearfix"> </div>
+				<p>Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis
+					voluptatibus maiores alias consequatur aut perferendis doloribus asperiores
+					repellat.</p>
+			</div>
+		</div>
+	</div>
+	<!-- //team -->
+	<!-- team-bottom -->
+	<div class="team-bottom">
+		<div class="container">
+			<h3>Are You Ready For Deals? Flat <span>30% Offer </span>on Book</h3>
+			<p>Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis
+				voluptatibus maiores alias consequatur aut perferendis doloribus asperiores
+				repellat.</p>
+			<a href="{{url_for('index')}}">Shop Now</a>
+		</div>
+	</div>
+	<!-- //team-bottom -->
+	<!-- newsletter -->
+	<div class="newsletter">
+		<div class="container">
+			<div class="col-md-6 w3agile_newsletter_left">
+			<span style="color: #fff">The reading of all good books is like a conversation with the finest minds of past centuries. </span>
+			<br/>
+				<span style="color: #fff">– Rene Descartes –</span>
+			</div>
+			<div class="col-md-6 w3agile_newsletter_right">
+
+			</div>
+			<div class="clearfix"> </div>
+		</div>
+	</div>
+	<!-- //newsletter -->
+
+{% endblock %}

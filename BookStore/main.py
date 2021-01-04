@@ -14,6 +14,13 @@ import urllib.request
 from flask import flash, url_for
 from werkzeug.utils import secure_filename
 
+@app.route('/about')
+def about():
+    return render_template('about.html',  list_book_category=utils.get_book_category())
+
+
+
+
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 
 

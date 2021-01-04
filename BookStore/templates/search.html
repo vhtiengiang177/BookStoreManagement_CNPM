@@ -36,7 +36,10 @@
     {% block new_products %}
     <div  style="margin: 50px;" >
         <!-- Search form -->
-
+        {% if len == 0 %}
+        <h3>Không có sản phẩm cần tìm ! </h3>
+        {% include 'error.html' %}
+        {% endif%}
 
         {% for i in range(len) %}
 
