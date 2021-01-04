@@ -46,7 +46,7 @@ def info():
 
 @app.route("/")
 def index():
-    return render_template('base/base.html',  list_book= utils.load_Book(), list_book_image=utils.load_book_image(), list_book_category=utils.get_book_category())
+    return render_template('base/base.html', list_recommend_book = utils.recommend_book(), list_best_sale_book= utils.best_sale_book(), list_book_image=utils.load_book_image(), list_book_category=utils.get_book_category())
 
 @login.user_loader
 def get_user(user_id):
@@ -116,7 +116,7 @@ def add_to_cart():
     price = data.get('price')
     quantity = data.get('quantity')
 
-    id_cart, list_item = utils.list_item_of_user(1)
+    id_cart, list_item = utils.list_item_of_user(current_user.id)
 
     flag = 0
     for item in list_item:
@@ -153,21 +153,27 @@ def index2():
 
 @app.route('/api/pay', methods=['post'])
 def pay():
-    data = request.json
-    id_user = data.get('id_user')
-    id_cart = data.get('cart')
-    bill = Bill(idUser = id_user, address_delivery='1', phone_delivery='1', name_delivery='1')
-    db.session.add(bill)
-    cart = utils.get_item_by_id_cart(id_cart)
-    for p in cart:
-        if(p.would_buy ==1):
-            bill_detail = BillDetail(Bill=bill, idBook=p.idBook, price=p.discount, quantity=p.quantity)
-            db.session.add(bill_detail)
+    try:
+        data = request.json
+        id_user = data.get('id_user')
+        id_cart = data.get('cart')
+        bill = Bill(idUser = id_user, address_delivery='1', phone_delivery='1', name_delivery='1')
+        db.session.add(bill)
+        cart = utils.get_item_by_id_cart(id_cart)
+        for p in cart:
+            if(p.would_buy ==1):
+                bill_detail = BillDetail(Bill=bill, idBook=p.idBook, price=p.discount, quantity=p.quantity)
+                db.session.add(bill_detail)
+                db.session.delete(p)
 
-    db.session.commit()
-    return jsonify({
-        'message':'success'
-    })
+        db.session.commit()
+        return jsonify({
+            'message':'success'
+        })
+    except:
+        return jsonify({
+            'message': 'failed'
+                       })
 
 @app.route('/api/delete/<item_id>', methods=['delete'])
 def delete_item(item_id):

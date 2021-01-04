@@ -85,13 +85,13 @@ class User(db.Model, UserMixin):
     fname = Column(String(50))
     username = Column(String(50), unique=True)
     password = Column(String(50))
-    avatar = Column(String(50))
+    avatar = Column(String(50), default='images/user.jpg')
     birthday = Column(Date, default=date.today())
     address = Column(String(50))
     gender = Column(Integer, default=0) #0 nu 1 nam
     phone = Column(String(50))
 
-         = Column(Integer, ForeignKey(UserType.id))
+    idUserType = Column(Integer, ForeignKey(UserType.id))
     idBill = relationship("Bill", backref = "User", lazy = True)
     idCart = relationship("Cart", backref = "User", lazy = True)
 
