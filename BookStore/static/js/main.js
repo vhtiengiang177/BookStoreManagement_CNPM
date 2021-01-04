@@ -32,6 +32,8 @@ function pay(id_user, cart){
         location.reload();
     })
 }
+<<<<<<< HEAD
+=======
 
 
 
@@ -66,3 +68,4 @@ function del_item(item_id){
     }).catch(err=> alert('Xóa thất bại'))
 }
 }
+>>>>>>> 02f2f2bd9b1d7cf61f23da6da2e82d83e2eba527

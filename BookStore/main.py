@@ -31,7 +31,8 @@ def upload_image():
     user = User.query.get(id)
     user.avatar = 'images/' + filename
     db.session.commit()
-    return render_template('info.html', list_book_category=utils.get_book_category())
+    return render_template('info.html',  list_book_category=utils.get_book_category())
+
 
 @app.route('/display/<filename>')
 def display_image(filename):
@@ -41,7 +42,8 @@ def display_image(filename):
 
 @app.route('/info')
 def info():
-    return render_template('info.html', list_book_category=utils.get_book_category())
+    return render_template('info.html',  list_book_category=utils.get_book_category())
+
 
 
 @app.route("/")
@@ -66,11 +68,7 @@ def updateInfoUser():
         user.address = request.form.get("address")
 
         db.session.commit()
-
-        return jsonify({
-            "message": "Sua thanh cong"
-            # "cart": cart
-        })
+        return render_template('info.html', list_book_category=utils.get_book_category())
 
 
 @app.route('/login', methods = ['get', 'post'])
@@ -191,6 +189,21 @@ def delete_item(item_id):
         'message': 'Xóa thất bại'
     })
 
+
+@app.route('/search', methods=['GET', 'POST'])
+def search():
+    # if request.method == "POST":
+    #     name=request.form.get('Search')
+    #     found_book=next(name for name in Book if Book.name==name)
+    #     cursor.executemany('''select * from Book where name = %s''', )
+    #     return render_template("search.html", records=cursor.fetchall())
+
+    name=request.form.get('Search')
+    #filters = [dict(name='name', op='like', val='%y%')]
+    listBook = Book.query.filter(Book.name.like('%' + name + '%')).all()
+
+    n = len(listBook)
+    return render_template('search.html', listBook = listBook , list_book_category=utils.get_book_category(),len = n,  listImage = utils.loadImageByListIdBook(listBook))
 
 
 # @app.route('/search', methods=['GET', 'POST'])

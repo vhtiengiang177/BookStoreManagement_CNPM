@@ -187,7 +187,7 @@ if __name__ == '__main__':
     # cat9 = BookCategory(name = 'Truyện thiếu nhi')
     # cat10 = BookCategory(name = 'Tô màu, luyện chữ')
     # cat11 = BookCategory(name = 'Sách kiến thức- kĩ năng sống cho trẻ')
-    #
+    # #
     # b1 = Book(name = 'Con chim xanh biếc bay về', quantity=10, author='Nguyễn Nhật Ánh', decription='Truyện ngắn', sold=0, pulisher='Nhà xuất bản Trẻ', price = 112000, discount = 0.2, idCategory=2)
     #
     # b2 = Book(name = 'Vui vẻ không quạu nha', quantity=10, author='Ở Đây Vui Nè', decription='Sách kiến thức- kĩ năng sống cho trẻ', sold=0, pulisher='Nhà xuất bản Phụ nữ Việt Nam', price = 41000, discount = 0.2, idCategory=11)
@@ -231,6 +231,7 @@ if __name__ == '__main__':
     # db.session.add(img5)
     # db.session.add(img6)
 
+    #
+    # db.session.commit()
 
-    #db.session.commit()
 
