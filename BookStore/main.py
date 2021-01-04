@@ -195,7 +195,9 @@ def search():
     name=request.form.get('Search')
     #filters = [dict(name='name', op='like', val='%y%')]
     listBook = Book.query.filter(Book.name.like('%' + name + '%')).all()
-    return render_template('search.html', listBook = listBook , list_book_category=utils.get_book_category())
+
+    n = len(listBook)
+    return render_template('search.html', listBook = listBook , list_book_category=utils.get_book_category(),len = n,  listImage = utils.loadImageByListIdBook(listBook))
 
 
 # @app.route('/search', methods=['GET', 'POST'])

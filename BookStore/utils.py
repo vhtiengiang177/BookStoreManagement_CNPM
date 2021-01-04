@@ -4,7 +4,16 @@ from __init__ import db
 # from flask import session, sessions
 # from BookStore.models import User
 
+def loadImageByListIdBook(listBook):
+    list_image = []
+    for book in listBook:
+        image = Image.query.filter(Image.id_book == book.id).all()
+        list_image.append(image)
+    return list_image
 
+
+def loadImageByIdBook(id_book):
+    return Image.query.filter(Image.id_book == id_book).all()
 
 def infoUser(id_user):
     return User.query.filter(User.id_user == id_user).first()
