@@ -55,7 +55,7 @@ def info():
 
 @app.route("/")
 def index():
-    return render_template('base/base.html', list_recommend_book = utils.recommend_book(), list_best_sale_book= utils.best_sale_book(), list_book_image=utils.load_book_image(), list_book_category=utils.get_book_category())
+    return render_template('base/base.html',list_recommend_book_new = utils.recommend_bookNew(), list_recommend_book = utils.recommend_book(), list_best_sale_book= utils.best_sale_book(), list_book_image=utils.load_book_image(), list_book_category=utils.get_book_category())
 
 @login.user_loader
 def get_user(user_id):

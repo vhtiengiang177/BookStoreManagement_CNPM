@@ -29,7 +29,7 @@
                                        {{current_user.name}}
                                     </h5>
                                     <h3>
-                                       Wellcome to my bookstore !
+                                       Chào mừng bạn đến với của hàng của chúng tôi !
                                     </h3>
                             <h4>Your infomation</h4>
                         </div>
@@ -47,7 +47,7 @@
                             <div class="information" >
                                         <div class="row">
                                             <div class="col-md-3">
-                                                <label>Your Id:</label>
+                                                <label>Id:</label>
                                             </div>
                                             <div class="col-md-3">
                                                 <p>{{current_user.id}}</p>
@@ -72,7 +72,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-3">
-                                                <label>Genger:</label>
+                                                <label>Giới tính:</label>
                                             </div>
                                             <div class="col-md-3">
 
@@ -86,7 +86,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-3">
-                                                <label>Phone:</label>
+                                                <label>SĐT:</label>
                                             </div>
                                             <div class="col-md-3">
                                                 <p>{{current_user.phone}}</p>
@@ -94,7 +94,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-3">
-                                                <label>Birthday:</label>
+                                                <label>Ngày sinh:</label>
                                             </div>
                                             <div class="col-md-3">
                                                 <p>{{current_user.birthday}}</p>
@@ -102,7 +102,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-3">
-                                                <label>Address:</label>
+                                                <label>Địa chỉ:</label>
                                             </div>
                                             <div class="col-md-3">
                                                 <p>{{current_user.address}}</p>
@@ -123,35 +123,35 @@
             <div class="card card-3">
                 <div class="card-heading"></div>
                 <div class="card-body">
-                    <h2 class="title">Edit Info</h2>
+                    <h2 class="title">Chỉnh sửa thông tin cá nhân</h2>
                     <form method="POST" action="{{url_for('updateInfoUser')}}">
-                         <input class="input--style-3" type="hidden" placeholder="Address" name="idUser" value = "{{current_user.id}}">
+                         <input class="input--style-3" type="hidden" placeholder="ID" name="idUser" value = "{{current_user.id}}">
                         <div class="input-group">
-                            <input class="input--style-3" type="text" placeholder="Last name" name="lname" value = "{{current_user.lname }}">
+                            <input class="input--style-3" type="text" placeholder="Họ" name="lname" value = "{{current_user.lname }}">
                         </div>
                           <div class="input-group">
-                            <input class="input--style-3" type="text" placeholder="First Name" name="fname" value = "{{current_user.fname}}">
+                            <input class="input--style-3" type="text" placeholder="Tên" name="fname" value = "{{current_user.fname}}">
                         </div>
                         <div class="input-group">
-                            <input class="input--style-3 js-datepicker" type="text" placeholder="Birthdate" name="birthday" value="{{current_user.birthday}}">
+                            <input class="input--style-3 js-datepicker" type="text" placeholder="Ngày sinh" name="birthday" value="{{current_user.birthday}}">
                             <i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i>
                         </div>
                         <div class="input-group">
                             <div class="rs-select2 js-select-simple select--no-search">
                                 <select name="gender">
-                                    <option disabled="disabled" selected="selected">Gender</option>
-                                    <option>Male</option>
-                                    <option>Female</option>
+                                    <option disabled="disabled" selected="selected">Giới tính</option>
+                                    <option>Nam</option>
+                                    <option>Nữ</option>
 
                                 </select>
                                 <div class="select-dropdown"></div>
                             </div>
                         </div>
                         <div class="input-group">
-                            <input class="input--style-3" type="text" placeholder="Address" name="address" value = "{{current_user.address}}">
+                            <input class="input--style-3" type="text" placeholder="Địa chỉ" name="address" value = "{{current_user.address}}">
                         </div>
                         <div class="input-group">
-                            <input class="input--style-3" type="text" placeholder="Phone" name="phone" value = "{{current_user.phone}}">
+                            <input class="input--style-3" type="text" placeholder="SĐT" name="phone" value = "{{current_user.phone}}">
                         </div>
                         <div class="p-t-10">
                             <button class="btn btn--pill btn--green" type="submit">Edit</button>

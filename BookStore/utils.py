@@ -116,4 +116,7 @@ def best_sale_book():
 def recommend_book():
     return Book.query.all()[::-1][0:3]
 
+def recommend_bookNew():
+    return Book.query.all()[::-1][0:4]
+
 
