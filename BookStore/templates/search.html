@@ -2,8 +2,42 @@
 {% block content %}
 
     <div class="container">
-      <div  style="margin: 50px;" >
-   {% for p in listBook %}
+        <div style="margin-top:100px; pull-center" >
+
+            <form class="form-inline " style="padding-left: 120px" >
+                  <input class="form-control form-control-sm mr-3 w-75" type="text" placeholder="Search"
+                    aria-label="Search">
+                  <i class="fas fa-search" aria-hidden="true"></i>
+
+                <select name="sort" id="sort">
+                    <option value="volvo">Sắp xếp</option>
+                    <option value="saab">Giá bán</option>
+                    <option value="opel">Mới nhất</option>
+
+                </select>
+
+                <select name="sort" id="have">
+                    <option value="volvo">Còn hàng</option>
+                    <option value="saab">Tất cả</option>
+
+
+                </select>
+
+                <select name="sort" id="page">
+                    <option value="volvo">8 sản phẩm</option>
+                    <option value="saab">16 sản phẩm</option>
+
+
+                </select>
+            </form>
+
+        </div>
+        <hr>
+    {% block new_products %}
+    <div  style="margin: 50px;" >
+        <!-- Search form -->
+
+        {% for p in listBook %}
 		<div class="col-md-3 agileinfo_new_products_grid" style="margin-bottom:20px">
                 <div class="agile_ecommerce_tab_left agileinfo_new_products_grid1">
                     <div class="hs-wrapper hs-wrapper1">
@@ -20,7 +54,9 @@
                             </ul>
                         </div>
                     </div>
-                    <h5><a href="single.html">{{ p.name }}</a></h5>
+
+                    <h5><a href="{{url_for('load_detail_book_by_id', id_book=p.id )}}">{{ p.name }}</a></h5>
+
                     <div class="simpleCart_shelfItem">
                         <p><span>${{ p.price }}</span> <i class="item_price">${{ p.price*(1-p.discount) }}</i></p>
                         <form action="#" method="post">
@@ -32,14 +68,20 @@
                         </form>
                     </div>
                 </div>
-        </div>
 
+            </div>
         {% endfor %}
-          </div>
     </div>
+	{% endblock %}
+
+
+</div>
+</div>
+
 {% for message in get_flashed_messages() %}
 <div class=flash>
     {{ message }}
 </div>
 {% endfor %}
 {% endblock %}
+

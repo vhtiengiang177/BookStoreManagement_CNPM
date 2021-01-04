@@ -3,11 +3,11 @@ from flask import Flask, render_template, request, redirect, flash, session, jso
 from admin_models import *
 from __init__ import login
 from models import User
-from flask_login import login_user, logout_user
+from flask_login import login_user, logout_user, login_required
 import hashlib
 import utils
 
-from elasticsearch import Elasticsearch
+
 
 import os
 import urllib.request
@@ -33,6 +33,7 @@ def upload_image():
     db.session.commit()
     return render_template('info.html',  list_book_category=utils.get_book_category())
 
+
 @app.route('/display/<filename>')
 def display_image(filename):
     # print('display_image filename: ' + filename)
@@ -42,6 +43,7 @@ def display_image(filename):
 @app.route('/info')
 def info():
     return render_template('info.html',  list_book_category=utils.get_book_category())
+
 
 
 @app.route("/")
@@ -90,9 +92,23 @@ def login_admin():
 
     return redirect('/')
 
-# @app.route('/1')
-# def listBook():
-#     return render_template('base/banner_bottom.html', list_book= utils.load_Book(), list_book_image=utils.load_book_image())
+@app.route('/register', methods=['post'])
+def register():
+    if request.method == 'POST':
+        username = request.form.get("username")
+        password = request.form.get("password", "")
+        password2 = request.form.get("password2", "")
+        if(password == password2):
+            password = hashlib.md5(password.encode("utf-8")).hexdigest()
+            user = User(username = username, password= password, idUserType=2)
+            db.session.add(user)
+            db.session.commit()
+            return  redirect('/login')
+    return redirect('/')
+
+
+
+
 
 @app.route('/api/cart', methods=['get' , 'post'])
 def add_to_cart():
@@ -100,17 +116,18 @@ def add_to_cart():
     id_book = str(data.get('id'))
     name = data.get('name')
     price = data.get('price')
+    quantity = data.get('quantity')
 
     id_cart, list_item = utils.list_item_of_user(1)
 
     flag = 0
     for item in list_item:
         if (str(item.idBook) == id_book):
-            item.quantity += 1
+            item.quantity += quantity
             flag = 1
             db.session.commit()
     if (flag == 0):
-        newitem = CartItem(idCart=id_cart, idBook=id_book, quantity=1, price=price, discount=price)
+        newitem = CartItem(idCart=id_cart, idBook=id_book, quantity=quantity, price=price, discount=price)
         db.session.add(newitem)
         db.session.commit()
 
@@ -120,20 +137,21 @@ def add_to_cart():
 
 
 @app.route('/pay')
+@login_required
 def payment():
     id_cart, list_item = utils.list_item_of_user(current_user.id)
     total_quantity, total_amount = utils.cart_stats(current_user.id)
-    return render_template('payment.html', id_cart = id_cart, list_item = list_item, total_amount = total_amount, total_quantity=total_quantity)
+    return render_template('payment.html', id_cart = id_cart, list_item = list_item, total_amount = total_amount, total_quantity=total_quantity,list_book_category=utils.get_book_category())
 
 @app.route('/logout')
 def logout():
     logout_user()
-    return redirect('/pay')
+    return redirect('/')
 
 
 @app.route('/index')
 def index2():
-    return render_template('base/base.html')
+    return render_template('base/base.html',list_book_category=utils.get_book_category())
 
 @app.route('/api/pay', methods=['post'])
 def pay():
@@ -144,13 +162,29 @@ def pay():
     db.session.add(bill)
     cart = utils.get_item_by_id_cart(id_cart)
     for p in cart:
-        bill_detail = BillDetail(Bill=bill, idBook=p.idBook, price=p.discount, quantity=p.quantity)
-        db.session.add(bill_detail)
-        db.session.delete(p)
+        if(p.would_buy ==1):
+            bill_detail = BillDetail(Bill=bill, idBook=p.idBook, price=p.discount, quantity=p.quantity)
+            db.session.add(bill_detail)
 
     db.session.commit()
     return jsonify({
         'message':'success'
+    })
+
+@app.route('/api/delete/<item_id>', methods=['delete'])
+def delete_item(item_id):
+    print(item_id)
+    id_cart, list_item =utils.list_item_of_user(current_user.id)
+    for item in list_item:
+        if(str(item.id) == item_id):
+            print(item.id == item_id)
+            db.session.delete(item)
+            db.session.commit()
+            return jsonify({
+                'message': 'Xóa thành công'
+            })
+    return jsonify({
+        'message': 'Xóa thất bại'
     })
 
 
@@ -167,6 +201,22 @@ def search():
     listBook = Book.query.filter(Book.name.like('%' + name + '%')).all()
     return render_template('search.html', listBook = listBook , list_book_category=utils.get_book_category())
 
+
+# @app.route('/search', methods=['GET', 'POST'])
+# def search():
+#     if request.method == "POST":
+#         name=request.form.get('Search')
+#     #     found_book=next(name for name in Book if Book.name==name)
+#     #     cursor.executemany('''select * from Book where name = %s''', )
+#     #     return render_template("search.html", records=cursor.fetchall())
+#     return render_template('search.html',list_book_category=utils.get_book_category())
+
+
+@app.route('/search/<id_category>', methods=['GET', 'POST'])
+def searchCategory(id_category):
+    listcate = Book.query.filter(Book.idCategory == id_category).all()
+    return render_template('search.html', listBook=listcate, list_book_category=utils.get_book_category(),list_book= utils.load_Book(), list_book_image=utils.load_book_image())
+
 @app.route('/book')
 def book():
     products = Book.query.all()
@@ -175,12 +225,30 @@ def book():
     #     found_book=next(name for name in Book if Book.name==name)
     #     cursor.executemany('''select * from Book where name = %s''', )
     #     return render_template("search.html", records=cursor.fetchall())
-    return render_template('listbook.html', products=products,list_book_category=utils.get_book_category())
+    return render_template('list'
+                           'book.html', products=products, list_book_category=utils.get_book_category())
 
 @app.route('/single/<int:id_book>', methods=['GET'])
 def load_detail_book_by_id(id_book):
     book=utils.get_book_by_id(id_book)
-    return render_template('single.html', book = book, list_image = utils.get_image_by_id_book(id_book))
+    return render_template('single.html', book = book, list_image = utils.get_image_by_id_book(id_book),list_book_category=utils.get_book_category())
+
+
+@app.route('/api/check_would_buy', methods=['POST'])
+def check_would_buy():
+    data = request.json
+    id_cart_item = data.get('id')
+    check = data.get('checked')
+    cart_item = utils.get_item_cart_by_id(id_cart_item)
+    if(check):
+        cart_item.would_buy = 1
+    else:
+        cart_item.would_buy = 0
+    db.session.commit()
+    return jsonify({
+        'message': 'success'
+    })
+
 
 
 

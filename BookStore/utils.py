@@ -23,11 +23,11 @@ def load_book_image():
         item2 = i*8
         item2 = item2[0:8]
         list_image.append(item2)
-        # item = item[0:8]
-    print(list_image)
     return list_image
+
     # return Book.query.join(Image, Image.id_book == Book.id).add_column(Image.img)
 #load_book_image()
+
 
 def chek_login(username, password):
     print(username, password)
@@ -96,5 +96,8 @@ def get_book_by_id(id_book):
 
 def get_image_by_id_book(id_book):
     return Image.query.filter(Image.id_book ==id_book).all()
+
+def get_item_cart_by_id(id_item):
+    return CartItem.query.filter(CartItem.id == id_item).first()
 
 

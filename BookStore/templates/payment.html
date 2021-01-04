@@ -10,11 +10,11 @@
     </div>
     <table class="table">
         <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Discount</th>
-            <th>Quantity</th>
+            <th>Mã</th>
+            <th>Tên</th>
+            <th>Giá gốc</th>
+            <th>Giá khuyến mãi</th>
+            <th>Số lượng</th>
         </tr>
         {% if id_cart != [] and list_item != [] %}
         {% for p in list_item %}
@@ -27,13 +27,20 @@
             <td>{{p.discount}}</td>
             <td>
                 <div class="form-group">
-                    <input class="form-control" type="number" value="{{p.quantity}}" />
+                    <input class="form-control" type="number" value="{{p.quantity}}" >
                 </div>
             </td>
             <td>
                 <div class="form-group">
-                    <input class="form-control" type="checkbox" />
+                    {% set check ='' %}
+                    {% if p.would_buy == 1 %}
+                    {% set check = 'checked' %}
+                    {% endif %}
+                    <input class="form-control" type="checkbox" id="{{p.id}}" {{check}} onclick="check_would_buy({{p.id}})"/>
                 </div>
+            </td>
+            <td>
+                <a href="javascript:;" onclick="del_item({{p.id}})">Xóa</a>
             </td>
         </tr>
         {% endfor %}
