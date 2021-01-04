@@ -1,3 +1,16 @@
+#fileImg{
+display: none;
+
+}
+
+.btnInfo{
+height: 30px;
+width: 80px;
+border: 1px solid;
+color: white;
+background-color: black;
+}
+
 .edit_info{
     height: 30px;
     width: 80px;

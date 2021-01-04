@@ -31,7 +31,7 @@ def upload_image():
     user = User.query.get(id)
     user.avatar = 'images/' + filename
     db.session.commit()
-    return render_template('info.html')
+    return render_template('info.html',  list_book_category=utils.get_book_category())
 
 @app.route('/display/<filename>')
 def display_image(filename):
@@ -41,7 +41,7 @@ def display_image(filename):
 
 @app.route('/info')
 def info():
-    return render_template('info.html')
+    return render_template('info.html',  list_book_category=utils.get_book_category())
 
 
 @app.route("/")
@@ -161,7 +161,11 @@ def search():
     #     found_book=next(name for name in Book if Book.name==name)
     #     cursor.executemany('''select * from Book where name = %s''', )
     #     return render_template("search.html", records=cursor.fetchall())
-     return render_template('search.html')
+
+    name=request.form.get('Search')
+    #filters = [dict(name='name', op='like', val='%y%')]
+    listBook = Book.query.filter(Book.name.like('%' + name + '%')).all()
+    return render_template('search.html', listBook = listBook , list_book_category=utils.get_book_category())
 
 @app.route('/book')
 def book():

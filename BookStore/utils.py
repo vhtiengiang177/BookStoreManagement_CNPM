@@ -4,6 +4,8 @@ from __init__ import db
 # from flask import session, sessions
 # from BookStore.models import User
 
+
+
 def infoUser(id_user):
     return User.query.filter(User.id_user == id_user).first()
 
@@ -25,7 +27,7 @@ def load_book_image():
     print(list_image)
     return list_image
     # return Book.query.join(Image, Image.id_book == Book.id).add_column(Image.img)
-load_book_image()
+#load_book_image()
 
 def chek_login(username, password):
     print(username, password)

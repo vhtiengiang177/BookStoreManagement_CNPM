@@ -1,10 +1,42 @@
 {% extends 'base/base.html'%}
 {% block content %}
 
-    {% block new_products %}
-		{% include 'base/new_products.html' %}
-	{% endblock %}
-</div>
+    <div class="container">
+      <div  style="margin: 50px;" >
+   {% for p in listBook %}
+		<div class="col-md-3 agileinfo_new_products_grid" style="margin-bottom:20px">
+                <div class="agile_ecommerce_tab_left agileinfo_new_products_grid1">
+                    <div class="hs-wrapper hs-wrapper1">
+                        <img src="../static/images/3.jpg" alt=" " class="img-responsive" />
+                        <img src="../static/images/3.jpg" alt=" " class="img-responsive" />
+                        <img src="../static/images/3.jpg" alt=" " class="img-responsive" />
+                        <img src="../static/images/3.jpg" alt=" " class="img-responsive" />
+                        <img src="../static/images/3.jpg" alt=" " class="img-responsive" />
+                        <div class="w3_hs_bottom w3_hs_bottom_sub">
+                            <ul>
+                                <li>
+                                    <a href="#" data-toggle="modal" data-target="#myModal2"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <h5><a href="single.html">{{ p.name }}</a></h5>
+                    <div class="simpleCart_shelfItem">
+                        <p><span>${{ p.price }}</span> <i class="item_price">${{ p.price*(1-p.discount) }}</i></p>
+                        <form action="#" method="post">
+                            <input type="hidden" name="cmd" value="_cart">
+                            <input type="hidden" name="add" value="1">
+                            <input type="hidden" name="w3ls_item" value="Red Laptop">
+                            <input type="hidden" name="amount" value="500.00">
+                            <button type="submit" class="w3ls-cart">Thêm vào giỏ</button>
+                        </form>
+                    </div>
+                </div>
+        </div>
+
+        {% endfor %}
+          </div>
+    </div>
 {% for message in get_flashed_messages() %}
 <div class=flash>
     {{ message }}

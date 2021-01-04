@@ -1,5 +1,8 @@
 {% extends 'base/base.html' %}
-
+<!--{% block info%}-->
+<!-- <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">-->
+<!--	<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">-->
+<!--{% endblock%}-->
 {% block content %}
 
 <div class="container emp-profile">
@@ -8,16 +11,15 @@
                     <div class="col-md-4">
                         <div class="profile-img" >
                              <input class="input--style-3" type="hidden" placeholder="Address" name="idUser" value = "{{current_user.id}}">
-                                <img src="{{url_for('static', filename=current_user.avatar)}}" alt=""/>
-
+                                <img class = "img" src="{{url_for('static', filename=current_user.avatar)}}" alt=""/>
                             </div>
-
-                                <input type="file" name="file" />
-                            <div class = "btn">
-                                 <input type="submit" value=" Change Photo">
+                        <div id = "changeImg" >
+                                 <input id = "changeImgBtn" class = "btnInfo" type="button" value=" Change Photo">
                             </div>
-
-
+                        <div id = "fileImg" >
+                                <input class = "btnInfo" type="file" name="file" />
+                                 <input id = "img" class = "btnInfo"  type="submit" value=" Change Photo">
+                            </div>
                     </div>
 
 
@@ -157,6 +159,20 @@
     </div>
         </div>
 </div>
+
+<script language="javascript">
+
+            document.getElementById("imgBtn").onclick = function () {
+                document.getElementById("fileImg").style.display = 'none';
+                document.getElementById("changeImg").style.display = 'block';
+            };
+
+            document.getElementById("changeImgBtn").onclick = function () {
+                document.getElementById("fileImg").style.display = 'block';
+                document.getElementById("changeImg").style.display = 'none';
+            };
+
+        </script>
     <!-- Jquery JS-->
     <script src="{{url_for('static', filename = 'vendor/jquery/jquery.min.js')}}"></script>
     <!-- Vendor JS-->
