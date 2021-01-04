@@ -213,7 +213,8 @@ def search():
 @app.route('/search/<id_category>', methods=['GET', 'POST'])
 def searchCategory(id_category):
     listcate = Book.query.filter(Book.idCategory == id_category).all()
-    return render_template('search.html', listBook=listcate, list_book_category=utils.get_book_category(),list_book= utils.load_Book(), list_book_image=utils.load_book_image())
+    n = len(listcate)
+    return render_template('search.html', listBook=listcate, len = n, listImage = utils.loadImageByListIdBook(listcate), list_book_category=utils.get_book_category(),list_book= utils.load_Book(), list_book_image=utils.load_book_image())
 
 @app.route('/book')
 def book():
