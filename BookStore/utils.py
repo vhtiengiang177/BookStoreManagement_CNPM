@@ -9,6 +9,8 @@ def loadImageByListIdBook(listBook):
     list_image = []
     for book in listBook:
         image = Image.query.filter(Image.id_book == book.id).all()
+        image = image *8
+        image = image[0:8]
         list_image.append(image)
     return list_image
 

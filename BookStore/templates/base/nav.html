@@ -57,8 +57,13 @@
                             </div>
                         </ul>
                     </li>
-                    <li><a href="index.html">Đội ngũ thành viên</a></li>
                     <li><a href="/about">Liên hệ</a></li>
+                    {% if current_user.is_authenticated %}
+                        <li><a href="{{url_for('logout')}}">Đăng xuất</a> </li>
+                        {% if current_user.id == 1 %}
+                            <li><a href="/admin">Admin</a> </li>
+                        {% endif %}
+                    {% endif %}
                 </ul>
             </div>
         </nav>
