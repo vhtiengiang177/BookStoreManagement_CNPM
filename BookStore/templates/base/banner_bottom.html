@@ -54,7 +54,7 @@
                                     <p><span>{{ list_best_sale_book[i].price }}</span> <i class="item_price">{{ list_best_sale_book[i].price*(1-list_best_sale_book[i].discount) }}</i></p>
                                     </div>
                                     <input type="button" value="Dat Hang"
-                                       onclick="addToCart({{ list_best_sale_book[i].id }}, '{{ list_best_sale_book[i].name }}', {{ list_best_sale_book[i].price }}, 1)"
+                                       onclick="addToCart({{ list_best_sale_book[i].id }}, '{{ list_best_sale_book[i].name }}', {{ list_best_sale_book[i].price }}, {{ list_best_sale_book[i].discount }}, 1)"
                                        class="btn btn-primary"
                                         />
                                 </div>
@@ -79,7 +79,7 @@
                                     <p><span>{{ list_recommend_book[i].price }}</span> <i class="item_price">{{ list_recommend_book[i].price*(1-list_recommend_book[i].discount) }}</i></p>
                                     </div>
                                     <input type="button" value="Dat Hang"
-                                       onclick="addToCart({{ list_recommend_book[i].id }}, '{{ list_recommend_book[i].name }}', {{ list_recommend_book[i].price }}, 1)"
+                                       onclick="addToCart({{ list_recommend_book[i].id }}, '{{ list_recommend_book[i].name }}', {{ list_recommend_book[i].price }}, {{list_recommend_book[i].discount}}, 1)"
                                        class="btn btn-primary"
                                         />
                                 </div>

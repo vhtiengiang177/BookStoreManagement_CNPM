@@ -22,10 +22,6 @@
                 </a>
 
                 <h4>{{current_user.fname}}</h4>
-
-                <form action="{{url_for('logout')}}">
-                    <input type="submit" value="Đăng Xuất" class="btn btn-link" />
-                </form>
 <!--                {{ current_user.avatar }}-->
             </div>
             {%else%}

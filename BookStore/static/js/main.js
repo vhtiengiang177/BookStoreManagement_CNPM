@@ -1,10 +1,11 @@
-function addToCart(id, name, price, quantity){
+function addToCart(id, name, price, discount, quantity){
     fetch('/api/cart' , {
         'method': 'post',
         'body': JSON.stringify({
             'id': id,
             'name': name,
             'price': price,
+            'discount': discount,
             'quantity': quantity
     }),
     'headers':{
@@ -32,8 +33,7 @@ function pay(id_user, cart){
         location.reload();
     })
 }
-<<<<<<< HEAD
-=======
+
 
 
 
@@ -68,4 +68,25 @@ function del_item(item_id){
     }).catch(err=> alert('Xóa thất bại'))
 }
 }
->>>>>>> 02f2f2bd9b1d7cf61f23da6da2e82d83e2eba527
+
+function update_item(obj, item_id){
+fetch(`/api/cart/${item_id}` , {
+        'method': 'post',
+        'body': JSON.stringify({
+            'quantity': obj.value
+    }),
+    'headers':{
+        'Content-Type':'application/json'
+        }
+    }  ).then(res=>res.json())
+    .then(data=>{
+        if(data.code !=200)
+            alert("That bai")
+        else{
+            alert("Thanh cong")
+            document.getElementById('total_quantity').innerText = data.total_quantity;
+            document.getElementById('total_amount').innerText = data.total_amount
+        }
+    })
+}
+
