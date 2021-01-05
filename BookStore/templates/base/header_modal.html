@@ -5,7 +5,7 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                     &times;</button>
-                <h4 class="modal-title" id="myModalLabel">Don't Wait, Login now!</h4>
+                <h4 class="modal-title" id="myModalLabel">Đừng chần chừ, hãy đăng nhập ngay!</h4>
             </div>
             <div class="modal-body modal-body-sub">
                 <div class="row">
@@ -13,17 +13,17 @@
                         <div class="sap_tabs">
                             <div id="horizontalTab" style="display: block; width: 100%; margin: 0px;">
                                 <ul>
-                                    <li class="resp-tab-item" aria-controls="tab_item-0"><span>Sign in</span></li>
-                                    <li class="resp-tab-item" aria-controls="tab_item-1"><span>Sign up</span></li>
+                                    <li class="resp-tab-item" aria-controls="tab_item-0"><span>Đăng nhập</span></li>
+                                    <li class="resp-tab-item" aria-controls="tab_item-1"><span>Đăng ký</span></li>
                                 </ul>
                                 <div class="tab-1 resp-tab-content" aria-labelledby="tab_item-0">
                                     <div class="facts">
                                         <div class="register">
                                             <form action="{{url_for('login_admin')}}" method="post">
-                                                <input name="username" placeholder="Username" type="text" required="">
-                                                <input name="password" placeholder="Password" type="password" required="">
+                                                <input name="username" placeholder="Tài khoản" type="text" required="">
+                                                <input name="password" placeholder="Mật khẩu" type="password" required="">
                                                 <div class="sign-up">
-                                                    <input type="submit" value="Sign in"/>
+                                                    <input type="submit" value="Đăng nhập"/>
                                                 </div>
                                             </form>
                                         </div>
@@ -33,11 +33,11 @@
                                     <div class="facts">
                                         <div class="register">
                                             <form action="{{url_for('register')}}" method="post">
-                                                <input placeholder="Userame" name="username" type="text" required="">
-                                                <input placeholder="Password" name="password" type="password" required="">
-                                                <input placeholder="Confirm Password" name="password2" type="password" required="">
+                                                <input placeholder="Tài khoản" name="username" type="text" required="">
+                                                <input placeholder="Mật khẩu" name="password" type="password" required="">
+                                                <input placeholder="Xác nhận mật khẩu" name="password2" type="password" required="">
                                                 <div class="sign-up">
-                                                    <input type="submit" value="Create Account"/>
+                                                    <input type="submit" value="Tạo tài khoản"/>
                                                 </div>
                                             </form>
                                         </div>
@@ -60,7 +60,7 @@
                     <div class="col-md-4 modal_body_right modal_body_right1">
                         <div class="row text-center sign-with">
                             <div class="col-md-12">
-                                <h3 class="other-nw">Sign in with</h3>
+                                <h3 class="other-nw">Đăng nhập với</h3>
                             </div>
                             <div class="col-md-12">
                                 <ul class="social">
