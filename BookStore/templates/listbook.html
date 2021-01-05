@@ -38,7 +38,7 @@
     <div  style="margin: 50px;" >
         <!-- Search form -->
 
-        {% for p in products %}
+        {% for p in listbook %}
 		<div class="col-md-3 agileinfo_new_products_grid" style="margin-bottom:20px">
                 <div class="agile_ecommerce_tab_left agileinfo_new_products_grid1">
                     <div class="hs-wrapper hs-wrapper1">
@@ -55,7 +55,9 @@
                             </ul>
                         </div>
                     </div>
+
                     <h5><a href="{{url_for('load_detail_book_by_id', id_book=p.id)}}">{{ p.name }}</a></h5>
+
                     <div class="simpleCart_shelfItem">
                         <p><span>${{ p.price }}</span> <i class="item_price">${{ p.price*(1-p.discount) }}</i></p>
                         <form action="#" method="post">
