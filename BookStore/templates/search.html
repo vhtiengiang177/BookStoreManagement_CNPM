@@ -1,7 +1,6 @@
 {% extends 'base/base.html'%}
 {% block content %}
 
-
     <div class="container">
         <div style="margin-top:100px; pull-center" >
 
@@ -37,39 +36,48 @@
     {% block new_products %}
     <div  style="margin: 50px;" >
         <!-- Search form -->
+        {% if len == 0 %}
+        <h3>Không có sản phẩm cần tìm ! </h3>
+        {% include 'error.html' %}
+        {% endif%}
 
-        {% for p in listBook %}
+        {% for i in range(len) %}
+
 		<div class="col-md-3 agileinfo_new_products_grid" style="margin-bottom:20px">
                 <div class="agile_ecommerce_tab_left agileinfo_new_products_grid1">
                     <div class="hs-wrapper hs-wrapper1">
-                        <img src="../static/images/3.jpg" alt=" " class="img-responsive" />
-                        <img src="../static/images/3.jpg" alt=" " class="img-responsive" />
-                        <img src="../static/images/3.jpg" alt=" " class="img-responsive" />
-                        <img src="../static/images/3.jpg" alt=" " class="img-responsive" />
-                        <img src="../static/images/3.jpg" alt=" " class="img-responsive" />
-                        <div class="w3_hs_bottom w3_hs_bottom_sub">
-                            <ul>
-                                <li>
-                                    <a href="#" data-toggle="modal" data-target="#myModal2"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
-                                </li>
-                            </ul>
-                        </div>
+                        {%for img in listImage[i] %}
+                            <img src="{{url_for('static', filename = img.img)}}" alt=" " class="img-responsive" />
+<!--                        <img src="../static/images/3.jpg" alt=" " class="img-responsive" />-->
+<!--                        <img src="../static/images/3.jpg" alt=" " class="img-responsive" />-->
+<!--                        <img src="../static/images/3.jpg" alt=" " class="img-responsive" />-->
+<!--                        <img src="../static/images/3.jpg" alt=" " class="img-responsive" />-->
+<!--                        <img src="../static/images/3.jpg" alt=" " class="img-responsive" />-->
+                        {% endfor %}
+<!--                        <div class="w3_hs_bottom w3_hs_bottom_sub">-->
+<!--                            <ul>-->
+<!--                                <li>-->
+<!--                                    <a href="#" data-toggle="modal" data-target="#myModal2"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>-->
+<!--                                </li>-->
+<!--                            </ul>-->
+<!--                        </div>-->
                     </div>
-                    <div class="namebook" style="height:50px">
-                        <h5><a href="{{url_for('load_detail_book_by_id', id_book=p.id )}}">{{ p.name }}</a></h5>
-                    </div>
+
+
+                    <h5><a href="{{url_for('load_detail_book_by_id', id_book=listBook[i].id )}}">{{ listBook[i].name }}</a></h5>
+
+
                     <div class="simpleCart_shelfItem">
-                        <p><span>${{ p.price }}</span> <i class="item_price">${{ p.price*(1-p.discount) }}</i></p>
-                        <form action="#" method="post">
-                            <input type="hidden" name="cmd" value="_cart">
-                            <input type="hidden" name="add" value="1">
-                            <input type="hidden" name="w3ls_item" value="Red Laptop">
-                            <input type="hidden" name="amount" value="500.00">
-                            <button type="submit" class="w3ls-cart">Thêm vào giỏ</button>
-                        </form>
+                        <p><span>${{ listBook[i].price }}</span> <i class="item_price">${{ listBook[i].price*(1-listBook[i].discount) }}</i></p>
+                        <input type="button" value="Dat Hang"
+                       onclick="addToCart({{ listBook[i].id }}, '{{ listBook[i].name }}', {{ listBook[i].price }}, {{listBook[i].discount }}, 1)"
+                       class="btn btn-primary"
+                        />
                     </div>
                 </div>
+
             </div>
+
         {% endfor %}
     </div>
 	{% endblock %}
@@ -77,6 +85,7 @@
 
 </div>
 </div>
+
 {% for message in get_flashed_messages() %}
 <div class=flash>
     {{ message }}

@@ -1,19 +1,5 @@
-<!--<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html> -->
+{% extends 'admin/master.html' %}
 
-{%extends 'admin/master.html'%}
-
-{%block body %}
-    {% if current_user.is_authenticated and current_user.idTypeUser == 1%}
-        <h1>CHAO MUNG DEN VOI WEB BAN SACH</h1>
-        <h3> Admin: {{current_user.lname + " " + current_user.fname}}</h3>
-    {% endif %}
-{%endblock%}
+{% block body %}
+    <h1>HELLO</h1>
+{% endblock body %}

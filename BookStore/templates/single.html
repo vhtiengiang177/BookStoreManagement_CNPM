@@ -1,4 +1,7 @@
 {% extends 'base/base.html' %}
+{% block nav %}
+    {% include 'base/nav.html' %}
+{% endblock %}
 {%block content%}
 <!-- single -->
 <div class="single">
@@ -32,20 +35,6 @@
         </div>
         <div class="col-md-8 single-right">
             <h3>{{book.name}}</h3>
-            <div class="rating1">
-                <span class="starRating">
-                    <input id="rating5" type="radio" name="rating" value="5">
-                    <label for="rating5">5</label>
-                    <input id="rating4" type="radio" name="rating" value="4">
-                    <label for="rating4">4</label>
-                    <input id="rating3" type="radio" name="rating" value="3" checked>
-                    <label for="rating3">3</label>
-                    <input id="rating2" type="radio" name="rating" value="2">
-                    <label for="rating2">2</label>
-                    <input id="rating1" type="radio" name="rating" value="1">
-                    <label for="rating1">1</label>
-                </span>
-            </div>
             <div class="description">
                 <h5><i>Mô tả</i></h5>
                 <p>{{book.decription}}</p>
@@ -82,7 +71,7 @@
             <div class="simpleCart_shelfItem">
                 <p><span>{{book.price}}</span> <i class="item_price">{{book.price *(1-book.discount)}}</i></p>
                 <input type="button" value="Dat Hang"
-                       onclick="addToCart({{ book.id }}, '{{ book.name }}', {{ book.price }})"
+                       onclick="addToCart({{ book.id }}, '{{ book.name }}', {{ book.price }}, {{book.discount }}, 1)"
                        class="btn btn-primary"
                         />
             </div>

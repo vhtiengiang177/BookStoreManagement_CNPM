@@ -22,7 +22,11 @@
                                     <ul class="multi-column-dropdown">
 
                                         {% for i in range(0, 5) %}
+<!--<<<<<<< HEAD-->
+<!--                                        <li><a href="{{url_for('book')}}">{{list_book_category[i].name}}</a></li>-->
+<!--=======-->
                                         <li><a href="{{url_for('searchCategory',id_category=list_book_category[i].id)}}" >{{list_book_category[i].name}}</a></li>
+<!--&gt;>>>>>> d76c6dc701dafd3060bac02bfd96699e6bd328e8-->
                                         {% endfor %}
 
                                     </ul>
@@ -31,7 +35,9 @@
                                     <ul class="multi-column-dropdown">
 
                                         {%for j in range(0,4)%}
+
                                         <li><a href="{{url_for('searchCategory',id_category=list_book_category[j+5].id)}}">{{list_book_category[j+5].name}}</a></li>
+
                                         {%endfor%}
 
                                     </ul>
@@ -40,7 +46,9 @@
                                     <ul class="multi-column-dropdown">
 
                                         {%for k in range(0, list_book_category|length -7) %}
+
                                         <li><a href="{{url_for('searchCategory',id_category=list_book_category[k+7].id)}}">{{list_book_category[k+7].name}}</a></li>
+
                                         {%endfor%}
 
                                     </ul>
@@ -49,8 +57,13 @@
                             </div>
                         </ul>
                     </li>
-                    <li><a href="index.html">Đội ngũ thành viên</a></li>
-                    <li><a href="index.html">Liên hệ</a></li>
+                    <li><a href="/about">Liên hệ</a></li>
+                    {% if current_user.is_authenticated %}
+                        <li><a href="{{url_for('logout')}}">Đăng xuất</a> </li>
+                        {% if current_user.id == 1 %}
+                            <li><a href="/admin">Admin</a> </li>
+                        {% endif %}
+                    {% endif %}
                 </ul>
             </div>
         </nav>

@@ -1,5 +1,8 @@
 {% extends 'base/base.html' %}
-
+<!--{% block info%}-->
+<!-- <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">-->
+<!--	<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">-->
+<!--{% endblock%}-->
 {% block content %}
 
 <div class="container emp-profile">
@@ -8,16 +11,15 @@
                     <div class="col-md-4">
                         <div class="profile-img" >
                              <input class="input--style-3" type="hidden" placeholder="Address" name="idUser" value = "{{current_user.id}}">
-                                <img src="{{url_for('static', filename=current_user.avatar)}}" alt=""/>
-
+                                <img class = "img" src="{{url_for('static', filename=current_user.avatar)}}" alt=""/>
                             </div>
-
-                                <input type="file" name="file" />
-                            <div class = "btn">
-                                 <input type="submit" value=" Change Photo">
+                        <div id = "changeImg" >
+                               <input onclick="displayChooseImage()" id = "changeImgBtn" class = "btnInfo" type="button" value=" Change Photo">
                             </div>
-
-
+                        <div id = "fileImg" >
+                                <input class = "btnInfo" type="file" name="file" />
+                                 <input onclick="unDisplayChooseImage()" id = "img" class = "btnInfo"  type="submit" value=" Change Photo">
+                            </div>
                     </div>
 
 
@@ -27,9 +29,9 @@
                                        {{current_user.name}}
                                     </h5>
                                     <h3>
-                                       Wellcome to my bookstore !
+                                       Chào mừng bạn đến với của hàng của chúng tôi !
                                     </h3>
-                            <h2>Your infomation</h2>
+                            <h4>Your infomation</h4>
                         </div>
                     </div>
                     <div class="col-md-2">
@@ -39,33 +41,40 @@
                 </div>
                 <div class="row">
                     <div class="col-md-4">
-                        <div class="profile-work">
-                             <span>{{current_user.id}}</span>
-                        </div>
+
                     </div>
                     <div class="col-md-8">
                             <div class="information" >
                                         <div class="row">
-                                            <div class="col-md-6">
-                                                <label>User Id</label>
+                                            <div class="col-md-3">
+                                                <label>Id:</label>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-3">
                                                 <p>{{current_user.id}}</p>
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Name</label>
+                                            <div class="col-md-3">
+                                                <label>Họ:</label>
                                             </div>
-                                            <div class="col-md-6">
-                                                <p>{{current_user.fname + current_user.lname }}  </p>
+                                            <div class="col-md-3">
+                                                <p>{{current_user.lname }}  </p>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <label>Tên:</label>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <p>{{current_user.fname }}  </p>
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Genger</label>
+                                            <div class="col-md-3">
+                                                <label>Giới tính:</label>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-3">
 
                                                 {% if( current_user.gender == 0)%}
                                                      <p>Nam</p>
@@ -76,26 +85,26 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Phone</label>
+                                            <div class="col-md-3">
+                                                <label>SĐT:</label>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-3">
                                                 <p>{{current_user.phone}}</p>
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Birthday</label>
+                                            <div class="col-md-3">
+                                                <label>Ngày sinh:</label>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-3">
                                                 <p>{{current_user.birthday}}</p>
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Address</label>
+                                            <div class="col-md-3">
+                                                <label>Địa chỉ:</label>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-3">
                                                 <p>{{current_user.address}}</p>
                                             </div>
                                         </div>
@@ -114,38 +123,38 @@
             <div class="card card-3">
                 <div class="card-heading"></div>
                 <div class="card-body">
-                    <h2 class="title">Edit Info</h2>
+                    <h2 class="title">Chỉnh sửa thông tin cá nhân</h2>
                     <form method="POST" action="{{url_for('updateInfoUser')}}">
-                         <input class="input--style-3" type="hidden" placeholder="Address" name="idUser" value = "{{current_user.id}}">
+                         <input class="input--style-3" type="hidden" placeholder="ID" name="idUser" value = "{{current_user.id}}">
                         <div class="input-group">
-                            <input class="input--style-3" type="text" placeholder="Last name" name="lname" value = "{{current_user.lname }}">
+                            <input class="input--style-3" type="text" placeholder="Họ" name="lname" value = "{{current_user.lname }}">
                         </div>
                           <div class="input-group">
-                            <input class="input--style-3" type="text" placeholder="First Name" name="fname" value = "{{current_user.fname}}">
+                            <input class="input--style-3" type="text" placeholder="Tên" name="fname" value = "{{current_user.fname}}">
                         </div>
                         <div class="input-group">
-                            <input class="input--style-3 js-datepicker" type="text" placeholder="Birthdate" name="birthday" value="{{current_user.birthday}}">
+                            <input class="input--style-3 js-datepicker" type="text" placeholder="Ngày sinh" name="birthday" value="{{current_user.birthday}}">
                             <i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i>
                         </div>
                         <div class="input-group">
                             <div class="rs-select2 js-select-simple select--no-search">
                                 <select name="gender">
-                                    <option disabled="disabled" selected="selected">Gender</option>
-                                    <option>Male</option>
-                                    <option>Female</option>
+                                    <option disabled="disabled" selected="selected">Giới tính</option>
+                                    <option>Nam</option>
+                                    <option>Nữ</option>
 
                                 </select>
                                 <div class="select-dropdown"></div>
                             </div>
                         </div>
                         <div class="input-group">
-                            <input class="input--style-3" type="text" placeholder="Address" name="address" value = "{{current_user.address}}">
+                            <input class="input--style-3" type="text" placeholder="Địa chỉ" name="address" value = "{{current_user.address}}">
                         </div>
                         <div class="input-group">
-                            <input class="input--style-3" type="text" placeholder="Phone" name="phone" value = "{{current_user.phone}}">
+                            <input class="input--style-3" type="text" placeholder="SĐT" name="phone" value = "{{current_user.phone}}">
                         </div>
                         <div class="p-t-10">
-                            <button class="btn btn--pill btn--green" type="submit">Submit</button>
+                            <button class="btn btn--pill btn--green" type="submit">Edit</button>
                         </div>
                     </form>
 
@@ -157,6 +166,20 @@
     </div>
         </div>
 </div>
+
+<script type="text/javascript">
+
+    function displayChooseImage() {
+    document.getElementById("fileImg").style.display = 'block';
+    document.getElementById("changeImg").style.display = 'none';
+    }
+
+    function unDisplayChooseImage() {
+    document.getElementById("fileImg").style.display = 'none';
+    document.getElementById("changeImg").style.display = 'block';
+    }
+
+        </script>
     <!-- Jquery JS-->
     <script src="{{url_for('static', filename = 'vendor/jquery/jquery.min.js')}}"></script>
     <!-- Vendor JS-->

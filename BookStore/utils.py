@@ -1,8 +1,22 @@
 # from BookStore import db
 from models import Book, Image, BookCategory, User, Cart, CartItem, BillDetail, Bill
 from __init__ import db
+from sqlalchemy import desc,  asc
 # from flask import session, sessions
 # from BookStore.models import User
+
+def loadImageByListIdBook(listBook):
+    list_image = []
+    for book in listBook:
+        image = Image.query.filter(Image.id_book == book.id).all()
+        image = image *8
+        image = image[0:8]
+        list_image.append(image)
+    return list_image
+
+
+def loadImageByIdBook(id_book):
+    return Image.query.filter(Image.id_book == id_book).all()
 
 def infoUser(id_user):
     return User.query.filter(User.id_user == id_user).first()
@@ -21,11 +35,11 @@ def load_book_image():
         item2 = i*8
         item2 = item2[0:8]
         list_image.append(item2)
-        # item = item[0:8]
-    print(list_image)
     return list_image
+
     # return Book.query.join(Image, Image.id_book == Book.id).add_column(Image.img)
-load_book_image()
+#load_book_image()
+
 
 def chek_login(username, password):
     print(username, password)
@@ -94,5 +108,17 @@ def get_book_by_id(id_book):
 
 def get_image_by_id_book(id_book):
     return Image.query.filter(Image.id_book ==id_book).all()
+
+def get_item_cart_by_id(id_item):
+    return CartItem.query.filter(CartItem.id == id_item).first()
+
+def best_sale_book():
+    return Book.query.order_by(desc(Book.sold)).all()[0:3]
+
+def recommend_book():
+    return Book.query.all()[::-1][0:3]
+
+def recommend_bookNew():
+    return Book.query.all()[::-1][0:4]
 
 
