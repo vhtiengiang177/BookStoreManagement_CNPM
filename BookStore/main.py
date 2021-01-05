@@ -154,19 +154,20 @@ def pay():
     })
 
 
-# @app.route('/search', methods=['GET', 'POST'])
-# def search():
-#     if request.method == "POST":
-#         name=request.form.get('Search')
-#     #     found_book=next(name for name in Book if Book.name==name)
-#     #     cursor.executemany('''select * from Book where name = %s''', )
-#     #     return render_template("search.html", records=cursor.fetchall())
-#     return render_template('search.html',list_book_category=utils.get_book_category())
+@app.route('/search', methods=['GET', 'POST'])
+def search():
+    listbook = Book.query.all()
+    # if request.method == "POST":
+    #     name=request.form.get('Search')
+    #     found_book=next(name for name in Book if Book.name==name)
+    #     cursor.executemany('''select * from Book where name = %s''', )
+    #     return render_template("search.html", records=cursor.fetchall())
+    return render_template('listbook.html',listbook=listbook,list_book_category=utils.get_book_category())
 
 
 @app.route('/search/<id_category>', methods=['GET', 'POST'])
-def searchCategory(id_category):
-    listcate = Book.query.filter(Book.idCategory == id_category).all()
+def searchCategory(id_category,sort):
+    listcate = Book.query.filter(Book.idCategory == id_category,).all()
     return render_template('search.html', listBook=listcate, list_book_category=utils.get_book_category(),list_book= utils.load_Book(), list_book_image=utils.load_book_image())
 
 @app.route('/book')
