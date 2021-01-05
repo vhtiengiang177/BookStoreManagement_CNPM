@@ -197,6 +197,7 @@ def delete_item(item_id):
     })
 
 
+
 @app.route('/api/cart/<item_id>', methods=['post'])
 def update_item(item_id):
     id_cart, list_item = utils.list_item_of_user(current_user.id)
@@ -220,11 +221,21 @@ def update_item(item_id):
 
 @app.route('/search', methods=['GET', 'POST'])
 def search():
+
     # if request.method == "POST":
     #     name=request.form.get('Search')
     #     found_book=next(name for name in Book if Book.name==name)
     #     cursor.executemany('''select * from Book where name = %s''', )
     #     return render_template("search.html", records=cursor.fetchall())
+
+    return render_template('listbook.html',listbook=listbook,list_book_category=utils.get_book_category())
+
+
+@app.route('/search/<id_category>', methods=['GET', 'POST'])
+def searchCategory(id_category,sort):
+    listcate = Book.query.filter(Book.idCategory == id_category,).all()
+    return render_template('search.html', listBook=listcate, list_book_category=utils.get_book_category(),list_book= utils.load_Book(), list_book_image=utils.load_book_image())
+
 
     name=request.form.get('Search')
     #filters = [dict(name='name', op='like', val='%y%')]
@@ -249,6 +260,7 @@ def searchCategory(id_category):
     listcate = Book.query.filter(Book.idCategory == id_category).all()
     n = len(listcate)
     return render_template('search.html', listBook=listcate, len = n, listImage = utils.loadImageByListIdBook(listcate), list_book_category=utils.get_book_category(),list_book= utils.load_Book(), list_book_image=utils.load_book_image())
+
 
 @app.route('/book')
 def book():
