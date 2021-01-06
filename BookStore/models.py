@@ -190,6 +190,23 @@ if __name__ == '__main__':
     # db.session.add(b1)
     # db.session.add(b2)
     # db.session.add(b3)
+<<<<<<< HEAD
+=======
+    # db.session.add(img1)
+    # db.session.add(img2)
+    # db.session.add(img3)
+    # db.session.add(img4)
+    # db.session.add(img5)
+    # db.session.add(img6)
+    # db.session.add(img1)
+    # db.session.add(img2)
+    # db.session.add(img3)
+    # db.session.add(img4)
+    # db.session.add(img5)
+    # db.session.add(img6)
+    #
+    #
+>>>>>>> 258b8f23a91dc4bede795a3543ef54ccc257f5bb
     # db.session.commit()
 
 

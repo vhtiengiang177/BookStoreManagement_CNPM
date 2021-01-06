@@ -14,21 +14,43 @@
                 </form>
             </div>
         </div>
+        <div>
+        {% if current_user.is_authenticated %}
+<!--            <div class = "w3l_login" aria-hidden="true">-->
+         <div class="nav-item dropdown no-arrow">
+            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+               <img src="{{url_for('static', filename=current_user.avatar)}}" style="width:40px;height:40px; object-fit:cover;"/>
+            </a>
+
+             <!-- Dropdown - User Information -->
+                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                           aria-labelledby="userDropdown">
+                     <a class="dropdown-item" href="/info">
+                          Thông tin tài khoản
+                     </a>
+                    {% if current_user.id == 1 %}
+                     <a class="dropdown-item" href="/admin">
+                          Trang admin
+                     </a>
+                     {% endif %}
+                     <div class="dropdown-divider"></div>
+                     <a class="dropdown-item" href="{{url_for('logout')}}">
+                          Đăng xuất
+                     </a>
+                 </div>
+             <h5>{{current_user.lname}} {{current_user.fname}}</h5>
+         </div>
+<!--                </div>-->
+
+        </div>
+        {%else%}
         <div class="w3l_login">
-            {% if current_user.is_authenticated %}
-            <div class = "w3l_login" aria-hidden="true">
-                <a href="{{'/info'}}">
-                    <img src="{{url_for('static', filename=current_user.avatar)}}" style="width:40px;height:40px;"/>
-                </a>
-
-                <h4>{{current_user.fname}}</h4>
-<!--                {{ current_user.avatar }}-->
+            <div class="w3l_login" aria-hidden="true">
+                 <a href="#" data-toggle="modal" data-target="#myModal88"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a>
             </div>
-            {%else%}
-            <a href="#" data-toggle="modal" data-target="#myModal88"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a>
-
-            {%endif%}
-
+        </div>
+        {%endif%}
         </div>
         <div class="cart cart box_1">
             <form action="{{url_for('payment')}}">
