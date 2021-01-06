@@ -11,8 +11,6 @@ import os
 import urllib.request
 from flask import flash, url_for
 from werkzeug.utils import secure_filename
-import vonage
-from dotenv import load_dotenv
 from authy.api import AuthyApiClient
 import utils
 import smtplib
@@ -102,10 +100,10 @@ def login_admin():
         password = hashlib.md5(password.encode("utf-8")).hexdigest()
         user = User.query.filter(User.username == username, User.password == password).first()
         if user:
-            if (user.active==1):
+            if (user.active_mail==1):
                 flash('Logged in successfully.')
                 login_user(user=user)
-            elif(user.active==0):
+            elif(user.active_mail==0):
                 return '<h1>Please Confirm your email to active account</h1>'
         else:
             flash("Login failed !", category='error')
@@ -117,6 +115,7 @@ def login_admin():
     return redirect('/')
 
 #Thao
+
 @app.route('/register', methods=['post'])
 def register():
     if request.method == 'POST':
@@ -149,7 +148,7 @@ def confirm_email(token, userid):
         return '<h1>Mã confirm đã hết hạn, bạn vui lòng đăng kí lại . </h1>'
     user_id = userid
     user = User.query.filter(User.username==user_id).first()
-    user.active=1
+    user.active_mail=1
     db.session.commit()
 
     login_user(user=user)
@@ -245,12 +244,12 @@ def add_to_cart():
 
     flag = 0
     for item in list_item:
-        if (str(item.idBook) == id_book):
+        if (str(item.id_book) == id_book):
             item.quantity += quantity
             flag = 1
             db.session.commit()
     if (flag == 0):
-        newitem = CartItem(id_cart=id_cart, idBook=id_book, quantity=quantity, price=price, discount=price * (1 - discount))
+        newitem = CartItem(id_cart=id_cart, id_book=id_book, quantity=quantity, price=price, discount=price * (1 - discount))
         db.session.add(newitem)
         db.session.commit()
 
@@ -265,7 +264,7 @@ def add_to_cart():
 def payment():
     id_cart, list_item = utils.list_item_of_user(current_user.id)
     total_quantity, total_amount = utils.cart_stats(current_user.id)
-    return render_template('payment.html', id_cart = id_cart, list_item = list_item, total_amount = total_amount, total_quantity=total_quantity, list_book = utils.load_Book(),list_book_category=utils.get_book_category())
+    return render_template('payment.html', id_cart = id_cart, list_item = list_item, total_amount = total_amount, total_quantity=total_quantity, list_book = utils.load_Book(),list_book_category=utils.get_book_category(), list_image = utils.get_all_image())
 
 @app.route('/logout')
 def logout():
@@ -281,18 +280,26 @@ def index2():
 def pay():
     try:
         data = request.json
-        id_user = data.get('id_user')
-        id_cart = data.get('cart')
-        bill = Bill(idUser = id_user, address_delivery='1', phone_delivery='1', name_delivery='1')
+        name_receiver = data.get('name_receiver')
+        phone_number_receiver = data.get('phone_number_receiver')
+        address_receiver = data.get('address_receiver')
+        print(address_receiver, name_receiver, phone_number_receiver, current_user.id)
+        bill = Bill(id_user = current_user.id, address_delivery=address_receiver, phone=phone_number_receiver, name_delivery=name_receiver)
         db.session.add(bill)
+        print(bill.id)
+
+        id_cart, list_item = utils.list_item_of_user(current_user.id)
+
         cart = utils.get_item_by_id_cart(id_cart)
         for p in cart:
-            if(p.would_buy ==1):
-                bill_detail = BillDetail(Bill=bill, idBook=p.idBook, price=p.discount, quantity=p.quantity)
+            if(p.would_buy==1):
+                bill_detail = BillDetail(Bill=bill, id_book=p.id_book, price=p.discount, quantity=p.quantity)
+                print(2)
                 db.session.add(bill_detail)
                 db.session.delete(p)
-
         db.session.commit()
+
+
         return jsonify({
             'message':'success'
         })
@@ -300,6 +307,13 @@ def pay():
         return jsonify({
             'message': 'failed'
                        })
+
+@app.route('/confirmpay', methods=['post'])
+def confirm_pay():
+    id_cart, list_item = utils.list_item_of_user(current_user.id)
+    total_quantity, total_amount = utils.cart_stats(current_user.id)
+    return render_template('confirm_pay.html', id_cart = id_cart, list_item = list_item, total_amount = total_amount, total_quantity=total_quantity, list_book = utils.load_Book(),list_book_category=utils.get_book_category(), list_image = utils.get_all_image())
+
 
 @app.route('/api/delete/<item_id>', methods=['delete'])
 def delete_item(item_id):
@@ -352,9 +366,6 @@ def searchCategory(id_category):
     listcate = Book.query.filter(Book.id_category == id_category).all()
     n = len(listcate)
     return render_template('search.html', listBook=listcate, len = n, listImage = utils.loadImageByListIdBook(listcate), list_book_category=utils.get_book_category(),list_book= utils.load_Book(), list_book_image=utils.load_book_image())
-
-
-
 
 
 

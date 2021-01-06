@@ -64,3 +64,35 @@
     overflow: hidden;
     border-top: 2px solid #eaecf4;
 }
+
+.dropdown-menu-center {
+    position: absolute;
+    top: 100%; /* Bottom of button */
+    right: auto;
+    left: 70%;
+}
+
+.contain-account{
+    position: relative;
+	display: inline-block;
+	float: left;
+	margin-top: 1em;
+}
+
+.avatar_acc {
+    object-fit:cover; height: 18rem; width: 18rem; border-radius: 50%
+}
+
+.input-group {
+    position: relative;
+    display: table;
+    border-collapse: separate;
+}
+
+ .name_product{
+      overflow:hidden;
+      width: 90%; //can also use calc function as per Yudi's answer
+      display: inline-block;
+      ;;text-overflow:ellipsis;;;
+      ;;white-space:nowrap;;;
+    }

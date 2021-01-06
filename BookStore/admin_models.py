@@ -11,7 +11,7 @@ from flask import redirect
 
 class AuthenticatedView(ModelView):
     def is_accessible(self):
-        return current_user.is_authenticated and current_user.idUserType == 1
+        return current_user.is_authenticated and current_user.id_UserType == 1
 
 class LogoutView(BaseView):
     @expose('/')
@@ -29,14 +29,12 @@ class GoToHome(BaseView):
 
 admin.add_view(AuthenticatedView(BookCategory, db.session, category="Book"))
 admin.add_view(AuthenticatedView(Book, db.session, category="Book"))
-
 admin.add_view(AuthenticatedView(User, db.session, category="User"))
 admin.add_view(AuthenticatedView(UserType, db.session, category="User"))
 admin.add_view(AuthenticatedView(Cart, db.session))
 admin.add_view(AuthenticatedView(CartItem, db.session))
 admin.add_view(AuthenticatedView(Bill, db.session))
 admin.add_view(AuthenticatedView(BillDetail, db.session))
-
 admin.add_view(AuthenticatedView(Supplier, db.session))
 admin.add_view(AuthenticatedView(ImportBook, db.session))
 

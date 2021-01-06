@@ -6,7 +6,7 @@
 <!-- single -->
 <div class="single">
     <div class="container">
-        <div class="col-md-4 single-left">
+        <div class="col-md-5 single-left">
             <div class="flexslider">
                 <ul class="slides">
                     {% for i in list_image %}
@@ -33,22 +33,22 @@
                 <script src="{{url_for('static', filename='js/imagezoom.js')}}"></script>
             <!-- //zooming-effect -->
         </div>
-        <div class="col-md-8 single-right">
-            <h3>{{book.name}}</h3>
+        <div class="col-md-7 single-right">
+            <div style="font-size:28px; font-weight:bold; color:#ff5063">{{book.name}}</div>
+            <div>
+                <span style="font-size:25px; font-weight:bold;">{{book.price *(1-book.discount)}} VND</span><span style="text-decoration: line-through; font-size:13px;">{{book.price}} VND</span>
+            </div>
             <div class="description">
-                <h5><i>Mô tả</i></h5>
-                <p>{{book.decription}}</p>
+                <div style="font-size:18px;">Tác giả: {{book.author}}</div>
                 <br/>
-                <h5>Tác giả: {{book.author}}</h5>
-                <br/>
-                <h5>Nhà xuất bản: {{book.pulisher}}</h5>
+                <div style="font-size:18px;">NXB: {{book.publisher}}</div>
             </div>
             <div class="color-quality">
-                <h5>Quality :</h5>
+                 <div style="font-size:18px;">Số lượng:</div>
                  <div class="quantity">
                     <div class="quantity-select">
                         <div class="entry value-minus1">&nbsp;</div>
-                        <div class="entry value1"><span>1</span></div>
+                        <div class="entry value1">1</div>
                         <div class="entry value-plus1 active">&nbsp;</div>
                     </div>
                 </div>
@@ -69,7 +69,6 @@
                 <div class="clearfix"> </div>
             </div>
             <div class="simpleCart_shelfItem">
-                <p><span>{{book.price}}</span> <i class="item_price">{{book.price *(1-book.discount)}}</i></p>
                 <input type="button" value="Dat Hang"
                        onclick="addToCart({{ book.id }}, '{{ book.name }}', {{ book.price }}, {{book.discount }}, 1)"
                        class="btn btn-primary"

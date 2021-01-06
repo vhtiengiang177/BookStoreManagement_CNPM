@@ -119,7 +119,7 @@ class BillDetail(db.Model):
     quantity = Column(Integer, default=0)
 
     def __str__(self):
-        return self.id
+        return str(self.id)
 
 class Cart(db.Model):
     id = Column(Integer, primary_key=True, autoincrement=True)
@@ -190,7 +190,7 @@ if __name__ == '__main__':
     # db.session.add(b1)
     # db.session.add(b2)
     # db.session.add(b3)
-    #
+
     # db.session.commit()
     #
 
