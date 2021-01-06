@@ -71,7 +71,7 @@ def list_item_of_user(id_user):
         db.session.commit()
         id_cart = Cart.query.filter(Cart.id_user == id_user).first().id
 
-    list_item = CartItem.query.filter(CartItem.idCart == id_cart).all()
+    list_item = CartItem.query.filter(CartItem.id_cart == id_cart).all()
 
     return id_cart, list_item
 
@@ -85,7 +85,7 @@ def list_item_of_user_name_book(id_user):
         db.session.commit()
         id_cart = Cart.query.filter(Cart.id_user == id_user).first().id
 
-    list_item = CartItem.query.filter(CartItem.idCart == id_cart).join(Book, Book.id == CartItem.idBook).add_column(Book.name).all()
+    list_item = CartItem.query.filter(CartItem.id_cart == id_cart).join(Book, Book.id == CartItem.idBook).add_column(Book.name).all()
 
     return id_cart, list_item
 
@@ -97,7 +97,7 @@ def add_receipt(id_user):
     id_cart, list_item = list_item_of_user(id_user)
 
 def get_item_by_id_cart(id_cart):
-    return CartItem.query.filter(CartItem.idCart == id_cart).all()
+    return CartItem.query.filter(CartItem.id_cart == id_cart).all()
 
 
 def get_book_category():

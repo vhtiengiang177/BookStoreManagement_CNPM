@@ -126,7 +126,7 @@ def register():
         phone = request.form.get("phonenumber")
         if(password == password2):
             password = hashlib.md5(password.encode("utf-8")).hexdigest()
-            user = User(username=username, password=password, idUserType=2,phone=phone)
+            user = User(username=username, password=password, id_UserType=2,phone=phone)
             db.session.add(user)
             token = s.dumps(username, salt='email-confirm')
             TEXT = 'Thannks for sign up! Please enter this link to active your account: http://127.0.0.1:8999/confirm_email/'+token+'/'+username
@@ -250,7 +250,7 @@ def add_to_cart():
             flag = 1
             db.session.commit()
     if (flag == 0):
-        newitem = CartItem(idCart=id_cart, idBook=id_book, quantity=quantity, price=price, discount=price * (1 - discount))
+        newitem = CartItem(id_cart=id_cart, idBook=id_book, quantity=quantity, price=price, discount=price * (1 - discount))
         db.session.add(newitem)
         db.session.commit()
 
@@ -349,7 +349,7 @@ def search():
 #Thao
 @app.route('/search/<id_category>', methods=['GET', 'POST'])
 def searchCategory(id_category):
-    listcate = Book.query.filter(Book.idCategory == id_category).all()
+    listcate = Book.query.filter(Book.id_category == id_category).all()
     n = len(listcate)
     return render_template('search.html', listBook=listcate, len = n, listImage = utils.loadImageByListIdBook(listcate), list_book_category=utils.get_book_category(),list_book= utils.load_Book(), list_book_image=utils.load_book_image())
 
