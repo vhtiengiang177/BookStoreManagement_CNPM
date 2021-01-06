@@ -90,10 +90,12 @@ def login_admin():
         if user:
             flash('Logged in successfully.')
             login_user(user=user)
+            return redirect('/')
         else:
             flash("Login failed !", category='error')
-
+            return render_template('base/base.html',list_recommend_book_new = utils.recommend_bookNew(), list_recommend_book = utils.recommend_book(), list_best_sale_book= utils.best_sale_book(), list_book_image=utils.load_book_image(), list_book_category=utils.get_book_category(), err='sai tai khoan hoac mat khau')
     return redirect('/')
+
 
 @app.route('/register', methods=['post'])
 def register():
@@ -146,7 +148,7 @@ def add_to_cart():
 def payment():
     id_cart, list_item = utils.list_item_of_user(current_user.id)
     total_quantity, total_amount = utils.cart_stats(current_user.id)
-    return render_template('payment.html', id_cart = id_cart, list_item = list_item, total_amount = total_amount, total_quantity=total_quantity, list_book = utils.load_Book(),list_book_category=utils.get_book_category())
+    return render_template('payment.html', id_cart = id_cart, list_item = list_item, total_amount = total_amount, total_quantity=total_quantity, list_book = utils.load_Book(),list_book_category=utils.get_book_category(), list_image = utils.get_all_image())
 
 @app.route('/logout')
 def logout():
@@ -162,18 +164,24 @@ def index2():
 def pay():
     try:
         data = request.json
-        id_user = data.get('id_user')
-        id_cart = data.get('cart')
-        bill = Bill(idUser = id_user, address_delivery='1', phone_delivery='1', name_delivery='1')
+        name_receiver = data.get('name_receiver')
+        phone_number_receiver = data.get('phone_number_receiver')
+        address_receiver = data.get('address_receiver')
+        discount_receiver = data.get('discount_receiver')
+        bill = Bill(idUser = current_user.id, address_delivery=address_receiver, phone_delivery=phone_number_receiver, name_delivery=name_receiver)
         db.session.add(bill)
+
+        id_cart, list_item = utils.list_item_of_user(current_user.id)
+
         cart = utils.get_item_by_id_cart(id_cart)
         for p in cart:
             if(p.would_buy ==1):
                 bill_detail = BillDetail(Bill=bill, idBook=p.idBook, price=p.discount, quantity=p.quantity)
                 db.session.add(bill_detail)
                 db.session.delete(p)
-
         db.session.commit()
+
+
         return jsonify({
             'message':'success'
         })
@@ -181,6 +189,13 @@ def pay():
         return jsonify({
             'message': 'failed'
                        })
+
+@app.route('/confirmpay', methods=['post'])
+def confirm_pay():
+    id_cart, list_item = utils.list_item_of_user(current_user.id)
+    total_quantity, total_amount = utils.cart_stats(current_user.id)
+    return render_template('confirm_pay.html', id_cart = id_cart, list_item = list_item, total_amount = total_amount, total_quantity=total_quantity, list_book = utils.load_Book(),list_book_category=utils.get_book_category(), list_image = utils.get_all_image())
+
 
 @app.route('/api/delete/<item_id>', methods=['delete'])
 def delete_item(item_id):
@@ -218,33 +233,33 @@ def update_item(item_id):
     }))
 
 
-
-@app.route('/search', methods=['GET', 'POST'])
-def search():
-
+#
+# @app.route('/search', methods=['GET', 'POST'])
+# def search():
+#     pass
     # if request.method == "POST":
     #     name=request.form.get('Search')
     #     found_book=next(name for name in Book if Book.name==name)
     #     cursor.executemany('''select * from Book where name = %s''', )
     #     return render_template("search.html", records=cursor.fetchall())
 
-    return render_template('listbook.html',listbook=listbook,list_book_category=utils.get_book_category())
+    # return render_template('listbook.html',listbook=listbook,list_book_category=utils.get_book_category())
 
-
-@app.route('/search/<id_category>', methods=['GET', 'POST'])
-def searchCategory(id_category,sort):
-    listcate = Book.query.filter(Book.idCategory == id_category,).all()
-    return render_template('search.html', listBook=listcate, list_book_category=utils.get_book_category(),list_book= utils.load_Book(), list_book_image=utils.load_book_image())
-
-
-    name=request.form.get('Search')
-    #filters = [dict(name='name', op='like', val='%y%')]
-    listBook = Book.query.filter(Book.name.like('%' + name + '%')).all()
-
-    n = len(listBook)
-    return render_template('search.html', listBook = listBook , list_book_category=utils.get_book_category(),len = n,  listImage = utils.loadImageByListIdBook(listBook))
-
-
+#
+# @app.route('/search/<id_category>', methods=['GET', 'POST'])
+# def searchCategory(id_category,sort):
+#     listcate = Book.query.filter(Book.idCategory == id_category).all()
+#     return render_template('search.html', listBook=listcate, list_book_category=utils.get_book_category(),list_book= utils.load_Book(), list_book_image=utils.load_book_image())
+#
+#
+#     name=request.form.get('Search')
+#     #filters = [dict(name='name', op='like', val='%y%')]
+#     listBook = Book.query.filter(Book.name.like('%' + name + '%')).all()
+#
+#     n = len(listBook)
+#     return render_template('search.html', listBook = listBook , list_book_category=utils.get_book_category(),len = n,  listImage = utils.loadImageByListIdBook(listBook))
+#
+#
 # @app.route('/search', methods=['GET', 'POST'])
 # def search():
 #     if request.method == "POST":
@@ -261,6 +276,20 @@ def searchCategory(id_category):
     n = len(listcate)
     return render_template('search.html', listBook=listcate, len = n, listImage = utils.loadImageByListIdBook(listcate), list_book_category=utils.get_book_category(),list_book= utils.load_Book(), list_book_image=utils.load_book_image())
 
+@app.route('/search', methods=['GET', 'POST'])
+def search():
+    # if request.method == "POST":
+    #     name=request.form.get('Search')
+    #     found_book=next(name for name in Book if Book.name==name)
+    #     cursor.executemany('''select * from Book where name = %s''', )
+    #     return render_template("search.html", records=cursor.fetchall())
+
+    name=request.form.get('Search')
+    #filters = [dict(name='name', op='like', val='%y%')]
+    listBook = Book.query.filter(Book.name.like('%' + name + '%')).all()
+
+    n = len(listBook)
+    return render_template('search.html', listBook = listBook , list_book_category=utils.get_book_category(),len = n,  listImage = utils.loadImageByListIdBook(listBook))
 
 @app.route('/book')
 def book():

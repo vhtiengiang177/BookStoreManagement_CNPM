@@ -121,4 +121,6 @@ def recommend_book():
 def recommend_bookNew():
     return Book.query.all()[::-1][0:4]
 
+def get_all_image():
+    return Image.query.all()
 

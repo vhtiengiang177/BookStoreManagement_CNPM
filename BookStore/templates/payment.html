@@ -10,7 +10,6 @@
     </div>
     <table class="table">
         <tr>
-<!--            <th>Mã</th>-->
             <th>Tên</th>
             <th>Giá gốc</th>
             <th>Giá khuyến mãi</th>
@@ -18,8 +17,8 @@
         </tr>
         {% if id_cart != [] and list_item != [] %}
         {% for p in list_item %}
+
         <tr>
-<!--            <td>{{p.id}}</td>-->
             {% for b in list_book %}
             {% if b.id == p.idBook %}
             <td>{{b.name}}</td>
@@ -52,11 +51,11 @@
         </tr>
         {% endif %}
     </table>
+
     <div>
-        <input type="button"
-               value="Thanh Toan"
-               onclick="pay({{ current_user.id }}, {{ id_cart }})"
-               class="btn btn-primary" />
+        <form action="{{url_for('confirm_pay')}}" method="post">
+            <input type="submit" value="Di qua trang thanh toan"/>
+        </form>
     </div>
 </div>
 {% endblock %}

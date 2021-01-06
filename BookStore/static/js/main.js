@@ -17,12 +17,18 @@ function addToCart(id, name, price, discount, quantity){
     })
 }
 
-function pay(id_user, cart){
+function pay(){
+    var name_receiver = document.getElementById("name_receiver").value;
+    var phone_number_receiver = document.getElementById("phone_number_receiver").value;
+    var address_receiver = document.getElementById("address_receiver").value;
+    var discount_receiver = document.getElementById("discount_receiver").value;
     fetch('/api/pay' , {
         'method': 'post',
         'body': JSON.stringify({
-            'id_user': id_user,
-            'cart': cart
+            'name_receiver': name_receiver,
+            'phone_number_receiver': phone_number_receiver,
+            'address_receiver': address_receiver,
+            'discount_receiver' : discount_receiver
     }),
     'headers':{
         'Content-Type':'application/json'
@@ -30,7 +36,8 @@ function pay(id_user, cart){
     }  ).then(res=>res.json())
     .then(data=>{
         alert(data.message);
-        location.reload();
+//        location.reload();
+        window.location.href = "http://example.com/new_url";
     })
 }
 
