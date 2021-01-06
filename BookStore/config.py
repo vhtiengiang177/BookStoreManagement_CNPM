@@ -1,0 +1,1 @@
+AUTHY_API_KEY = 'QPwfb4QmZtZnbZfgMLJvVdsqpXYFD0ZL'
