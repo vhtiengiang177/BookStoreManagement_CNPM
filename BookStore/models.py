@@ -190,6 +190,7 @@ if __name__ == '__main__':
     # db.session.add(b1)
     # db.session.add(b2)
     # db.session.add(b3)
+
     # db.session.commit()
 
 

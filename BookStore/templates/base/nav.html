@@ -22,11 +22,9 @@
                                     <ul class="multi-column-dropdown">
 
                                         {% for i in range(0, 5) %}
-<!--<<<<<<< HEAD-->
-<!--                                        <li><a href="{{url_for('book')}}">{{list_book_category[i].name}}</a></li>-->
-<!--=======-->
+
                                         <li><a href="{{url_for('searchCategory',id_category=list_book_category[i].id)}}" >{{list_book_category[i].name}}</a></li>
-<!--&gt;>>>>>> d76c6dc701dafd3060bac02bfd96699e6bd328e8-->
+
                                         {% endfor %}
 
                                     </ul>
@@ -57,7 +55,7 @@
                             </div>
                         </ul>
                     </li>
-                    <li><a href="/about">Liên hệ</a></li>
+                    <li><a href="/about">Đội ngũ</a></li>
                     {% if current_user.is_authenticated %}
                         <li><a href="{{url_for('logout')}}">Đăng xuất</a> </li>
                         {% if current_user.id == 1 %}
