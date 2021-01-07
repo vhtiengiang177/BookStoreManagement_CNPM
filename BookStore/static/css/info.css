@@ -1,3 +1,18 @@
+.lbEditInfo{
+    display: inline-block;
+}
+
+.main-info{
+    margin-top: 20px;
+}
+
+.txtInfoUser{
+    margin-top:10px;
+    margin-bottom:5px
+}
+.txtEditInfo{
+    display: inline-block;
+}
 #fileImg{
 display: none;
 
@@ -11,10 +26,10 @@ display: none;
 height: 30px;
 width: 100px;
 border: 1px solid;
-color: #ff5063;
+color: #fff;
 background-color: black;
 text-align: center;
-margin-left: 100px;
+margin-left: 70px;
 margin-top: 20px;
 border-radius: 5px;
 }
@@ -24,12 +39,11 @@ border-radius: 5px;
     color: green;
 }
 .edit_info{
-    height: 30px;
+    height: 40px;
     width: 80px;
     border: 1px solid;
-    border-radius: 5px;
     text-align: center;
-    color: #ff5063;
+    color: white;
     background-color: black;
     text-decoration: none;
     display: inline-block;
@@ -55,9 +69,14 @@ border-radius: 10px;
     margin-top: 3%;
     margin-bottom: 3%;
     border-radius: 0.5rem;
-     background-color: rgba(33, 33, 33, 0.85);
+     background-color: white;
      box-shadow:0 3px 8px rgba(0, 0, 0, .20) !important;
      color: #fff;
+     font-family: inherit;
+    font-weight: 500;
+    line-height: 1.1;
+    color: inherit;
+
 }
 
 
@@ -67,8 +86,8 @@ border-radius: 10px;
 
 
 .profile-img img{
-    width: 70%;
-    height: 100%;
+    width: 230px;
+    height: 230px;
 }
 
 
@@ -315,11 +334,7 @@ button {
   min-height: 100vh;
 }
 
-body {
-  font-family: "Poppins", "Arial", "Helvetica Neue", sans-serif;
-  font-weight: 400;
-  font-size: 14px;
-}
+
 
 h1, h2, h3, h4, h5, h6 {
   font-weight: 400;
@@ -399,7 +414,7 @@ h6 {
    #WRAPPER
    ========================================================================== */
 .wrapper {
-  margin: 0 auto;
+  margin: 0 0;
 }
 
 .wrapper--w960 {
@@ -407,7 +422,7 @@ h6 {
 }
 
 .wrapper--w780 {
-  max-width: 780px;
+  max-width: 900px;
 }
 
 .wrapper--w680 {
@@ -693,7 +708,8 @@ input {
 }
 
 .card-3 .card-body {
-  padding: 57px 65px;
+  padding-left: 30px;
+  padding-top: 30px;
   padding-bottom: 65px;
   display: table-cell;
 }
@@ -711,7 +727,7 @@ input {
   .card-3 .card-body {
     display: block;
     width: 100%;
-    padding: 37px 30px;
+    padding-left: 37px;
     padding-bottom: 45px;
   }
 }

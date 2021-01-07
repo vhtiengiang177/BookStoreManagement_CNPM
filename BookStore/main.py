@@ -29,6 +29,33 @@ app.secret_key = 'super-secret'
 api = AuthyApiClient(app.config['AUTHY_API_KEY'])
 
 
+
+@app.route('/api/updateAccount', methods = ['get', 'post'])
+def updateAccount():
+
+    data = request.json
+    id = str(data.get('idUser'))
+    username = str(data.get('username'))
+    password = str(data.get('password'))
+    password2 = str(data.get('password2'))
+
+    if password == password2:
+        password = hashlib.md5(password.encode("utf-8")).hexdigest()
+        user = User.query.get(id)
+        user.username = username
+        user.password = password
+
+        db.session.commit()
+        return jsonify({
+            'message': 'Cập nhập thông tin thành công '
+        })
+
+    return jsonify({
+        'message': 'Mời nhập lại pass'
+    })
+
+
+
 @app.route('/about')
 def about():
     return render_template('about.html', list_book_category=utils.get_book_category())
@@ -43,15 +70,20 @@ def allowed_file(filename):
 
 @app.route('/infoImage', methods=['get', 'post'])
 def upload_image():
-    file = request.files['file']
-    filename = secure_filename(file.filename)
-    file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-    # print('upload_image filename: ' + filename)
-    id = request.form.get("idUser")
-    user = User.query.get(id)
-    user.avatar = 'images/' + filename
-    db.session.commit()
-    return render_template('info.html', list_book_category=utils.get_book_category())
+
+    try:
+        file = request.files['file']
+        filename = secure_filename(file.filename)
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        # print('upload_image filename: ' + filename)
+        id = request.form.get("idUser")
+        user = User.query.get(id)
+        user.avatar = 'images/' + filename
+        db.session.commit()
+        return render_template('info.html', list_book_category=utils.get_book_category())
+    except:
+        return render_template('info.html',  list_book_category=utils.get_book_category())
+
 
 
 @app.route('/display/<filename>')
@@ -87,7 +119,9 @@ def updateInfoUser():
         user.birthday = request.form.get("birthday")
         user.phone = request.form.get("phone")
         user.address = request.form.get("address")
-
+        user.district = request.form.get("district")
+        user.city = request.form.get("city")
+        user.gender = int( request.form.get("gender"))
         db.session.commit()
         return render_template('info.html', list_book_category=utils.get_book_category())
 
@@ -253,6 +287,7 @@ def add_to_cart():
         quantity = data.get('quantity')
         id_cart, list_item = utils.list_item_of_user(current_user.id)
         list_book = utils.get_list_book()
+        book = list_book[0]
         for l in list_book:
             if str(l.id) == id_book:
                 book = l

@@ -2,6 +2,7 @@
 
 {% set dem2 = 0 %}
 {% block content %}
+
 <div class="modal fade" id="modalDetail" tabindex="-1" role="dialog" aria-labelledby="modalDetail"
     aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -55,6 +56,9 @@
         </div>
     </div>
 </div>
+
+<link href="{{url_for('static', filename='css/orderhistory.css')}}" rel="stylesheet" type="text/css" media="all" />
+
 <div class="container" style="text-align: center;">
     <div class="row">
         <div style="margin: 20px;">
@@ -68,7 +72,7 @@
             <div class="tab-content">
                 <div class="tab-pane active" id="choxacnhan">
                     <br />
-                    <div style="text-align: center;">Chưa có đơn hàng.</div>
+<!--                    <div style="text-align: center;">Chưa có đơn hàng.</div>-->
                     <table class="table table-bordered">
                         <tr>
                             <th>STT</th>
