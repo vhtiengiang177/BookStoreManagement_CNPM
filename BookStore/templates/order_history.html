@@ -1,7 +1,86 @@
 {% extends 'base/base.html' %}
 
+{% set ns = namespace(dem0=0, dem1=0, dem2=0, dem3=0, dem4=0) %}
+
+{% set dem0 = 0 %}
+{% set dem1 = 0 %}
+{% set dem2 = 0 %}
+{% set dem3 = 0 %}
+{% set dem4 = 0 %}
 {% block content %}
+
+{% for i in list_bill %}
+    {% if i.status == 0 %}
+        {% set ns.dem0 = 1 %}
+    {% endif %}
+    {% if i.status == 1 %}
+        {% set ns.dem1 = 1 %}
+    {% endif %}
+    {% if i.status == 2 %}
+        {% set ns.dem2 = 1 %}
+    {% endif %}
+    {% if i.status == 3 %}
+        {% set ns.dem3 = 1 %}
+    {% endif %}
+    {% if i.status == 4 %}
+        {% set ns.dem4 = 1 %}
+    {% endif %}
+{% endfor %}
+
+<!-- modal Detail -->
+<div class="modal fade" id="modalDetail" tabindex="-1" role="dialog" aria-labelledby="modalDetail"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;</button>
+                <h5 class="modal-title" id="myModalLabel" style="color:#212121d9"></h5>
+            </div>
+            <div class="modal-body" style="padding:1em 3em !important;">
+                <div class="row">
+                    <div>
+                        <div>Tên: Lê Nguyễn Gia Bảo</div>
+                        <div>Số điện thoại: 0123456789</div>
+                        <div>Địa chỉ: Số 1 Võ Văn Ngân, Quận Thủ Đức, Thành phố Hồ Chí Minh.</div>
+                    </div>
+                    <div>Hình thức thanh toán: Thanh toán bằng Paypal</div>
+                    <br>
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>STT</th>
+                            <th>Tên sản phẩm</th>
+                            <th>Đơn giá</th>
+                            <th>Số lượng</th>
+                            <th>Thành tiền</th>
+                        </tr>
+                        <tr>
+                        {% for bd in list_bill_detail %}
+                        {% if bd.id_bill == bookId %}
+                            <td>1</td>
+                            <td>{{ bd.id}}</td>
+                            <td>{{bd.price}}</td>
+                            <td>{{bd.quantity}}</td>
+                            <td>{{bd.price * bd.quantity}}</td>
+                        </tr>
+                         {% endif %}
+                        {% endfor %}
+                    </table>
+                    <div class="col-sm-10">
+                        <div style="text-align:right;">Tổng cộng</div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div style="text-align:right; font-weight: bold; color: #ff5063;">194.000VND</div>
+                    </div>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //modal Detail -->
 <link href="{{url_for('static', filename='css/orderhistory.css')}}" rel="stylesheet" type="text/css" media="all" />
+
 <div class="container" style="text-align: center;">
     <div class="row">
         <div style="margin: 20px;">
@@ -15,7 +94,9 @@
             <div class="tab-content">
                 <div class="tab-pane active" id="choxacnhan">
                     <br />
-<!--                    <div style="text-align: center;">Chưa có đơn hàng.</div>-->
+                    {% if ns.dem1 == 0 %}
+                    <div style="text-align: center;">Chưa có đơn hàng.</div>
+                    {% else %}
                     <table class="table table-bordered">
                         <tr>
                             <th>STT</th>
@@ -24,24 +105,28 @@
                             <th>Thành tiền</th>
                             <th colspan="2">Hành động</th>
                         </tr>
-                        {% set dem = 1 %}
+                        {% set ns.dem1 =0 %}
                         {% for i in list_bill %}
                         {% if i.status == 1 %}
                         <tr>
-                            <td>{{dem}}</td>
-                            {% set dem = dem +1 %}
+                            {% set ns.dem1 = ns.dem1 +1 %}
+                            <td>{{ ns.dem1}}</td>
                             <td>#{{i.id}}</td>
                             <td>{{i.order_time}}</td>
                             <td>{{i.total_price}}</td>
-                            <td><a data-toggle="modal" data-target="#modalDetail" aria-hidden="true" href="#" onclick="$('#modalDetail').modal('show');">Chi tiết</a></td>
+                            <td><a data-toggle="modal" data-target="#modalDetail" aria-hidden="true" href="#modalDetail" data-book-id="{{ i.id }}">Chi tiết</a></td>
                             <td><a href="#" style="color: #ff5063;">Hủy đơn</a></td>
                         </tr>
                         {% endif %}
                         {% endfor %}
                     </table>
+                    {% endif %}
                 </div><!--/tab-pane-->
                 <div class="tab-pane" id="daxacnhan">
                     <br />
+                    {% if ns.dem2 == 0 %}
+                    <div style="text-align: center;">Chưa có đơn hàng.</div>
+                    {% else %}
                     <table class="table table-bordered">
                         <tr>
                             <th>STT</th>
@@ -50,24 +135,28 @@
                             <th>Thành tiền</th>
                             <th colspan="2">Hành động</th>
                         </tr>
-                        {% set dem = 1 %}
+                        {% set ns.dem2 = 0 %}
                         {% for i in list_bill %}
                         {% if i.status == 2 %}
                         <tr>
-                            <td>{{dem}}</td>
-                            {% set dem = dem +1 %}
+                            {% set ns.dem2= ns.dem2 +1 %}
+                            <td>{{ns.dem2}}</td>
                             <td>#{{i.id}}</td>
                             <td>{{i.order_time}}</td>
                             <td>{{i.total_price}}</td>
-                            <td><a data-toggle="modal" data-target="#modalDetail" aria-hidden="true" href="#" onclick="$('#modalDetail').modal('show');">Chi tiết</a></td>
+                            <td><a data-toggle="modal" data-target="#modalDetail" aria-hidden="true" href="#modalDetail" data-book-id="{{ i.id }}">Chi tiết</a></td>
                             <td><a href="#" style="color: #ff5063;">Hủy đơn</a></td>
                         </tr>
                         {% endif %}
                         {% endfor %}
                     </table>
+                    {% endif %}
                 </div><!--/tab-pane-->
                 <div class="tab-pane" id="danggiao">
                     <br>
+                    {% if ns.dem3 == 0 %}
+                    <div style="text-align: center;">Chưa có đơn hàng.</div>
+                    {% else %}
                     <table class="table table-bordered">
                         <tr>
                             <th>STT</th>
@@ -76,23 +165,27 @@
                             <th>Thành tiền</th>
                             <th>Hành động</th>
                         </tr>
-                        {% set dem = 1 %}
+                        {% set ns.dem3 = 0 %}
                         {% for i in list_bill %}
                         {% if i.status == 3 %}
                         <tr>
-                            <td>{{dem}}</td>
-                            {% set dem = dem +1 %}
+                            {% set ns.dem3= ns.dem3 +1 %}
+                            <td>{{ns.dem3}}</td>
                             <td>#{{i.id}}</td>
                             <td>{{i.order_time}}</td>
                             <td>{{i.total_price}}</td>
-                            <td><a data-toggle="modal" data-target="#modalDetail" aria-hidden="true" href="#" onclick="$('#modalDetail').modal('show');">Chi tiết</a></td>
+                            <td><a data-toggle="modal" data-target="#modalDetail" aria-hidden="true" href="#modalDetail" data-book-id="{{ i.id }}">Chi tiết</a></td>
                         </tr>
                         {% endif %}
                         {% endfor %}
                     </table>
+                    {% endif %}
                 </div>
                 <div class="tab-pane" id="dagiao">
                     <br>
+                    {% if ns.dem4 == 0 %}
+                    <div style="text-align: center;">Chưa có đơn hàng.</div>
+                    {% else %}
                     <table class="table table-bordered">
                         <tr>
                             <th>STT</th>
@@ -101,23 +194,27 @@
                             <th>Thành tiền</th>
                             <th>Hành động</th>
                         </tr>
-                        {% set dem = 1 %}
+                        {% set ns.dem4 =0 %}
                         {% for i in list_bill %}
                         {% if i.status == 4 %}
                         <tr>
-                            <td>{{dem}}</td>
-                            {% set dem = dem +1 %}
+                            {% set ns.dem4 = ns.dem4 +1 %}
+                            <td>{{ns.dem4}}</td>
                             <td>#{{i.id}}</td>
                             <td>{{i.order_time}}</td>
                             <td>{{i.total_price}}</td>
-                            <td><a data-toggle="modal" data-target="#modalDetail" aria-hidden="true" href="#" onclick="$('#modalDetail').modal('show');">Chi tiết</a></td>
+                               <td><a data-toggle="modal" data-target="#modalDetail" aria-hidden="true" href="#modalDetail" data-book-id="{{ i.id }}">Chi tiết</a></td>
                         </tr>
                         {% endif %}
                         {% endfor %}
                     </table>
+                    {% endif %}
                 </div>
                 <div class="tab-pane" id="dahuy">
                     <br>
+                    {% if ns.dem0 == 0 %}
+                    <div style="text-align: center;">Chưa có đơn hàng.</div>
+                    {% else %}
                     <table class="table table-bordered">
                         <tr>
                             <th>STT</th>
@@ -126,25 +223,37 @@
                             <th>Thành tiền</th>
                             <th colspan="2">Hành động</th>
                         </tr>
-                        {% set dem = 1 %}
+                        {% set ns.dem0 = 0 %}
                         {% for i in list_bill %}
                         {% if i.status == 0 %}
                         <tr>
-                            <td>{{dem}}</td>
-                            {% set dem = dem +1 %}
+                            {% set ns.dem0 = ns.dem0 +1 %}
+                            <td>{{ns.dem0}}</td>
                             <td>#{{i.id}}</td>
                             <td>{{i.order_time}}</td>
                             <td>{{i.total_price}}</td>
-                            <td><a data-toggle="modal" data-target="#modalDetail" aria-hidden="true" href="#" onclick="$('#modalDetail').modal('show');">Chi tiết</a></td>
+                            <td><a data-toggle="modal" data-target="#modalDetail" aria-hidden="true" href="#modalDetail" data-book-id="{{ i.id }}">Chi tiết</a></td>
                         </tr>
                         {% endif %}
                         {% endfor %}
                     </table>
+                    {% endif %}
                 </div>
             </div><!--/tab-pane-->
         </div>
     </div>
 </div>
 
+<script>
+$('#modalDetail').on('show.bs.modal', function(e) {
 
+    //get data-id attribute of the clicked element
+    var bookId = $(e.relatedTarget).data('book-id');
+    //populate the textbox
+<!--    $(e.currentTarget).find('#a').val(bookId);-->
+    $('#myModalLabel').text("Chi tiết đơn hàng #" + bookId);
+    $('#id_bill').text(bookId);
+});
+
+</script>
 {% endblock %}

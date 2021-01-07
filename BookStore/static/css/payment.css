@@ -1,0 +1,25 @@
+.checkout-title{
+    font-size: 25px;
+    color: #ff5063;
+    font-family:'Times New Roman', Times, serif;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.align-right-pay{
+    text-align: right;
+}
+
+.align-left-pay{
+    text-align: left;
+}
+
+.align-center-pay{
+    text-align: center;
+}
+
+.total-price{
+    color: #ff5063;
+    font-size: 18px;
+    font-weight: bold;
+}

@@ -3,7 +3,7 @@ from flask import Flask, render_template, request, redirect, flash, session, jso
 from admin_models import *
 from __init__ import login
 from models import User
-from flask_login import login_user, logout_user, login_required
+from flask_login import login_user, logout_user, login_required, current_user
 import hashlib
 import random
 import math
@@ -27,33 +27,6 @@ mail.init_app(app)
 app.config.from_object('config')
 app.secret_key = 'super-secret'
 api = AuthyApiClient(app.config['AUTHY_API_KEY'])
-
-
-
-@app.route('/api/updateAccount', methods = ['get', 'post'])
-def updateAccount():
-
-    data = request.json
-    id = str(data.get('idUser'))
-    username = str(data.get('username'))
-    password = str(data.get('password'))
-    password2 = str(data.get('password2'))
-
-    if password == password2:
-        password = hashlib.md5(password.encode("utf-8")).hexdigest()
-        user = User.query.get(id)
-        user.username = username
-        user.password = password
-
-        db.session.commit()
-        return jsonify({
-            'message': 'Cập nhập thông tin thành công '
-        })
-
-    return jsonify({
-        'message': 'Mời nhập lại pass'
-    })
-
 
 
 @app.route('/about')
@@ -81,7 +54,7 @@ def upload_image():
         db.session.commit()
         return render_template('info.html', list_book_category=utils.get_book_category())
     except:
-        return render_template('info.html',  list_book_category=utils.get_book_category())
+        return render_template('info.html', list_book_category=utils.get_book_category())
 
 
 @app.route('/display/<filename>')
@@ -166,8 +139,8 @@ def register():
             message = 'Subject: {}\n\n{}'.format( SUBJECT, TEXT)
 
             server = smtplib.SMTP_SSL('smtp.googlemail.com', 465)
-            server.login('trongbeo21@gmail.com', 'abdt2211')
-            server.sendmail('trongbeo21@gmail.com',username , msg=message)
+            server.login('thaonguyen.201.9b@gmail.com', 'kimdong20012000')
+            server.sendmail('thaonguyen.201.9b@gmail.com',username , msg=message)
             db.session.commit()
             return '<h1>Please Confirm your email to active account</h1>'
     return redirect('/')
@@ -280,6 +253,16 @@ def add_to_cart():
 
         id_cart, list_item = utils.list_item_of_user(current_user.id)
 
+        list_book = utils.get_list_book()
+        for l in list_book:
+            if str(l.id) == id_book:
+                book = l
+                break
+        if book.import_number - book.sold <= int(quantity):
+            return jsonify({
+                "message": "Số lượng sách vượt quá!!!"
+            })
+
         flag = 0
         for item in list_item:
             if (str(item.id_book) == id_book):
@@ -322,7 +305,7 @@ def index2():
 
 @app.route('/orderhistory')
 def order_history():
-    return render_template('order_history.html',list_book_category=utils.get_book_category(), list_bill = utils.get_list_bill(current_user.id))
+    return render_template('order_history.html',list_book_category=utils.get_book_category(), list_bill = utils.get_list_bill(current_user.id), list_bill_detail=BillDetail.query.all())
 
 @app.route('/api/pay', methods=['post'])
 def pay():
@@ -384,18 +367,30 @@ def delete_item(item_id):
 def update_item(item_id):
     id_cart, list_item = utils.list_item_of_user(current_user.id)
     data = request.json
+
+    list_book = utils.get_list_book()
+
     for item in list_item:
         if (str(item.id) == item_id):
-            if('quantity' in data):
+            if ('quantity' in data):
+                for book in list_book:
+                    if str(book.id) == str(item.id_book):
+                        print('1')
+                        if book.import_number - book.sold <= int(data['quantity']):
+                            return jsonify(({
+                                'code': 300
+                            }))
+
                 item.quantity = int(data['quantity'])
                 db.session.commit()
                 total_quantity, total_amount = utils.cart_stats(current_user.id)
+                print(total_amount, total_quantity)
                 return jsonify(({
                     'code': 200,
                     'total_quantity': total_quantity,
                     'total_amount': total_amount
                 }))
-    return  jsonify(({
+    return jsonify(({
         'code': 500
     }))
 

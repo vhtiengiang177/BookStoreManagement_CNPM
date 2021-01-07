@@ -1,47 +1,49 @@
 {% extends 'base/base.html' %}
 
-
 {% block content %}
-<h1 class="text-center text-danger">TRANG THANH TOAN</h1>
-<div class="container">
-    <div class="alert alert-warning">
-        <h3>SO LUONG SAN PHAM: <span id="total_quantity">{{total_quantity}}</span></h3>
-        <h3>TONG TIEN: <span id="total_amount">{{total_amount}}</span> VND</h3>
-    </div>
-    <table class="table">
-        <tr>
-            <th>Tên</th>
-            <th>Giá gốc</th>
-            <th>Giá khuyến mãi</th>
-            <th>Số lượng</th>
-        </tr>
+<link href="{{url_for('static', filename='css/payment.css')}}" rel="stylesheet">
+    <!-- payment-->
+    <div class="container">
+        <div class="checkout-title">
+            <img src="../static/images/icon-shopping.png"/>
+            GIỎ HÀNG
+        </div>
+        <hr>
+        <table class="table table-bordered">
+            <tr>
+                <th>STT</th>
+                <th>Tên sản phẩm</th>
+                <th>Đơn giá</th>
+				<th>Số lượng</th>
+				<th>Thành tiền</th>
+                <th colspan="2">Hành động</th>
+            </tr>
         {% if id_cart != [] and list_item != [] %}
         {% for p in list_item %}
 
         <tr>
             {% for b in list_book %}
             {% if b.id == p.id_book %}
+            <td>1</td>
             <td>{{b.name}}</td>
             {% endif %}
             {% endfor %}
-            <td>{{p.price}}</td>
-            <td>{{p.discount}}</td>
+            <td><span>{{p.discount|int}} VND</span>&nbsp;<span style="text-decoration: line-through; font-size: 12px;">{{p.price}} VND</span></td>
             <td>
                 <div class="form-group">
-                    <input class="form-control" type="number" value="{{p.quantity}}" onchange="update_item(this, {{p.id}}   )" >
+                    <input class="form-control" type="number" value="{{p.quantity}}" onchange="update_item(this, {{p.id}})" >
                 </div>
             </td>
-            <td>
-                <div class="form-group">
+            <td>{{p.discount|int}} VND</td>
+            <td class="align-center-pay">
                     {% set check ='' %}
                     {% if p.would_buy == 1 %}
                     {% set check = 'checked' %}
                     {% endif %}
-                    <input class="form-control" type="checkbox" id="{{p.id}}" {{check}} onclick="check_would_buy({{p.id}})"/>
-                </div>
+                    <input type="checkbox" id="{{p.id}}" {{check}} onclick="check_would_buy({{p.id}})"/>
             </td>
-            <td>
-                <a href="javascript:;" onclick="del_item({{p.id}})">Xóa</a>
+            <td class="align-center-pay">
+                <a href="javascript:;" onclick="del_item({{p.id}})" style="color: #ff5063;">Xóa</a>
             </td>
         </tr>
         {% endfor %}
@@ -51,10 +53,18 @@
         </tr>
         {% endif %}
     </table>
+    <div class="col-sm-9">
+        <div class="align-right-pay">Số lượng sản phẩm: </div>
+        <div class="align-right-pay">Tổng tiền hàng: </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="align-left-pay" id="total_quantity">{{total_quantity}}</div>
+        <div class="align-left-pay total-price" id="total_amount">{{total_amount}}</div>
+    </div>
 
-    <div>
+    <div style="display:flex; justify-content:flex-end; width:100%; padding:0;">
         <form action="{{url_for('confirm_pay')}}" method="post">
-            <input type="submit" value="Di qua trang thanh toan"/>
+            <input type="submit" value="Thanh toán" class="btn btn-primary">
         </form>
     </div>
 </div>
