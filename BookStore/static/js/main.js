@@ -1,46 +1,3 @@
-function resetPass()
-{
-    document.getElementById('passwordEdit').innerText = '';
-    document.getElementById('passwordEdit2').innerText = '';
-}
-
-// thay đổi pass
-function updateAccount(idUser){
-var username = document.getElementById('usernameEdit').value;
-var password = document.getElementById('passwordEdit').value;
-var password2 = document.getElementById('passwordEdit2').value;
-if (password == ""){
-    alert('mật khẩu mới rỗng ');
-}
-
-else if(password2 == "")
-{
-    alert('Mời nhập lại mật khẩu mới ! ');
-}
-
-else
-{
-    fetch('/api/updateAccount' , {
-        'method': 'post',
-        'body': JSON.stringify({
-            'idUser': idUser,
-            'username': username,
-            'password': password,
-            'password2': password2
-
-    }),
-    'headers':{
-        'Content-Type':'application/json'
-        }
-    }  ).then(res=>res.json())
-    .then(data=>{
-        alert(data.message);
-    })
-}
-}
-
-
-
 function addToCart(id, name, price, discount, quantity){
     fetch('/api/cart' , {
         'method': 'post',
@@ -77,7 +34,8 @@ function pay(){
     }  ).then(res=>res.json())
     .then(data=>{
         alert(data.message);
-        window.location.href = "http://127.0.0.1:8999/orderhistory";
+        window.location.href = "javascript:history.back()";
+        location.reload();
     }).catch(err=> alert('Thất bại'))
 }
 
@@ -104,7 +62,7 @@ function check_would_buy(id) {
 }
 
 function del_item(item_id){
-    if(confirm("Xác nhận xóa?") == true){
+    if(confirm("Xác nhận thanh toán?") == true){
         fetch(`/api/delete/${item_id}`,{
         'method': 'delete',
         'headers':{
@@ -129,14 +87,12 @@ fetch(`/api/cart/${item_id}` , {
         }
     }  ).then(res=>res.json())
     .then(data=>{
-        if(data.code ==300){
-            alert("Sai so luong");
-            location.reload();
-            }
-        if(data.code ==200){
-                alert("Thanh cong");
-                document.getElementById('total_quantity').innerText = data.total_quantity;
-                document.getElementById('total_amount').innerText = data.total_amount;
+        if(data.code !=200)
+            alert("That bai")
+        else{
+            alert("Thanh cong");
+            document.getElementById('total_quantity').innerText = data.total_quantity;
+            document.getElementById('total_amount').innerText = data.total_amount;
         }
     }).catch(err=> alert('Thất bại'))
 }

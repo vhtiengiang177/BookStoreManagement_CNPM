@@ -8,22 +8,22 @@
 <div class="container emp-profile">
             <form method="post" action = "{{url_for('upload_image')}}" enctype="multipart/form-data" >
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="profile-img" >
                              <input class="input--style-3" type="hidden" placeholder="Address" name="idUser" value = "{{current_user.id}}">
-                                <img class="avatar img-circle img-thumbnail img-fluid" alt="avatar" src="{{url_for('static', filename=current_user.avatar)}}" />
+                                <img class = "img" src="{{url_for('static', filename=current_user.avatar)}}" alt=""/>
                             </div>
                         <div id = "changeImg" >
-                               <input onclick="displayChooseImage()" id = "changeImgBtn" class = "btnInfo" type="button" value="Thêm ảnh">
+                               <input onclick="displayChooseImage()" id = "changeImgBtn" class = "btnInfo" type="button" value=" Change Photo">
                             </div>
                         <div id = "fileImg" >
-                                <input class = "btnInfo btn btn-lg btn-success" type="file" name="file" value = "" />
-                                 <input onclick="unDisplayChooseImage()" id = "img" class = "btnInfo btn btn-lg btn-success"  type="submit" value="Thêm ảnh">
+                                <input class = "btnInfo" type="file" name="file" />
+                                 <input onclick="unDisplayChooseImage()" id = "img" class = "btnInfo"  type="submit" value=" Change Photo">
                             </div>
                     </div>
 
 
-                    <div class="col-md-9">
+                    <div class="col-md-6">
                         <div class="profile-head">
                                     <h5>
                                        {{current_user.name}}
@@ -31,181 +31,88 @@
                                     <h3>
                                        Chào mừng bạn đến với của hàng của chúng tôi !
                                     </h3>
-
+                            <h4>Your infomation</h4>
                         </div>
-                        <div class="main-info">
-                             <ul class="nav nav-tabs">
+                    </div>
+                    <div class="col-md-2">
+                        <a class = "edit_info" href="#" data-toggle="modal" data-target="#myModal88"><span> Edit info</span></a>
+<!--                        <input type="submit" class="profile-edit-btn" name="btnAddMore" value="Edit Profile"/>-->
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
 
-                             <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
-                            <li><a data-toggle="tab" href="#settings">Account</a></li>
-                          </ul>
+                    </div>
+                    <div class="col-md-8">
+                            <div class="information" >
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <label>Id:</label>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <p>{{current_user.id}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <label>Họ:</label>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <p>{{current_user.lname }}  </p>
+                                            </div>
+                                        </div>
 
-                            <div class="tab-content">
-            <div class="tab-pane active" id="home">
-                <hr>
-                  <div class="form" action="##" method="post" id="registrationForm">
-                      <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <label>Tên:</label>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <p>{{current_user.fname }}  </p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <label>Giới tính:</label>
+                                            </div>
+                                            <div class="col-md-3">
 
-                          <div class="col-xs-6">
-                              <label for="first_name"><h4>Tên</h4></label>
-                              <div class = "txtInfoUser" >
-                              <input readonly type="text" class="form-control" name="first_name" id="first_name" placeholder="{{current_user.name}}" >
-                                </div>
-                          </div>
-                      </div>
-                      <div class="form-group">
+                                                {% if( current_user.gender == 0)%}
+                                                     <p>Nam</p>
+                                                {% else %}
+                                                     <p>Nữ</p>
 
-                          <div class="col-xs-6">
-                              <label for="last_name"><h4>Giới tính</h4></label>
-                              {% if (current_user.gender == 0) %}
-                                        <div class = "txtInfoUser" >
-                                  <input readonly type="text" class="form-control" name="last_name" id="last_name"
-                            placeholder="Nữ">
-                              </div>
-                              {%else%}
-                                  <div class = "txtInfoUser" >
-                                  <input readonly type="text" class="form-control" name="last_name" id="last_name"
-                            placeholder="Nam">
-                                  </div>
-                              {%endif%}
-                          </div>
-                      </div>
-
-                      <div class="form-group">
-
-                          <div class="col-xs-6">
-                              <label for="phone"><h4>Số điện thoại</h4></label>
-                              <div class = "txtInfoUser" >
-                              <input readonly type="text" class="form-control" name="phone" id="phone" placeholder="{{current_user.phone}}" title="enter your phone number if any.">
-                              </div>
-                          </div>
-                      </div>
-
-                      <div class="form-group">
-                          <div class="col-xs-6">
-                             <label for="mobile"><h4>Ngày sinh</h4></label>
-                              <div class = "txtInfoUser" >
-                              <input  readonly type="text" class="form-control" name="mobile" id="mobile" placeholder="{{current_user.birthday}}" title="enter your mobile number if any.">
-                              </div>
-                              </div>
-                      </div>
-                      <div class="form-group">
-
-                          <div class="col-xs-6">
-                              <label for="email"><h4>Email</h4></label>
-                              <div class = "txtInfoUser" >
-                              <input  readonly type="email" class="form-control" name="email" id="email" placeholder="{{current_user.mail}}" title="enter your email.">
-                              </div>
-                              </div>
-                      </div>
-                      <div class="form-group">
-
-                          <div class="col-xs-6">
-                              <label for="email"><h4>Địa chỉ</h4></label>
-                              <div class = "txtInfoUser" >
-                              <input  readonly type="text" class="form-control" id="location" placeholder="{{current_user.address}}" title="enter a location">
-                              </div>
-                             </div>
-                      </div>
-                      <div class="form-group">
-
-                          <div class="col-xs-6">
-                              <label for="password"><h4>Quận</h4></label>
-                              <div class = "txtInfoUser" >
-                              <input  readonly type="password" class="form-control" name="password" id="password" placeholder="{{current_user.district}}" title="enter your password.">
-                                </div>
-                             </div>
-                      </div>
-                      <div class="form-group">
-
-                          <div class="col-xs-6">
-                            <label for="password2"><h4>Tỉnh/ Thành phố</h4></label>
-                              <div class = "txtInfoUser" >
-                              <input  readonly type="password" class="form-control" name="password2" id="password2" placeholder="{{current_user.city}}" title="enter your password2.">
-                                </div>
-                              </div>
-                      </div>
-                      <div class="form-group">
-                           <div class="col-xs-12">
-                                <br>
-                              	<button class="btn btn-lg btn-success" type="button" data-toggle="modal" data-target="#myModal88"><i class="glyphicon glyphicon-ok-sign"></i> Edit</button>
-
+                                                {%endif%}
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <label>SĐT:</label>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <p>{{current_user.phone}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <label>Ngày sinh:</label>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <p>{{current_user.birthday}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <label>Địa chỉ:</label>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <p>{{current_user.address}}</p>
+                                            </div>
+                                        </div>
                             </div>
-                      </div>
-              	</div>
 
-              <hr>
-
-             </div><!--/tab-pane-->
-
-             <div class="tab-pane" id="settings">
-
-
-                  <hr>
-                  <div class="form" action="##" method="post" id="registrationForm">
-                      <div class="form-group">
-
-                          <div class="col-xs-6">
-                              <label for="first_name"><h4>Tên đăng nhập</h4></label>
-                              <div class = "txtInfoUser" >
-                              <input readonly type="text" class="form-control" name="username" id="usernameEdit" placeholder="" value="{{current_user.username}}">
-                                </div>
-                          </div>
-                      </div>
-
-
-
-
-
-                      <div class="form-group">
-
-                          <div class="col-xs-6">
-                              <label for="password"><h4>Nhập mật khẩu  mới</h4></label>
-                              <div class = "txtInfoUser" >
-                              <input  type="password" class="form-control" name="password" id="passwordEdit" placeholder="password" >
-                                </div>
-                          </div>
-                      </div>
-
-
-                      <div class="form-group">
-
-                          <div class="col-xs-6">
-                              <label for="password"><h4>Mật khẩu</h4></label>
-                              <div class = "txtInfoUser" >
-                              <input type="password" class="form-control" name="password" id="passwordOld" placeholder="password" value = "{{current_user.password}}">
-                                </div>
-                              </div>
-                      </div>
-
-                      <div class="form-group">
-
-                          <div class="col-xs-6">
-                            <label for="password2"><h4>Mời nhập lại mật khẩu !</h4></label>
-                              <div class = "txtInfoUser" >
-                              <input type="password" class="form-control" name="password2" id="passwordEdit2" placeholder="Nhập lại pass" title="enter your password2.">
-                              </div>
-                              </div>
-                      </div>
-                      <div class="form-group">
-                           <div class="col-xs-12" style="text-align: right;">
-                                <br>
-                              	<button class="btn btn-lg btn-success pull-right" type="button" onclick="updateAccount({{ current_user.id}})"><i class="glyphicon glyphicon-ok-sign"></i> Save</button>
-                               	<button class="btn btn-lg" type="reset"onclick="resetPass()" ><i class="glyphicon glyphicon-repeat"></i> Reset</button>
-                            </div>
-                      </div>
-              	</div>
-              </div>
-
-              </div><!--/tab-pane-->
 
                     </div>
                 </div>
-                    </div>
-
-
-
-
             </form>
 <div class="modal fade" id="myModal88" tabindex="-1" role="dialog" aria-labelledby="myModal88"
     aria-hidden="true">
@@ -219,51 +126,35 @@
                     <h2 class="title">Chỉnh sửa thông tin cá nhân</h2>
                     <form method="POST" action="{{url_for('updateInfoUser')}}">
                          <input class="input--style-3" type="hidden" placeholder="ID" name="idUser" value = "{{current_user.id}}">
-
+                        <div class="input-group">
+                            <input class="input--style-3" type="text" placeholder="Họ" name="lname" value = "{{current_user.lname }}">
+                        </div>
                           <div class="input-group">
-                               <label class = "lbEditInfo">Tên: </label>
-                            <input class="input--style-3 txtEditInfo" type="text" placeholder="Tên" name="name" value = "{{current_user.name}}">
+                            <input class="input--style-3" type="text" placeholder="Tên" name="fname" value = "{{current_user.fname}}">
                         </div>
                         <div class="input-group">
-                             <label class = "lbEditInfo">Ngày sinh: </label>
-                            <input class="input--style-3 js-datepicker txtEditInfo" type="text" placeholder="Ngày sinh" name="birthday" value="{{current_user.birthday}}">
+                            <input class="input--style-3 js-datepicker" type="text" placeholder="Ngày sinh" name="birthday" value="{{current_user.birthday}}">
                             <i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i>
                         </div>
                         <div class="input-group">
-
-                            <div class="rs-select2 js-select-simple select--no-search txtEditInfo">
+                            <div class="rs-select2 js-select-simple select--no-search">
                                 <select name="gender">
                                     <option disabled="disabled" selected="selected">Giới tính</option>
-                                    {% if (current_user.gender == 1)%}
-                                    <option selected value = "1">Nam</option>
-                                    <option  value = "0">Nữ</option>
-                                    {% else %}
-                                    <option  value = "1">Nam</option>
-                                    <option selected value = "0">Nữ</option>
-                                    {% endif %}
+                                    <option>Nam</option>
+                                    <option>Nữ</option>
 
                                 </select>
                                 <div class="select-dropdown"></div>
                             </div>
                         </div>
                         <div class="input-group">
-                             <label class = "lbEditInfo">Địa chỉ: </label>
-                            <input class="input--style-3 txtEditInfo" type="text" placeholder="Địa chỉ" name="address" value = "{{current_user.address}}">
+                            <input class="input--style-3" type="text" placeholder="Địa chỉ" name="address" value = "{{current_user.address}}">
                         </div>
                         <div class="input-group">
-                             <label class = "lbEditInfo">Quận: </label>
-                            <input class="input--style-3 txtEditInfo" type="text" placeholder="Địa chỉ" name="district" value = "{{current_user.district}}">
-                        </div>
-                        <div class="input-group">
-                             <label class = "lbEditInfo">Tỉnh/ thành phố: </label>
-                            <input class="input--style-3 txtEditInfo" type="text" placeholder="Địa chỉ" name="city" value = "{{current_user.city}}">
-                        </div>
-                        <div class="input-group">
-                             <label class = "lbEditInfo">Số điện thoại: </label>
-                            <input class="input--style-3 txtEditInfo" maxlength="10" minlength = "10" type="text" placeholder="SĐT" name="phone" value = "{{current_user.phone}}">
+                            <input class="input--style-3" type="text" placeholder="SĐT" name="phone" value = "{{current_user.phone}}">
                         </div>
                         <div class="p-t-10">
-                            <button class="btn btn--pill btn--green" type="submit">Sửa</button>
+                            <button class="btn btn--pill btn--green" type="submit">Edit</button>
                         </div>
                     </form>
 
