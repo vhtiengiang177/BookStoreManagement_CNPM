@@ -85,14 +85,18 @@
 
 .input-group {
     position: relative;
-    display: table;
+    display: inline-grid;
     border-collapse: separate;
 }
 
  .name_product{
       overflow:hidden;
-      width: 90%; //can also use calc function as per Yudi's answer
+      width: 90%;
       display: inline-block;
       ;;text-overflow:ellipsis;;;
       ;;white-space:nowrap;;;
+      text-align:center;
     }
+.name_product:hover{
+    overflow: visible;
+}

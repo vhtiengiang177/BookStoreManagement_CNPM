@@ -1101,12 +1101,12 @@ html {
     line-height: inherit;
   }
   a {
-    color: #337ab7;
+    color: #ff5063;
     text-decoration: none;
   }
   a:hover,
   a:focus {
-    color: #23527c;
+    color: rgba(33, 33, 33, 0.85);
     text-decoration: underline;
   }
   a:focus {
