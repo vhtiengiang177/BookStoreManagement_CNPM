@@ -147,8 +147,8 @@ class Image(db.Model):
 
 if __name__ == '__main__':
     pass
-    #db.create_all()
-
+    # db.create_all()
+    #
     # cat1 = BookCategory(name='Tiểu thuyết')
     # cat2 = BookCategory(name='Truyện ngắn')
     # cat3 = BookCategory(name='Ngôn tình')
@@ -190,9 +190,9 @@ if __name__ == '__main__':
     # db.session.add(b1)
     # db.session.add(b2)
     # db.session.add(b3)
-
-    # db.session.commit()
     #
+    # db.session.commit()
+
 
 
 

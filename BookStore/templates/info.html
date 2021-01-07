@@ -4,7 +4,7 @@
 <!--	<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">-->
 <!--{% endblock%}-->
 {% block content %}
-
+<link href="{{url_for('static', filename='css/info.css')}}" rel="stylesheet" type="text/css" media="all" />
 <div class="container emp-profile">
             <form method="post" action = "{{url_for('upload_image')}}" enctype="multipart/form-data" >
                 <div class="row">
