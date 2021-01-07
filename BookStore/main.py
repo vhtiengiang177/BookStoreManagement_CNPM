@@ -101,17 +101,19 @@ def login_admin():
         user = User.query.filter(User.username == username, User.password == password).first()
         if user:
             if (user.active_mail==1):
-                flash('Logged in successfully.')
+                # flash('Logged in successfully.')
                 login_user(user=user)
             elif(user.active_mail==0):
                 return '<h1>Please Confirm your email to active account</h1>'
         else:
-            flash("Login failed !", category='error')
+            # flash("Login failed !", category='error')
             return render_template('base/base.html', list_recommend_book_new=utils.recommend_bookNew(),
                                    list_recommend_book=utils.recommend_book(),
                                    list_best_sale_book=utils.best_sale_book(),
                                    list_book_image=utils.load_book_image(),
-                                   list_book_category=utils.get_book_category(), err='sai tai khoan hoac mat khau')
+                                   list_book_category=utils.get_book_category(), err='Sai tài khoản hoặc mật khẩu')
+
+            # return redirect(url_for('login_admin'))
     return redirect('/')
 
 #Thao
@@ -133,8 +135,8 @@ def register():
             message = 'Subject: {}\n\n{}'.format( SUBJECT, TEXT)
 
             server = smtplib.SMTP_SSL('smtp.googlemail.com', 465)
-            server.login('thaonguyen.201.9b@gmail.com', 'kimdong20012000')
-            server.sendmail('thaonguyen.201.9b@gmail.com',username , msg=message)
+            server.login('trongbeo21@gmail.com', 'abdt2211')
+            server.sendmail('trongbeo21@gmail.com',username , msg=message)
             db.session.commit()
             return '<h1>Please Confirm your email to active account</h1>'
     return redirect('/')
@@ -233,29 +235,40 @@ def verifyemail():
 #Thao
 @app.route('/api/cart', methods=['get' , 'post'])
 def add_to_cart():
-    data = request.json
-    id_book = str(data.get('id'))
-    name = data.get('name')
-    price = data.get('price')
-    discount = data.get('discount')
-    quantity = data.get('quantity')
+    if not (current_user.is_authenticated):
+        return jsonify({
+            "message": "Vui lòng đăng nhập"
+        })
+    try:
+        data = request.json
+        id_book = str(data.get('id'))
+        name = data.get('name')
+        price = data.get('price')
+        discount = data.get('discount')
+        quantity = data.get('quantity')
 
-    id_cart, list_item = utils.list_item_of_user(current_user.id)
+        id_cart, list_item = utils.list_item_of_user(current_user.id)
 
-    flag = 0
-    for item in list_item:
-        if (str(item.id_book) == id_book):
-            item.quantity += quantity
-            flag = 1
+        flag = 0
+        for item in list_item:
+            if (str(item.id_book) == id_book):
+                item.quantity += quantity
+                flag = 1
+                db.session.commit()
+        if (flag == 0):
+            newitem = CartItem(id_cart=id_cart, id_book=id_book, quantity=quantity, price=price, discount=price * (1 - discount))
+            db.session.add(newitem)
             db.session.commit()
-    if (flag == 0):
-        newitem = CartItem(id_cart=id_cart, id_book=id_book, quantity=quantity, price=price, discount=price * (1 - discount))
-        db.session.add(newitem)
-        db.session.commit()
 
-    return jsonify({
-        "message": "Them thanh cong"
-    })
+        return jsonify({
+            "message": "Thêm thành công"
+        })
+    except:
+        return jsonify({
+            "message": "Thêm thất bại"
+        })
+
+
 
 
 #Thao
@@ -276,43 +289,48 @@ def logout():
 def index2():
     return render_template('base/base.html',list_book_category=utils.get_book_category())
 
+@app.route('/orderhistory')
+def order_history():
+    return render_template('order_history.html',list_book_category=utils.get_book_category(), list_bill = utils.get_list_bill(current_user.id))
+
 @app.route('/api/pay', methods=['post'])
 def pay():
     try:
+        id_cart, list_item = utils.list_item_of_user(current_user.id)
+
+        cart = utils.get_item_by_id_cart(id_cart)
+
+        total_quantity, total_amount = utils.cart_stats(current_user.id)
         data = request.json
         name_receiver = data.get('name_receiver')
         phone_number_receiver = data.get('phone_number_receiver')
         address_receiver = data.get('address_receiver')
-        print(address_receiver, name_receiver, phone_number_receiver, current_user.id)
-        bill = Bill(id_user = current_user.id, address_delivery=address_receiver, phone=phone_number_receiver, name_delivery=name_receiver)
+        bill = Bill(id_user = current_user.id, address_delivery=address_receiver, phone=phone_number_receiver, name_delivery=name_receiver, total_price = total_amount)
         db.session.add(bill)
         print(bill.id)
 
-        id_cart, list_item = utils.list_item_of_user(current_user.id)
-
-        cart = utils.get_item_by_id_cart(id_cart)
         for p in cart:
             if(p.would_buy==1):
                 bill_detail = BillDetail(Bill=bill, id_book=p.id_book, price=p.discount, quantity=p.quantity)
-                print(2)
                 db.session.add(bill_detail)
                 db.session.delete(p)
         db.session.commit()
 
 
         return jsonify({
-            'message':'success'
+            'message':'Thành Công'
         })
     except:
         return jsonify({
-            'message': 'failed'
+            'message': 'Thất bại'
                        })
 
 @app.route('/confirmpay', methods=['post'])
 def confirm_pay():
     id_cart, list_item = utils.list_item_of_user(current_user.id)
     total_quantity, total_amount = utils.cart_stats(current_user.id)
-    return render_template('confirm_pay.html', id_cart = id_cart, list_item = list_item, total_amount = total_amount, total_quantity=total_quantity, list_book = utils.load_Book(),list_book_category=utils.get_book_category(), list_image = utils.get_all_image())
+    dola = "{:.2f}".format(total_amount/23000)
+    return render_template('confirm__pay.html', id_cart = id_cart, list_item = list_item, total_amount = total_amount, total_quantity=total_quantity, list_book = utils.load_Book(),list_book_category=utils.get_book_category(), list_image = utils.get_all_image(), dola = dola)
 
 
 @app.route('/api/delete/<item_id>', methods=['delete'])
@@ -386,8 +404,11 @@ def check_would_buy():
     else:
         cart_item.would_buy = 0
     db.session.commit()
+    total_quantity, total_amount = utils.cart_stats(current_user.id)
     return jsonify({
-        'message': 'success'
+        'total_quantity': total_quantity,
+        'total_amount': total_amount,
+        'message': 'Thành Công'
     })
 
 

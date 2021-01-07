@@ -14,7 +14,7 @@ function addToCart(id, name, price, discount, quantity){
     }  ).then(res=>res.json())
     .then(data=>{
         alert(data.message);
-    })
+    }).catch(err=> alert('Thêm thất bại'))
 }
 
 function pay(){
@@ -34,9 +34,9 @@ function pay(){
     }  ).then(res=>res.json())
     .then(data=>{
         alert(data.message);
+        window.location.href = "javascript:history.back()";
         location.reload();
-//        window.location.href = "http://example.com/new_url";
-    })
+    }).catch(err=> alert('Thất bại'))
 }
 
 
@@ -56,11 +56,13 @@ function check_would_buy(id) {
     }  ).then(res=>res.json())
     .then(data=>{
         alert(data.message);
-    })
+        document.getElementById('total_quantity').innerText = data.total_quantity;
+        document.getElementById('total_amount').innerText = data.total_amount;
+    }).catch(err=> alert('Thất bại'))
 }
 
 function del_item(item_id){
-    if(confirm("Bạn có chắc chắn muốn xóa khỏi giỏ hàng?") == true){
+    if(confirm("Xác nhận thanh toán?") == true){
         fetch(`/api/delete/${item_id}`,{
         'method': 'delete',
         'headers':{
@@ -88,9 +90,9 @@ fetch(`/api/cart/${item_id}` , {
         if(data.code !=200)
             alert("That bai")
         else{
-            alert("Thanh cong")
+            alert("Thanh cong");
             document.getElementById('total_quantity').innerText = data.total_quantity;
-            document.getElementById('total_amount').innerText = data.total_amount
+            document.getElementById('total_amount').innerText = data.total_amount;
         }
-    })
+    }).catch(err=> alert('Thất bại'))
 }

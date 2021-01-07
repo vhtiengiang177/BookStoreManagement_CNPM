@@ -37,7 +37,7 @@
         {% if p.would_buy ==1 %}
         <tr>
             {% for b in list_book %}
-            {% if b.id == p.idBook %}
+            {% if b.id == p.id_book %}
             <td>{{b.name}}</td>
             {% endif %}
             {% endfor %}
@@ -55,8 +55,11 @@
   <input type="button"
          value="Thanh Toan"
          onclick="pay()"
-         class="btn btn-primary" />
+         class="btn btn-primary"
+  id="pay-button"/>
+        <div id="paypal-button-container"></div>
   </div>
+
     </div>
   </div>
 <!--</form>-->
@@ -64,7 +67,41 @@
 
 </form>
 </div>
-{% endblock %}
+
+
+
+<!--<script>-->
+<!--        // Render the PayPal button into #paypal-button-container-->
+<!--        paypal.Buttons({-->
+
+<!--            // Set up the transaction-->
+<!--            createOrder: function(data, actions) {-->
+<!--                return actions.order.create({-->
+<!--                    purchase_units: [{-->
+<!--                        amount: {-->
+<!--                            value: {{total_amount}}-->
+<!--                        }-->
+<!--                    }]-->
+<!--                });-->
+<!--            },-->
+
+<!--            // Finalize the transaction-->
+<!--            onApprove: function(data, actions) {-->
+<!--                return actions.order.capture().then(function(details) {-->
+<!--                    // Show a success message to the buyer-->
+<!--                    alert('Transaction completed by ' + details.payer.name.given_name + '!')-->
+<!--                    document.getElementById("pay-button").click()-->
+<!--                });-->
+<!--            }-->
+
+
+<!--        }).render('#paypal-button-container');-->
+<!--    </script>-->
+
+  <script
+    src="https://www.paypal.com/sdk/js?client-id=AXUu35BkAmvGkViL59oIiUq43ojO6SWzwJk32RcNIh98E8Cq2qHQ8YDS0fB-Rz3MijPLn0FPYuSyXWy_"> // Required. Replace SB_CLIENT_ID with your sandbox client ID.
+  </script>
+
 
 
 <script>
@@ -76,7 +113,7 @@
                 return actions.order.create({
                     purchase_units: [{
                         amount: {
-                            value: {{total_amount}}
+                            value: {{ dola }}
                         }
                     }]
                 });
@@ -94,3 +131,4 @@
 
         }).render('#paypal-button-container');
     </script>
+{% endblock %}
