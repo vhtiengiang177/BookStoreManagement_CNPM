@@ -27,9 +27,12 @@
                                         <div class="register">
                                             <form action="{{url_for('login_admin')}}" method="post">
 
-                                                <input name="username" placeholder="example@gmail.com" type="email" required="">
-                                                <input name="password" placeholder="Password" type="password" id="password" required="">
-                                                 <i class="far fa-eye" id="togglePassword" style="margin-left: -30px;cursor: pointer;"></i>
+                                                <input style="width:90%" name="username" placeholder="example@gmail.com" type="email" required="">
+                                                <span>
+                                                    <input style="margin: 1em 0 0 !important; width:90%"  name="password" placeholder="Password" type="password" id="password" required="">
+                                                    <i class="far fa-eye" id="togglePassword" style="cursor: pointer;"></i>
+                                                </span>
+
                                                 <script>
                                                     const togglePassword = document.querySelector('#togglePassword');
                                                     const password = document.querySelector('#password');
@@ -43,13 +46,8 @@
                                                             });
                                                 </script>
                                                 <div class="sign-up">
-                                                    <input type="submit" value="Đăng nhập"/>
-
-
-
+                                                    <input type="submit" value="Đăng nhập"/
                                                 </div>
-
-
                                             </form>
                                         </div>
                                     </div>

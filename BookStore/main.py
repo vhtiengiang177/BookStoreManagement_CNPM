@@ -3,7 +3,7 @@ from flask import Flask, render_template, request, redirect, flash, session, jso
 from admin_models import *
 from __init__ import login
 from models import User
-from flask_login import login_user, logout_user, login_required
+from flask_login import login_user, logout_user, login_required, current_user
 import hashlib
 import random
 import math
@@ -291,7 +291,7 @@ def index2():
 
 @app.route('/orderhistory')
 def order_history():
-    return render_template('order_history.html',list_book_category=utils.get_book_category(), list_bill = utils.get_list_bill(current_user.id))
+    return render_template('order_history.html',list_book_category=utils.get_book_category(), list_bill = utils.get_list_bill(current_user.id), list_bill_detail=BillDetail.query.all())
 
 @app.route('/api/pay', methods=['post'])
 def pay():

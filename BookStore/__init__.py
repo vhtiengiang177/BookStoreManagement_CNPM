@@ -11,7 +11,7 @@ app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 
 app.secret_key='ansfhkashfkshfnmsagashfska1111'
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:12345678@localhost/bookstoreteam2?charset=utf8mb4'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:123456aA@localhost/bookstoreteam2?charset=utf8mb4'
 
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
