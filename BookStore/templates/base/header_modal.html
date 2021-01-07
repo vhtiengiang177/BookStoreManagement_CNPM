@@ -1,6 +1,6 @@
 
 
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
 <div class="modal fade" id="myModal88" tabindex="-1" role="dialog" aria-labelledby="myModal88"
     aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -17,9 +17,9 @@
                             <div id="horizontalTab" style="display: block; width: 100%; margin: 0px;">
                                 <ul>
 
-                                    <li class="resp-tab-item" aria-controls="tab_item-0"><span>Sign in</span></li>
-                                    <li class="resp-tab-item" aria-controls="tab_item-1"><span>Sign up</span></li>
-                                    <li class="resp-tab-item" aria-controls="tab_item-1"><span>Forgot Password</span></li>
+                                    <li class="resp-tab-item" aria-controls="tab_item-0"><span>Đăng nhập</span></li>
+                                    <li class="resp-tab-item" aria-controls="tab_item-1"><span>Đăng kí</span></li>
+                                    <li class="resp-tab-item" aria-controls="tab_item-1"><span>Quên mật khẩu</span></li>
 
                                 </ul>
                                 <div class="tab-1 resp-tab-content" aria-labelledby="tab_item-0">
@@ -27,10 +27,23 @@
                                         <div class="register">
                                             <form action="{{url_for('login_admin')}}" method="post">
 
-                                                <input name="username" placeholder="Email" type="email" required="">
-                                                <input name="password" placeholder="Password" type="password" required="">
+                                                <input name="username" placeholder="example@gmail.com" type="email" required="">
+                                                <input name="password" placeholder="Password" type="password" id="password" required="">
+                                                 <i class="far fa-eye" id="togglePassword" style="margin-left: -30px;cursor: pointer;"></i>
+                                                <script>
+                                                    const togglePassword = document.querySelector('#togglePassword');
+                                                    const password = document.querySelector('#password');
+
+                                                    togglePassword.addEventListener('click', function (e) {
+                                                                // toggle the type attribute
+                                                                const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+                                                                password.setAttribute('type', type);
+                                                                // toggle the eye slash icon
+                                                                this.classList.toggle('fa-eye-slash');
+                                                            });
+                                                </script>
                                                 <div class="sign-up">
-                                                    <input type="submit" value="Sign in"/>
+                                                    <input type="submit" value="Đăng nhập"/>
 
 
 
@@ -46,10 +59,10 @@
                                         <div class="register">
                                             <form action="{{url_for('register')}}" method="post">
 
-                                                <input placeholder="Email" name="username" type="email" required="">
-                                                <input placeholder="Phone Number" name="phonenumber" type="text" style="margin-top:15px;" required="">
-                                                <input placeholder="Password" name="password" type="password" required="">
-                                                <input placeholder="Confirm Password" name="password2" type="password" required="">
+                                                <input placeholder="example@gmail.com" name="username" type="email" required="">
+                                                <input placeholder="Nhập số điện thoại" name="phonenumber" type="text" style="margin-top:15px;" required="">
+                                                <input placeholder="Nhập mật khẩu" name="password" type="password"  required="">
+                                                <input placeholder="Nhập lại mật khẩu" name="password2" type="password" required="">
 
 
                                                 <div class="sign-up">
@@ -63,11 +76,11 @@
                                     <div class="facts">
                                         <div class="register">
                                             <form action="{{url_for('verifyemail')}}" method="post">
-                                                <input placeholder="Email" name="username" type="email" required="">
+                                                <input placeholder="example@gmail.com" name="username" type="email" required="">
                                                 <div class="sign-up">
-                                                    <input type="submit" value="Summit"/>
+                                                    <input type="submit" value="Gửi"/>
                                                 </div>
-                                                <a style="margin-top:15px;" id="forgot" href="/phone_verification" style="color:blue;"> Or Verify by Phone Number</a>
+                                                <a style="margin-top:30px;font-size:14pt;" id="forgot" href="/phone_verification" style="color:blue;"> Hoặc Xác thực qua điện thoại tại đây!</a>
 <!--                                                <input placeholder="Phone Number" name="phonenumber" type="text" " required="">-->
 <!--                                                -->
                                             </form>

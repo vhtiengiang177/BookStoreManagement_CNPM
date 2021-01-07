@@ -123,7 +123,7 @@ def register():
         password = request.form.get("password", "")
         password2 = request.form.get("password2", "")
         phone = request.form.get("phonenumber")
-        if(password == password2):
+        if(password == password2 ):
             password = hashlib.md5(password.encode("utf-8")).hexdigest()
             user = User(username=username, password=password, id_UserType=2,phone=phone)
             db.session.add(user)
