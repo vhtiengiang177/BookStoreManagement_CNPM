@@ -29,6 +29,33 @@ app.secret_key = 'super-secret'
 api = AuthyApiClient(app.config['AUTHY_API_KEY'])
 
 
+
+@app.route('/api/updateAccount', methods = ['get', 'post'])
+def updateAccount():
+
+    data = request.json
+    id = str(data.get('idUser'))
+    username = str(data.get('username'))
+    password = str(data.get('password'))
+    password2 = str(data.get('password2'))
+
+    if password == password2:
+        password = hashlib.md5(password.encode("utf-8")).hexdigest()
+        user = User.query.get(id)
+        user.username = username
+        user.password = password
+
+        db.session.commit()
+        return jsonify({
+            'message': 'Cập nhập thông tin thành công '
+        })
+
+    return jsonify({
+        'message': 'Mời nhập lại pass'
+    })
+
+
+
 @app.route('/about')
 def about():
     return render_template('about.html',  list_book_category=utils.get_book_category())
@@ -80,8 +107,8 @@ def updateInfoUser():
     if request.method == 'POST':
         id = request.form.get("idUser")
         user = User.query.get(id)
-        user.lname = request.form.get("lname")
-        user.fname = request.form.get("fname")
+        # user.name = request.form.get("name")
+        # user.fname = request.form.get("fname")
         user.birthday = request.form.get("birthday")
         user.phone = request.form.get("phone")
         user.address = request.form.get("address")

@@ -1,3 +1,46 @@
+function resetPass()
+{
+    document.getElementById('passwordEdit').innerText = '';
+    document.getElementById('passwordEdit2').innerText = '';
+}
+
+// thay đổi pass
+function updateAccount(idUser){
+var username = document.getElementById('usernameEdit').value;
+var password = document.getElementById('passwordEdit').value;
+var password2 = document.getElementById('passwordEdit2').value;
+if (password == ""){
+    alert('mật khẩu mới rỗng ');
+}
+
+else if(password2 == "")
+{
+    alert('Mời nhập lại mật khẩu mới ! ');
+}
+
+else
+{
+    fetch('/api/updateAccount' , {
+        'method': 'post',
+        'body': JSON.stringify({
+            'idUser': idUser,
+            'username': username,
+            'password': password,
+            'password2': password2
+
+    }),
+    'headers':{
+        'Content-Type':'application/json'
+        }
+    }  ).then(res=>res.json())
+    .then(data=>{
+        alert(data.message);
+    })
+}
+}
+
+
+
 function addToCart(id, name, price, discount, quantity){
     fetch('/api/cart' , {
         'method': 'post',
