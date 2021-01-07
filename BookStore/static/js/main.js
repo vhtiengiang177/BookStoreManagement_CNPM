@@ -34,8 +34,7 @@ function pay(){
     }  ).then(res=>res.json())
     .then(data=>{
         alert(data.message);
-        window.location.href = "javascript:history.back()";
-        location.reload();
+        window.location.href = "http://127.0.0.1:8999/orderhistory";
     }).catch(err=> alert('Thất bại'))
 }
 
@@ -62,7 +61,7 @@ function check_would_buy(id) {
 }
 
 function del_item(item_id){
-    if(confirm("Xác nhận thanh toán?") == true){
+    if(confirm("Xác nhận xóa?") == true){
         fetch(`/api/delete/${item_id}`,{
         'method': 'delete',
         'headers':{
@@ -87,12 +86,14 @@ fetch(`/api/cart/${item_id}` , {
         }
     }  ).then(res=>res.json())
     .then(data=>{
-        if(data.code !=200)
-            alert("That bai")
-        else{
-            alert("Thanh cong");
-            document.getElementById('total_quantity').innerText = data.total_quantity;
-            document.getElementById('total_amount').innerText = data.total_amount;
+        if(data.code ==300){
+            alert("Sai so luong");
+            location.reload();
+            }
+        if(data.code ==200){
+                alert("Thanh cong");
+                document.getElementById('total_quantity').innerText = data.total_quantity;
+                document.getElementById('total_amount').innerText = data.total_amount;
         }
     }).catch(err=> alert('Thất bại'))
 }

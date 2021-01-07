@@ -1,6 +1,60 @@
 {% extends 'base/base.html' %}
 
+{% set dem2 = 0 %}
 {% block content %}
+<div class="modal fade" id="modalDetail" tabindex="-1" role="dialog" aria-labelledby="modalDetail"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;</button>
+                <h5 class="modal-title" id="myModalLabel" style="color:#212121d9">Chi tiết đơn hàng #1</h5>
+            </div>
+            <div class="modal-body" style="padding:1em 3em !important;">
+                <div class="row">
+                    <div>
+                        <div>Tên: Lê Nguyễn Gia Bảo</div>
+                        <div>Số điện thoại: 0123456789</div>
+                        <div>Địa chỉ: Số 1 Võ Văn Ngân, Quận Thủ Đức, Thành phố Hồ Chí Minh.</div>
+                    </div>
+                    <div>Hình thức thanh toán: Thanh toán bằng Paypal</div>
+                    <br>
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>STT</th>
+                            <th>Tên sản phẩm</th>
+                            <th>Đơn giá</th>
+                            <th>Số lượng</th>
+                            <th>Thành tiền</th>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Vui vẻ không quạu nha</td>
+                            <td>41.000VND</td>
+                            <td>2</td>
+                            <td>82.000VND</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Con chim xanh biếc bay về</td>
+                            <td>112.000VND</td>
+                            <td>1</td>
+                            <td>112.000VND</td>
+                        </tr>
+                    </table>
+                    <div class="col-sm-10">
+                        <div style="text-align:right;">Tổng cộng</div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div style="text-align:right; font-weight: bold; color: #ff5063;">194.000VND</div>
+                    </div>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="container" style="text-align: center;">
     <div class="row">
         <div style="margin: 20px;">
@@ -23,12 +77,12 @@
                             <th>Thành tiền</th>
                             <th colspan="2">Hành động</th>
                         </tr>
-                        {% set dem = 1 %}
+                        {% set dem = 0 %}
                         {% for i in list_bill %}
                         {% if i.status == 1 %}
+                        {% set dem = dem +1 %}
                         <tr>
                             <td>{{dem}}</td>
-                            {% set dem = dem +1 %}
                             <td>#{{i.id}}</td>
                             <td>{{i.order_time}}</td>
                             <td>{{i.total_price}}</td>
@@ -49,12 +103,11 @@
                             <th>Thành tiền</th>
                             <th colspan="2">Hành động</th>
                         </tr>
-                        {% set dem = 1 %}
                         {% for i in list_bill %}
                         {% if i.status == 2 %}
+                        {% set dem2 = dem2 +1 %}
                         <tr>
-                            <td>{{dem}}</td>
-                            {% set dem = dem +1 %}
+                            <td>{{dem2}}</td>
                             <td>#{{i.id}}</td>
                             <td>{{i.order_time}}</td>
                             <td>{{i.total_price}}</td>
@@ -75,12 +128,12 @@
                             <th>Thành tiền</th>
                             <th>Hành động</th>
                         </tr>
-                        {% set dem = 1 %}
+                        {% set dem = 0 %}
                         {% for i in list_bill %}
                         {% if i.status == 3 %}
+                        {% set dem = dem +1 %}
                         <tr>
                             <td>{{dem}}</td>
-                            {% set dem = dem +1 %}
                             <td>#{{i.id}}</td>
                             <td>{{i.order_time}}</td>
                             <td>{{i.total_price}}</td>
@@ -100,12 +153,12 @@
                             <th>Thành tiền</th>
                             <th>Hành động</th>
                         </tr>
-                        {% set dem = 1 %}
+                        {% set dem = 0 %}
                         {% for i in list_bill %}
                         {% if i.status == 4 %}
+                        {% set dem = dem +1 %}
                         <tr>
                             <td>{{dem}}</td>
-                            {% set dem = dem +1 %}
                             <td>#{{i.id}}</td>
                             <td>{{i.order_time}}</td>
                             <td>{{i.total_price}}</td>
@@ -125,12 +178,12 @@
                             <th>Thành tiền</th>
                             <th colspan="2">Hành động</th>
                         </tr>
-                        {% set dem = 1 %}
+                        {% set dem = 0 %}
                         {% for i in list_bill %}
                         {% if i.status == 0 %}
+                        {% set dem = dem +1 %}
                         <tr>
                             <td>{{dem}}</td>
-                            {% set dem = dem +1 %}
                             <td>#{{i.id}}</td>
                             <td>{{i.order_time}}</td>
                             <td>{{i.total_price}}</td>
