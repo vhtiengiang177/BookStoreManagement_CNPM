@@ -1,7 +1,32 @@
 {% extends 'base/base.html' %}
 
+{% set ns = namespace(dem0=0, dem1=0, dem2=0, dem3=0, dem4=0) %}
+
+{% set dem0 = 0 %}
+{% set dem1 = 0 %}
 {% set dem2 = 0 %}
+{% set dem3 = 0 %}
+{% set dem4 = 0 %}
 {% block content %}
+
+{% for i in list_bill %}
+    {% if i.status == 0 %}
+        {% set ns.dem0 = 1 %}
+    {% endif %}
+    {% if i.status == 1 %}
+        {% set ns.dem1 = 1 %}
+    {% endif %}
+    {% if i.status == 2 %}
+        {% set ns.dem2 = 1 %}
+    {% endif %}
+    {% if i.status == 3 %}
+        {% set ns.dem3 = 1 %}
+    {% endif %}
+    {% if i.status == 4 %}
+        {% set ns.dem4 = 1 %}
+    {% endif %}
+{% endfor %}
+
 
 <div class="modal fade" id="modalDetail" tabindex="-1" role="dialog" aria-labelledby="modalDetail"
     aria-hidden="true">
@@ -72,7 +97,9 @@
             <div class="tab-content">
                 <div class="tab-pane active" id="choxacnhan">
                     <br />
-<!--                    <div style="text-align: center;">Chưa có đơn hàng.</div>-->
+                    {% if ns.dem1 == 0 %}
+                    <div style="text-align: center;">Chưa có đơn hàng.</div>
+                    {% else %}
                     <table class="table table-bordered">
                         <tr>
                             <th>STT</th>
@@ -81,12 +108,12 @@
                             <th>Thành tiền</th>
                             <th colspan="2">Hành động</th>
                         </tr>
-                        {% set dem = 0 %}
+                        {% set ns.dem1 =0 %}
                         {% for i in list_bill %}
                         {% if i.status == 1 %}
-                        {% set dem = dem +1 %}
                         <tr>
-                            <td>{{dem}}</td>
+                            {% set ns.dem1 = ns.dem1 +1 %}
+                            <td>{{ ns.dem1}}</td>
                             <td>#{{i.id}}</td>
                             <td>{{i.order_time}}</td>
                             <td>{{i.total_price}}</td>
@@ -96,9 +123,13 @@
                         {% endif %}
                         {% endfor %}
                     </table>
+                    {% endif %}
                 </div><!--/tab-pane-->
                 <div class="tab-pane" id="daxacnhan">
                     <br />
+                    {% if ns.dem2 == 0 %}
+                    <div style="text-align: center;">Chưa có đơn hàng.</div>
+                    {% else %}
                     <table class="table table-bordered">
                         <tr>
                             <th>STT</th>
@@ -107,11 +138,12 @@
                             <th>Thành tiền</th>
                             <th colspan="2">Hành động</th>
                         </tr>
+                        {% set ns.dem2 = 0 %}
                         {% for i in list_bill %}
                         {% if i.status == 2 %}
-                        {% set dem2 = dem2 +1 %}
                         <tr>
-                            <td>{{dem2}}</td>
+                            {% set ns.dem2= ns.dem2 +1 %}
+                            <td>{{ns.dem2}}</td>
                             <td>#{{i.id}}</td>
                             <td>{{i.order_time}}</td>
                             <td>{{i.total_price}}</td>
@@ -121,9 +153,13 @@
                         {% endif %}
                         {% endfor %}
                     </table>
+                    {% endif %}
                 </div><!--/tab-pane-->
                 <div class="tab-pane" id="danggiao">
                     <br>
+                    {% if ns.dem3 == 0 %}
+                    <div style="text-align: center;">Chưa có đơn hàng.</div>
+                    {% else %}
                     <table class="table table-bordered">
                         <tr>
                             <th>STT</th>
@@ -132,12 +168,12 @@
                             <th>Thành tiền</th>
                             <th>Hành động</th>
                         </tr>
-                        {% set dem = 0 %}
+                        {% set ns.dem3 = 0 %}
                         {% for i in list_bill %}
                         {% if i.status == 3 %}
-                        {% set dem = dem +1 %}
                         <tr>
-                            <td>{{dem}}</td>
+                            {% set ns.dem3= ns.dem3 +1 %}
+                            <td>{{ns.dem3}}</td>
                             <td>#{{i.id}}</td>
                             <td>{{i.order_time}}</td>
                             <td>{{i.total_price}}</td>
@@ -146,9 +182,13 @@
                         {% endif %}
                         {% endfor %}
                     </table>
+                    {% endif %}
                 </div>
                 <div class="tab-pane" id="dagiao">
                     <br>
+                    {% if ns.dem4 == 0 %}
+                    <div style="text-align: center;">Chưa có đơn hàng.</div>
+                    {% else %}
                     <table class="table table-bordered">
                         <tr>
                             <th>STT</th>
@@ -157,12 +197,12 @@
                             <th>Thành tiền</th>
                             <th>Hành động</th>
                         </tr>
-                        {% set dem = 0 %}
+                        {% set ns.dem4 =0 %}
                         {% for i in list_bill %}
                         {% if i.status == 4 %}
-                        {% set dem = dem +1 %}
                         <tr>
-                            <td>{{dem}}</td>
+                            {% set ns.dem4 = ns.dem4 +1 %}
+                            <td>{{ns.dem4}}</td>
                             <td>#{{i.id}}</td>
                             <td>{{i.order_time}}</td>
                             <td>{{i.total_price}}</td>
@@ -171,9 +211,13 @@
                         {% endif %}
                         {% endfor %}
                     </table>
+                    {% endif %}
                 </div>
                 <div class="tab-pane" id="dahuy">
                     <br>
+                    {% if ns.dem0 == 0 %}
+                    <div style="text-align: center;">Chưa có đơn hàng.</div>
+                    {% else %}
                     <table class="table table-bordered">
                         <tr>
                             <th>STT</th>
@@ -182,12 +226,12 @@
                             <th>Thành tiền</th>
                             <th colspan="2">Hành động</th>
                         </tr>
-                        {% set dem = 0 %}
+                        {% set ns.dem0 = 0 %}
                         {% for i in list_bill %}
                         {% if i.status == 0 %}
-                        {% set dem = dem +1 %}
                         <tr>
-                            <td>{{dem}}</td>
+                            {% set ns.dem0 = ns.dem0 +1 %}
+                            <td>{{ns.dem0}}</td>
                             <td>#{{i.id}}</td>
                             <td>{{i.order_time}}</td>
                             <td>{{i.total_price}}</td>
@@ -196,6 +240,7 @@
                         {% endif %}
                         {% endfor %}
                     </table>
+                    {% endif %}
                 </div>
             </div><!--/tab-pane-->
         </div>
