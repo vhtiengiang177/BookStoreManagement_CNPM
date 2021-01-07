@@ -249,6 +249,16 @@ def add_to_cart():
 
         id_cart, list_item = utils.list_item_of_user(current_user.id)
 
+        list_book = utils.get_list_book()
+        for l in list_book:
+            if str(l.id) == id_book:
+                book = l
+                break
+        if book.import_number - book.sold <= int(quantity):
+            return jsonify({
+                "message": "Số lượng sách vượt quá!!!"
+            })
+
         flag = 0
         for item in list_item:
             if (str(item.id_book) == id_book):
@@ -353,9 +363,20 @@ def delete_item(item_id):
 def update_item(item_id):
     id_cart, list_item = utils.list_item_of_user(current_user.id)
     data = request.json
+
+    list_book = utils.get_list_book()
+
     for item in list_item:
         if (str(item.id) == item_id):
-            if('quantity' in data):
+            if ('quantity' in data):
+                for book in list_book:
+                    if str(book.id) == str(item.id_book):
+                        print('1')
+                        if book.import_number - book.sold <= int(data['quantity']):
+                            return jsonify(({
+                                'code': 300
+                            }))
+
                 item.quantity = int(data['quantity'])
                 db.session.commit()
                 total_quantity, total_amount = utils.cart_stats(current_user.id)
@@ -364,7 +385,7 @@ def update_item(item_id):
                     'total_quantity': total_quantity,
                     'total_amount': total_amount
                 }))
-    return  jsonify(({
+    return jsonify(({
         'code': 500
     }))
 
