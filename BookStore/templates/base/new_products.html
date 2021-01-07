@@ -1,29 +1,24 @@
 <div class="new-products">
     <div class="container">
-        <h3>New Products</h3>
+        <h3>SÁCH MỚI NHẤT</h3>
         <div class="agileinfo_new_products_grids">
-
-                <div class= "row">
-                  {% for i in range(0, list_recommend_book_new|length) %}
+            {% for i in range(0, list_recommend_book_new|length) %}
+            <div class= "col-md-3 agileinfo_new_products_grid">
                 <div class="agile_ecommerce_tab_left agileinfo_new_products_grid1">
-
                     <div class="hs-wrapper hs-wrapper1">
                         {% for j in list_book_image[i] %}
-                                <img src="{{url_for('static', filename = j.img )}}" alt="{{list_recommend_book_new[i].name}}" class="img-responsive" />
+                        <img src="{{url_for('static', filename = j.img )}}" alt="{{list_recommend_book_new[i].name}}" class="img-responsive" />
                         {% endfor %}
                     </div>
                    <h5><a href="{{url_for('load_detail_book_by_id', id_book=list_recommend_book_new[i].id)}}">{{ list_recommend_book_new[i].name }}</a></h5>
                     <div class="simpleCart_shelfItem">
                         <p><span>{{ list_recommend_book_new[i].price }}</span> <i class="item_price">{{ list_recommend_book_new[i].price*(1-list_recommend_book_new[i].discount) }}</i></p>
                     </div>
-                    <input class = "btn btn-primary" type="button" value="Dat Hang"
-                       onclick="addToCart({{ list_recommend_book_new[i].id }}, '{{ list_recommend_book_new[i].name }}', {{ list_recommend_book_new[i].price }}, 1)"
-
-                        />
-                    </div>
-                    {% endfor %}
+                    <input class = "btn btn-primary" type="button" value="Thêm vào giỏ"
+                       onclick="addToCart({{ list_recommend_book_new[i].id }}, '{{ list_recommend_book_new[i].name }}', {{ list_recommend_book_new[i].price }}, 1)"/>
                 </div>
-
+            </div>
+            {% endfor %}
         </div>
     </div>
     <div class="clearfix"> </div>
