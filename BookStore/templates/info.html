@@ -17,7 +17,7 @@
                                <input onclick="displayChooseImage()" id = "changeImgBtn" class = "btnInfo" type="button" value="Thêm ảnh">
                             </div>
                         <div id = "fileImg" >
-                                <input class = "btnInfo btn btn-lg btn-success" type="file" name="file" />
+                                <input class = "btnInfo btn btn-lg btn-success" type="file" name="file" value = "" />
                                  <input onclick="unDisplayChooseImage()" id = "img" class = "btnInfo btn btn-lg btn-success"  type="submit" value="Thêm ảnh">
                             </div>
                     </div>
@@ -49,22 +49,25 @@
                           <div class="col-xs-6">
                               <label for="first_name"><h4>Tên</h4></label>
                               <div class = "txtInfoUser" >
-                              <input readonly type="text" class="form-control" name="first_name" id="first_name" placeholder="{{current_user.id}}" >
+                              <input readonly type="text" class="form-control" name="first_name" id="first_name" placeholder="{{current_user.name}}" >
                                 </div>
                           </div>
                       </div>
                       <div class="form-group">
 
                           <div class="col-xs-6">
-                             {% set gender = "Nam" %}
-                              {% if( current_user.gender == 1)%}
-                                     { % set gender = "Nữ" %}
-                                {%endif%}
-                            <label for="last_name"><h4>Giới tính</h4></label>
-                              <div class = "txtInfoUser" >
-                              <input readonly type="text" class="form-control" name="last_name" id="last_name"
-                        placeholder="{{gender}}">
+                              <label for="last_name"><h4>Giới tính</h4></label>
+                              {% if (current_user.gender == 0) %}
+                                        <div class = "txtInfoUser" >
+                                  <input readonly type="text" class="form-control" name="last_name" id="last_name"
+                            placeholder="Nữ">
                               </div>
+                              {%else%}
+                                  <div class = "txtInfoUser" >
+                                  <input readonly type="text" class="form-control" name="last_name" id="last_name"
+                            placeholder="Nam">
+                                  </div>
+                              {%endif%}
                           </div>
                       </div>
 
@@ -91,7 +94,7 @@
                           <div class="col-xs-6">
                               <label for="email"><h4>Email</h4></label>
                               <div class = "txtInfoUser" >
-                              <input  readonly type="email" class="form-control" name="email" id="email" placeholder="you@email.com" title="enter your email.">
+                              <input  readonly type="email" class="form-control" name="email" id="email" placeholder="{{current_user.mail}}" title="enter your email.">
                               </div>
                               </div>
                       </div>
@@ -109,7 +112,7 @@
                           <div class="col-xs-6">
                               <label for="password"><h4>Quận</h4></label>
                               <div class = "txtInfoUser" >
-                              <input  readonly type="password" class="form-control" name="password" id="password" placeholder="password" title="enter your password.">
+                              <input  readonly type="password" class="form-control" name="password" id="password" placeholder="{{current_user.district}}" title="enter your password.">
                                 </div>
                              </div>
                       </div>
@@ -118,7 +121,7 @@
                           <div class="col-xs-6">
                             <label for="password2"><h4>Tỉnh/ Thành phố</h4></label>
                               <div class = "txtInfoUser" >
-                              <input  readonly type="password" class="form-control" name="password2" id="password2" placeholder="password2" title="enter your password2.">
+                              <input  readonly type="password" class="form-control" name="password2" id="password2" placeholder="{{current_user.city}}" title="enter your password2.">
                                 </div>
                               </div>
                       </div>
@@ -145,7 +148,7 @@
                           <div class="col-xs-6">
                               <label for="first_name"><h4>Tên đăng nhập</h4></label>
                               <div class = "txtInfoUser" >
-                              <input type="text" class="form-control" name="username" id="usernameEdit" placeholder="" value="{{current_user.username}}">
+                              <input readonly type="text" class="form-control" name="username" id="usernameEdit" placeholder="" value="{{current_user.username}}">
                                 </div>
                           </div>
                       </div>
@@ -216,13 +219,10 @@
                     <h2 class="title">Chỉnh sửa thông tin cá nhân</h2>
                     <form method="POST" action="{{url_for('updateInfoUser')}}">
                          <input class="input--style-3" type="hidden" placeholder="ID" name="idUser" value = "{{current_user.id}}">
-                        <div class="input-group">
-                            <label class = "lbEditInfo">Họ: </label>
-                            <input class="input--style-3 txtEditInfo" type="text" placeholder="Họ" name="lname" value = "{{current_user.lname }}">
-                        </div>
+
                           <div class="input-group">
                                <label class = "lbEditInfo">Tên: </label>
-                            <input class="input--style-3 txtEditInfo" type="text" placeholder="Tên" name="fname" value = "{{current_user.fname}}">
+                            <input class="input--style-3 txtEditInfo" type="text" placeholder="Tên" name="name" value = "{{current_user.name}}">
                         </div>
                         <div class="input-group">
                              <label class = "lbEditInfo">Ngày sinh: </label>
@@ -234,8 +234,13 @@
                             <div class="rs-select2 js-select-simple select--no-search txtEditInfo">
                                 <select name="gender">
                                     <option disabled="disabled" selected="selected">Giới tính</option>
-                                    <option>Nam</option>
-                                    <option>Nữ</option>
+                                    {% if (current_user.gender == 1)%}
+                                    <option selected value = "1">Nam</option>
+                                    <option  value = "0">Nữ</option>
+                                    {% else %}
+                                    <option  value = "1">Nam</option>
+                                    <option selected value = "0">Nữ</option>
+                                    {% endif %}
 
                                 </select>
                                 <div class="select-dropdown"></div>
@@ -244,6 +249,14 @@
                         <div class="input-group">
                              <label class = "lbEditInfo">Địa chỉ: </label>
                             <input class="input--style-3 txtEditInfo" type="text" placeholder="Địa chỉ" name="address" value = "{{current_user.address}}">
+                        </div>
+                        <div class="input-group">
+                             <label class = "lbEditInfo">Quận: </label>
+                            <input class="input--style-3 txtEditInfo" type="text" placeholder="Địa chỉ" name="district" value = "{{current_user.district}}">
+                        </div>
+                        <div class="input-group">
+                             <label class = "lbEditInfo">Tỉnh/ thành phố: </label>
+                            <input class="input--style-3 txtEditInfo" type="text" placeholder="Địa chỉ" name="city" value = "{{current_user.city}}">
                         </div>
                         <div class="input-group">
                              <label class = "lbEditInfo">Số điện thoại: </label>
