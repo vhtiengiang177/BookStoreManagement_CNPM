@@ -193,7 +193,19 @@ if __name__ == '__main__':
     #
     # db.session.commit()
     #
-
+    # img1 = Image(image='images/3.jpg', id_book=1)
+    # img2 = Image(image='images/4.jpg', id_book=1)
+    # img3 = Image(image='images/5.jpg', id_book=2)
+    # img4 = Image(image='images/6.jpg', id_book=3)
+    # img5 = Image(image='images/7.jpg', id_book=3)
+    # img6 = Image(image='images/8.jpg', id_book=3)
+    # db.session.add(img1)
+    # db.session.add(img2)
+    # db.session.add(img3)
+    # db.session.add(img4)
+    # db.session.add(img5)
+    # db.session.add(img6)
+    # db.session.commit()
 
 
 

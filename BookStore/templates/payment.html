@@ -5,7 +5,7 @@
     <!-- payment-->
     <div class="container">
         <div class="checkout-title">
-            <img src="../static/images/icon-shopping.png"/>
+            <img src="{{url_for('static', filename='images/icon-shopping.png')}}"/>
             GIỎ HÀNG
         </div>
         <hr>
@@ -59,7 +59,7 @@
     </div>
     <div class="col-sm-3">
         <div class="align-left-pay" id="total_quantity">{{total_quantity}}</div>
-        <div class="align-left-pay total-price" id="total_amount">{{total_amount}}</div>
+        <div class="align-left-pay total-price" id="total_amount">{{total_amount|int}} VND</div>
     </div>
 
     <div style="display:flex; justify-content:flex-end; width:100%; padding:0;">

@@ -7,7 +7,7 @@
                 <div class="agile_ecommerce_tab_left agileinfo_new_products_grid1">
                     <div class="hs-wrapper hs-wrapper1">
                         {% for j in list_book_image[i] %}
-                        <img src="{{url_for('static', filename = j.img )}}" alt="{{list_recommend_book_new[i].name}}" class="img-responsive" />
+                        <img src="{{url_for('static', filename = j.image )}}" alt="{{list_recommend_book_new[i].name}}" class="img-responsive" />
                         {% endfor %}
                     </div>
                    <h5><a href="{{url_for('load_detail_book_by_id', id_book=list_recommend_book_new[i].id)}}">{{ list_recommend_book_new[i].name }}</a></h5>

@@ -76,6 +76,7 @@ function pay(){
         }
     }  ).then(res=>res.json())
     .then(data=>{
+           alert(data.message);
             window.location.href = "http://127.0.0.1:8999/orderhistory";
     }).catch(err=> alert('Thất bại'))
 }

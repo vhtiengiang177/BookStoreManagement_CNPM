@@ -46,7 +46,7 @@
                                 <div>
                                 <div class="hs-wrapper">
                                         {% for j in list_book_image[i] %}
-                                            <img src="{{url_for('static', filename = j.img )}}" alt="{{list_best_sale_book[i].name}}" class="img-responsive" />
+                                            <img src="{{url_for('static', filename = j.image )}}" alt="{{list_best_sale_book[i].name}}" class="img-responsive" />
                                         {% endfor %}
                                 </div>
                                 <div class="input-group"><a class="name_product" href="{{url_for('load_detail_book_by_id', id_book=list_best_sale_book[i].id)}}">{{ list_best_sale_book[i].name }}</a></div>

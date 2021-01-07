@@ -10,8 +10,8 @@
             <div class="flexslider">
                 <ul class="slides">
                     {% for i in list_image %}
-                    <li data-thumb="{{url_for('static', filename = i.img )}}">
-                        <div class="thumb-image"> <img src="{{url_for('static', filename = i.img )}}" data-imagezoom="true" class="img-responsive" alt=""> </div>
+                    <li data-thumb="{{url_for('static', filename = i.image )}}">
+                        <div class="thumb-image"> <img src="{{url_for('static', filename = i.image )}}" data-imagezoom="true" class="img-responsive" alt=""> </div>
                     </li>
                     {% endfor %}
                 </ul>

@@ -120,7 +120,7 @@ def recommend_book():
     return Book.query.all()[::-1][0:3]
 
 def recommend_bookNew():
-    return Book.query.all()[::-1][0:2]
+    return Book.query.all()[::-1][0:4]
 
 def get_all_image():
     return Image.query.all()
