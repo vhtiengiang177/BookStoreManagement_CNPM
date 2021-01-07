@@ -57,8 +57,9 @@ def cart_stats(id_user):
 
 
     for i in list_item:
-        count = count + i.quantity
-        price = price + i.quantity * i.discount
+        if(i.would_buy == 1):
+            count = count + i.quantity
+            price = price + i.quantity * i.discount
     return count, price
 
 def list_item_of_user(id_user):
@@ -124,3 +125,5 @@ def recommend_bookNew():
 def get_all_image():
     return Image.query.all()
 
+def get_list_bill(user_id):
+    return Bill.query.filter(Bill.id_user == user_id).all()
