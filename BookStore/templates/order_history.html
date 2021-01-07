@@ -1,20 +1,20 @@
 {% extends 'base/base.html' %}
 
+{% set dem2 = 0 %}
 {% block content %}
-    <!-- modal Detail -->
-    <div class="modal fade" id="modalDetail" tabindex="-1" role="dialog" aria-labelledby="modalDetail"
+
+<div class="modal fade" id="modalDetail" tabindex="-1" role="dialog" aria-labelledby="modalDetail"
     aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                     &times;</button>
-                <h5 class="modal-title" id="myModalLabel" style="color:#212121d9">Chi tiết đơn hàng #</h5>
+                <h5 class="modal-title" id="myModalLabel" style="color:#212121d9">Chi tiết đơn hàng #1</h5>
             </div>
             <div class="modal-body" style="padding:1em 3em !important;">
                 <div class="row">
                     <div>
-                        <div style="display:none;" id="id_bill" ></div>
                         <div>Tên: Lê Nguyễn Gia Bảo</div>
                         <div>Số điện thoại: 0123456789</div>
                         <div>Địa chỉ: Số 1 Võ Văn Ngân, Quận Thủ Đức, Thành phố Hồ Chí Minh.</div>
@@ -29,19 +29,20 @@
                             <th>Số lượng</th>
                             <th>Thành tiền</th>
                         </tr>
-                    {% set dem = 1 %}
-                    {% for bd in list_bill_detail %}
-                    {% if bd.id_bill == bookId %}
                         <tr>
-                            <td>{{ dem }}</td>
-                            {% set dem = dem +1 %}
-                            <td>{{ bd.id}}</td>
-                            <td>{{bd.price}}</td>
-                            <td>{{bd.quantity}}</td>
-                            <td>{{bd.price * bd.quantity}}</td>
+                            <td>1</td>
+                            <td>Vui vẻ không quạu nha</td>
+                            <td>41.000VND</td>
+                            <td>2</td>
+                            <td>82.000VND</td>
                         </tr>
-                        {% endif %}
-                        {% endfor %}
+                        <tr>
+                            <td>2</td>
+                            <td>Con chim xanh biếc bay về</td>
+                            <td>112.000VND</td>
+                            <td>1</td>
+                            <td>112.000VND</td>
+                        </tr>
                     </table>
                     <div class="col-sm-10">
                         <div style="text-align:right;">Tổng cộng</div>
@@ -55,9 +56,9 @@
         </div>
     </div>
 </div>
-    <!-- //modal Detail -->
 
 <link href="{{url_for('static', filename='css/orderhistory.css')}}" rel="stylesheet" type="text/css" media="all" />
+
 <div class="container" style="text-align: center;">
     <div class="row">
         <div style="margin: 20px;">
@@ -71,7 +72,7 @@
             <div class="tab-content">
                 <div class="tab-pane active" id="choxacnhan">
                     <br />
-                    <div style="text-align: center;">Chưa có đơn hàng.</div>
+<!--                    <div style="text-align: center;">Chưa có đơn hàng.</div>-->
                     <table class="table table-bordered">
                         <tr>
                             <th>STT</th>
@@ -80,18 +81,18 @@
                             <th>Thành tiền</th>
                             <th colspan="2">Hành động</th>
                         </tr>
-                        {% set dem = 1 %}
+                        {% set dem = 0 %}
                         {% for i in list_bill %}
                         {% if i.status == 1 %}
+                        {% set dem = dem +1 %}
                         <tr>
-                            <td>{{ dem }}</td>
+                            <td>{{dem}}</td>
                             <td>#{{i.id}}</td>
                             <td>{{i.order_time}}</td>
                             <td>{{i.total_price}}</td>
-                            <td><a data-toggle="modal" data-target="#modalDetail" aria-hidden="true" href="#modalDetail" data-book-id="{{ i.id }}">Chi tiết</a></td>
+                            <td><a data-toggle="modal" data-target="#modalDetail" aria-hidden="true" href="#" onclick="$('#modalDetail').modal('show');">Chi tiết</a></td>
                             <td><a href="#" style="color: #ff5063;">Hủy đơn</a></td>
                         </tr>
-                        {% set dem = dem +1 %}
                         {% endif %}
                         {% endfor %}
                     </table>
@@ -106,12 +107,11 @@
                             <th>Thành tiền</th>
                             <th colspan="2">Hành động</th>
                         </tr>
-                        {% set dem = 1 %}
                         {% for i in list_bill %}
                         {% if i.status == 2 %}
+                        {% set dem2 = dem2 +1 %}
                         <tr>
-                            <td>{{dem}}</td>
-                            {% set dem = dem +1 %}
+                            <td>{{dem2}}</td>
                             <td>#{{i.id}}</td>
                             <td>{{i.order_time}}</td>
                             <td>{{i.total_price}}</td>
@@ -132,16 +132,16 @@
                             <th>Thành tiền</th>
                             <th>Hành động</th>
                         </tr>
-                        {% set dem = 1 %}
+                        {% set dem = 0 %}
                         {% for i in list_bill %}
                         {% if i.status == 3 %}
+                        {% set dem = dem +1 %}
                         <tr>
                             <td>{{dem}}</td>
-                            {% set dem = dem +1 %}
                             <td>#{{i.id}}</td>
                             <td>{{i.order_time}}</td>
                             <td>{{i.total_price}}</td>
-                            <td><a data-toggle="modal" data-target="#modalDetail" aria-hidden="true" href="#"  >Chi tiết</a></td>
+                            <td><a data-toggle="modal" data-target="#modalDetail" aria-hidden="true" href="#" onclick="$('#modalDetail').modal('show');">Chi tiết</a></td>
                         </tr>
                         {% endif %}
                         {% endfor %}
@@ -157,12 +157,12 @@
                             <th>Thành tiền</th>
                             <th>Hành động</th>
                         </tr>
-                        {% set dem = 1 %}
+                        {% set dem = 0 %}
                         {% for i in list_bill %}
                         {% if i.status == 4 %}
+                        {% set dem = dem +1 %}
                         <tr>
                             <td>{{dem}}</td>
-                            {% set dem = dem +1 %}
                             <td>#{{i.id}}</td>
                             <td>{{i.order_time}}</td>
                             <td>{{i.total_price}}</td>
@@ -182,12 +182,12 @@
                             <th>Thành tiền</th>
                             <th colspan="2">Hành động</th>
                         </tr>
-                        {% set dem = 1 %}
+                        {% set dem = 0 %}
                         {% for i in list_bill %}
                         {% if i.status == 0 %}
+                        {% set dem = dem +1 %}
                         <tr>
                             <td>{{dem}}</td>
-                            {% set dem = dem +1 %}
                             <td>#{{i.id}}</td>
                             <td>{{i.order_time}}</td>
                             <td>{{i.total_price}}</td>
@@ -202,17 +202,5 @@
     </div>
 </div>
 
-<script>
-$('#modalDetail').on('show.bs.modal', function(e) {
-
-    //get data-id attribute of the clicked element
-    var bookId = $(e.relatedTarget).data('book-id');
-    //populate the textbox
-<!--    $(e.currentTarget).find('#a').val(bookId);-->
-    $('#myModalLabel').text("Chi tiết đơn hàng #" + bookId);
-    $('#id_bill').text(bookId);
-});
-
-</script>
 
 {% endblock %}

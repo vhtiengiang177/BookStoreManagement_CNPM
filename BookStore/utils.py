@@ -127,3 +127,8 @@ def get_all_image():
 
 def get_list_bill(user_id):
     return Bill.query.filter(Bill.id_user == user_id).all()
+
+def get_list_book():
+    return Book.query.all()
+
+
