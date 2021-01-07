@@ -380,6 +380,7 @@ def update_item(item_id):
                 item.quantity = int(data['quantity'])
                 db.session.commit()
                 total_quantity, total_amount = utils.cart_stats(current_user.id)
+                print(total_amount, total_quantity)
                 return jsonify(({
                     'code': 200,
                     'total_quantity': total_quantity,
