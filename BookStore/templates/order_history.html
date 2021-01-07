@@ -2,7 +2,7 @@
 
 {% set dem2 = 0 %}
 {% block content %}
-
+<!-- modal Detail -->
 <div class="modal fade" id="modalDetail" tabindex="-1" role="dialog" aria-labelledby="modalDetail"
     aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -10,11 +10,12 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                     &times;</button>
-                <h5 class="modal-title" id="myModalLabel" style="color:#212121d9">Chi tiết đơn hàng #1</h5>
+                <h5 class="modal-title" id="myModalLabel" style="color:#212121d9"></h5>
             </div>
             <div class="modal-body" style="padding:1em 3em !important;">
                 <div class="row">
                     <div>
+                        <div style="display:none;" id="id_bill" ></div>
                         <div>Tên: Lê Nguyễn Gia Bảo</div>
                         <div>Số điện thoại: 0123456789</div>
                         <div>Địa chỉ: Số 1 Võ Văn Ngân, Quận Thủ Đức, Thành phố Hồ Chí Minh.</div>
@@ -30,19 +31,16 @@
                             <th>Thành tiền</th>
                         </tr>
                         <tr>
+                        {% for bd in list_bill_detail %}
+                        {% if bd.id_bill == bookId %}
                             <td>1</td>
-                            <td>Vui vẻ không quạu nha</td>
-                            <td>41.000VND</td>
-                            <td>2</td>
-                            <td>82.000VND</td>
+                            <td>{{ bd.id}}</td>
+                            <td>{{bd.price}}</td>
+                            <td>{{bd.quantity}}</td>
+                            <td>{{bd.price * bd.quantity}}</td>
                         </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Con chim xanh biếc bay về</td>
-                            <td>112.000VND</td>
-                            <td>1</td>
-                            <td>112.000VND</td>
-                        </tr>
+                        {% endif %}
+                        {% endfor %}
                     </table>
                     <div class="col-sm-10">
                         <div style="text-align:right;">Tổng cộng</div>
@@ -56,7 +54,7 @@
         </div>
     </div>
 </div>
-
+<!-- //modal Detail -->
 <link href="{{url_for('static', filename='css/orderhistory.css')}}" rel="stylesheet" type="text/css" media="all" />
 
 <div class="container" style="text-align: center;">
@@ -90,7 +88,7 @@
                             <td>#{{i.id}}</td>
                             <td>{{i.order_time}}</td>
                             <td>{{i.total_price}}</td>
-                            <td><a data-toggle="modal" data-target="#modalDetail" aria-hidden="true" href="#" onclick="$('#modalDetail').modal('show');">Chi tiết</a></td>
+                            <td><a data-toggle="modal" data-target="#modalDetail" aria-hidden="true" href="#modalDetail" data-book-id="{{ i.id }}">Chi tiết</a></td>
                             <td><a href="#" style="color: #ff5063;">Hủy đơn</a></td>
                         </tr>
                         {% endif %}
@@ -115,7 +113,7 @@
                             <td>#{{i.id}}</td>
                             <td>{{i.order_time}}</td>
                             <td>{{i.total_price}}</td>
-                            <td><a data-toggle="modal" data-target="#modalDetail" aria-hidden="true" href="#" onclick="$('#modalDetail').modal('show');">Chi tiết</a></td>
+                            <td><a data-toggle="modal" data-target="#modalDetail" aria-hidden="true" href="#modalDetail" data-book-id="{{ i.id }}">Chi tiết</a></td>
                             <td><a href="#" style="color: #ff5063;">Hủy đơn</a></td>
                         </tr>
                         {% endif %}
@@ -141,8 +139,7 @@
                             <td>#{{i.id}}</td>
                             <td>{{i.order_time}}</td>
                             <td>{{i.total_price}}</td>
-                            <td><a data-toggle="modal" data-target="#modalDetail" aria-hidden="true" href="#" onclick="$('#modalDetail').modal('show');">Chi tiết</a></td>
-                        </tr>
+                            <td><a data-toggle="modal" data-target="#modalDetail" aria-hidden="true" href="#modalDetail" data-book-id="{{ i.id }}">Chi tiết</a></td>                        </tr>
                         {% endif %}
                         {% endfor %}
                     </table>
@@ -166,7 +163,7 @@
                             <td>#{{i.id}}</td>
                             <td>{{i.order_time}}</td>
                             <td>{{i.total_price}}</td>
-                            <td><a data-toggle="modal" data-target="#modalDetail" aria-hidden="true" href="#" onclick="$('#modalDetail').modal('show');">Chi tiết</a></td>
+                             <td><a data-toggle="modal" data-target="#modalDetail" aria-hidden="true" href="#modalDetail" data-book-id="{{ i.id }}">Chi tiết</a></td>
                         </tr>
                         {% endif %}
                         {% endfor %}
@@ -191,7 +188,7 @@
                             <td>#{{i.id}}</td>
                             <td>{{i.order_time}}</td>
                             <td>{{i.total_price}}</td>
-                            <td><a data-toggle="modal" data-target="#modalDetail" aria-hidden="true" href="#" onclick="$('#modalDetail').modal('show');">Chi tiết</a></td>
+                            <td><a data-toggle="modal" data-target="#modalDetail" aria-hidden="true" href="#modalDetail" data-book-id="{{ i.id }}">Chi tiết</a></td>
                         </tr>
                         {% endif %}
                         {% endfor %}
@@ -202,5 +199,16 @@
     </div>
 </div>
 
+<script>
+$('#modalDetail').on('show.bs.modal', function(e) {
 
+    //get data-id attribute of the clicked element
+    var bookId = $(e.relatedTarget).data('book-id');
+    //populate the textbox
+<!--    $(e.currentTarget).find('#a').val(bookId);-->
+    $('#myModalLabel').text("Chi tiết đơn hàng #" + bookId);
+    $('#id_bill').text(bookId);
+});
+
+</script>
 {% endblock %}
