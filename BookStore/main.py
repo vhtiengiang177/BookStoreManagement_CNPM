@@ -43,15 +43,18 @@ def allowed_file(filename):
 
 @app.route('/infoImage', methods=['get', 'post'])
 def upload_image():
-    file = request.files['file']
-    filename = secure_filename(file.filename)
-    file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-    # print('upload_image filename: ' + filename)
-    id = request.form.get("idUser")
-    user = User.query.get(id)
-    user.avatar = 'images/' + filename
-    db.session.commit()
-    return render_template('info.html',  list_book_category=utils.get_book_category())
+    try:
+        file = request.files['file']
+        filename = secure_filename(file.filename)
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        # print('upload_image filename: ' + filename)
+        id = request.form.get("idUser")
+        user = User.query.get(id)
+        user.avatar = 'images/' + filename
+        db.session.commit()
+        return render_template('info.html', list_book_category=utils.get_book_category())
+    except:
+        return render_template('info.html', list_book_category=utils.get_book_category())
 
 
 @app.route('/display/<filename>')
@@ -67,7 +70,7 @@ def info():
 
 @app.route("/")
 def index():
-    return render_template('base/base.html',list_recommend_book_new = utils.recommend_bookNew(), list_recommend_book = utils.recommend_book(), list_best_sale_book= utils.best_sale_book(), list_book_image=utils.load_book_image(), list_book_category=utils.get_book_category())
+    return render_template('base/base.html',list_recommend_book_new = utils.recommend_bookNew(), list_recommend_book = utils.recommend_book(), list_best_sale_book= utils.best_sale_book(), list_book_image=utils.load_book_image(), list_book_category=utils.get_book_category(), list_book_literature=utils.list_book_literature())
 
 @login.user_loader
 def get_user(user_id):
@@ -80,12 +83,13 @@ def updateInfoUser():
     if request.method == 'POST':
         id = request.form.get("idUser")
         user = User.query.get(id)
-        user.lname = request.form.get("lname")
-        user.fname = request.form.get("fname")
+        user.name = request.form.get("name")
         user.birthday = request.form.get("birthday")
         user.phone = request.form.get("phone")
         user.address = request.form.get("address")
-
+        user.district = request.form.get("district")
+        user.city = request.form.get("city")
+        user.gender = int( request.form.get("gender"))
         db.session.commit()
         return render_template('info.html', list_book_category=utils.get_book_category())
 

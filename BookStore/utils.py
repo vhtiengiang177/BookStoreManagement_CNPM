@@ -131,4 +131,7 @@ def get_list_bill(user_id):
 def get_list_book():
     return Book.query.all()
 
+def list_book_literature():
+    return Book.query.filter(Book.id_category <3).all()[0:3]
+
 

@@ -97,7 +97,7 @@ function check_would_buy(id) {
         }
     }  ).then(res=>res.json())
     .then(data=>{
-        alert(data.message);
+//        alert(data.message);
         document.getElementById('total_quantity').innerText = data.total_quantity;
         document.getElementById('total_amount').innerText = data.total_amount;
     }).catch(err=> alert('Thất bại'))
@@ -112,7 +112,7 @@ function del_item(item_id){
         }
     }  ).then(res=>res.json())
     .then(data=>{
-        alert(data.message);
+//        alert(data.message);
         location.reload();
     }).catch(err=> alert('Xóa thất bại'))
 }
@@ -130,11 +130,11 @@ fetch(`/api/cart/${item_id}` , {
     }  ).then(res=>res.json())
     .then(data=>{
         if(data.code ==300){
-            alert("Sai so luong");
+            alert("Sai số lượng");
             location.reload();
             }
         if(data.code ==200){
-                alert("Thanh cong");
+//                alert("Thanh cong");
                 document.getElementById('total_quantity').innerText = data.total_quantity;
                 document.getElementById('total_amount').innerText = data.total_amount;
         }

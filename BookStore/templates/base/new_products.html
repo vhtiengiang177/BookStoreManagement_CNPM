@@ -15,7 +15,7 @@
                         <p><span>{{ list_recommend_book_new[i].price }}</span> <i class="item_price">{{ list_recommend_book_new[i].price*(1-list_recommend_book_new[i].discount) }}</i></p>
                     </div>
                     <input class = "btn btn-primary" type="button" value="Thêm vào giỏ"
-                       onclick="addToCart({{ list_recommend_book_new[i].id }}, '{{ list_recommend_book_new[i].name }}', {{ list_recommend_book_new[i].price }}, 1)"/>
+                       onclick="addToCart({{ list_recommend_book_new[i].id }}, '{{ list_recommend_book_new[i].name }}', {{ list_recommend_book_new[i].price }}, {{list_recommend_book_new[i].discount}}, 1)"/>
                 </div>
             </div>
             {% endfor %}

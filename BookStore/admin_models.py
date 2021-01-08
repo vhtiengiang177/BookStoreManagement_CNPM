@@ -4,7 +4,8 @@ from flask_admin.contrib.sqla import ModelView
 from flask_admin import BaseView, expose
 from flask_login import logout_user, current_user
 from flask import redirect
-
+from sqlalchemy.sql import func
+import datetime
 
 
 
@@ -27,6 +28,26 @@ class GoToHome(BaseView):
     def index(self):
         return redirect('/')
 
+def myFunc(e):
+  return e[0]
+
+class AnalyticsView(BaseView):
+    @expose('/')
+    def index(self):
+        lst = []
+        SumDoanhSoTheoNgay = db.session.query(func.sum(Bill.total_price).label('sum'), Bill.order_time).filter(func.month(Bill.order_time) == datetime.datetime.today().month).group_by(
+            func.date(Bill.order_time)).all()
+
+        # #co check status
+        # SumDoanhSoTheoNgay = db.session.query(func.sum(Bill.total_price).label('sum'), Bill.order_time).filter(
+        #     Bill.status == 4).filter(func.month(Bill.order_time) == datetime.datetime.today().month).group_by(
+        #     func.date(Bill.order_time)).all()
+
+        for i in SumDoanhSoTheoNgay:
+            lst.append([i[1].day, int(i[0])])
+        lst.sort(key=myFunc)
+        return self.render('admin/analytics.html', lst = lst)
+
 admin.add_view(AuthenticatedView(BookCategory, db.session, category="Book"))
 admin.add_view(AuthenticatedView(Book, db.session, category="Book"))
 admin.add_view(AuthenticatedView(User, db.session, category="User"))
@@ -38,6 +59,7 @@ admin.add_view(AuthenticatedView(BillDetail, db.session))
 admin.add_view(AuthenticatedView(Supplier, db.session))
 admin.add_view(AuthenticatedView(ImportBook, db.session))
 
+admin.add_view(AnalyticsView(name='Analytics', endpoint='analytics'))
 
 admin.add_view(LogoutView(name="Logout"))
 admin.add_view((GoToHome(name="Go To Home ")))
