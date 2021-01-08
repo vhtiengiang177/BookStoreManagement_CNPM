@@ -139,8 +139,8 @@ def register():
             message = 'Subject: {}\n\n{}'.format( SUBJECT, TEXT)
 
             server = smtplib.SMTP_SSL('smtp.googlemail.com', 465)
-            server.login('trongbeo21@gmail.com', 'abdt2211')
-            server.sendmail('trongbeo21@gmail.com',username , msg=message)
+            server.login('thaonguyen.201.9b@gmail.com', 'kimdong20012000')
+            server.sendmail('thaonguyen.201.9b@gmail.com',username , msg=message)
             db.session.commit()
             return '<h1>Please Confirm your email to active account</h1>'
     return redirect('/')

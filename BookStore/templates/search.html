@@ -47,7 +47,7 @@
                 <div class="agile_ecommerce_tab_left agileinfo_new_products_grid1">
                     <div class="hs-wrapper hs-wrapper1">
                         {%for img in listImage[i] %}
-                            <img src="{{url_for('static', filename = img.image)}}" alt=" " class="img-responsive" />
+                            <img src="{{url_for('static', filename = img.img)}}" alt=" " class="img-responsive" />
 <!--                        <img src="../static/images/3.jpg" alt=" " class="img-responsive" />-->
 <!--                        <img src="../static/images/3.jpg" alt=" " class="img-responsive" />-->
 <!--                        <img src="../static/images/3.jpg" alt=" " class="img-responsive" />-->
@@ -64,11 +64,11 @@
                     </div>
 
 
-                    <h5><a href="{{url_for('load_detail_book_by_id', id_book=listBook[i].id )}}">{{ listBook[i].name }}</a></h5>
+                    <div class="input-group"><a class="name_product" href="{{url_for('load_detail_book_by_id', id_book=listBook[i].id )}}">{{ listBook[i].name }}</a></div>
 
 
                     <div class="simpleCart_shelfItem">
-                        <p><span>${{ listBook[i].price }}</span> <i class="item_price">${{ listBook[i].price*(1-listBook[i].discount) }}</i></p>
+                        <p><span style="font-size:12px;">${{ listBook[i].price }} VND</span> <i style="font-size:17px" class="item_price">${{ listBook[i].price*(1-listBook[i].discount) }} VND</i></p>
                         <input type="button" value="Thêm vào giỏ"
                        onclick="addToCart({{ listBook[i].id }}, '{{ listBook[i].name }}', {{ listBook[i].price }}, {{listBook[i].discount }}, 1)"
                        class="btn btn-primary"

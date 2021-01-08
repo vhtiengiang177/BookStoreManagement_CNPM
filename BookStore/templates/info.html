@@ -26,28 +26,30 @@
                     <div class="col-md-9">
                         <div class="profile-head">
                                     <h5>
-                                       {{current_user.name}}
+                                        <div style="font-family:'Times New Roman', Times, serif">{{current_user.name}}</div>
                                     </h5>
                                     <h3>
+                                        <div style="font-family:'Times New Roman', Times, serif">
                                        Chào mừng bạn đến với của hàng của chúng tôi !
+                                        </div>
                                     </h3>
 
                         </div>
                         <div class="main-info">
                              <ul class="nav nav-tabs">
 
-                             <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
-                            <li><a data-toggle="tab" href="#settings">Account</a></li>
+                             <li class="active"><a data-toggle="tab" href="#home">Thông tin cá nhân</a></li>
+                            <li><a data-toggle="tab" href="#settings">Đổi mật khẩu</a></li>
                           </ul>
 
                             <div class="tab-content">
             <div class="tab-pane active" id="home">
                 <hr>
-                  <div class="form" action="##" method="post" id="registrationForm">
+                  <div class="form" action="##" method="post">
                       <div class="form-group">
 
                           <div class="col-xs-6">
-                              <label for="first_name"><h4>Tên</h4></label>
+                              <label for="first_name"><h4><div style="font-family:'Times New Roman', Times, serif">Tên</div></h4></label>
                               <div class = "txtInfoUser" >
                               <input readonly type="text" class="form-control" name="first_name" id="first_name" placeholder="{{current_user.name}}" >
                                 </div>
@@ -56,15 +58,18 @@
                       <div class="form-group">
 
                           <div class="col-xs-6">
-                              <label for="last_name"><h4>Giới tính</h4></label>
+
+                              <label for="last_name"><h4><div style="font-family:'Times New Roman', Times, serif">Giới tính</div></h4></label>
+
                               {% if (current_user.gender == 0) %}
                                         <div class = "txtInfoUser" >
-                                  <input readonly type="text" class="form-control" name="last_name" id="last_name"
+                                  <input readonly type="text" class="form-control" name="last_name"
                             placeholder="Nữ">
+
                               </div>
                               {%else%}
                                   <div class = "txtInfoUser" >
-                                  <input readonly type="text" class="form-control" name="last_name" id="last_name"
+                                  <input readonly type="text" class="form-control" name="last_name"
                             placeholder="Nam">
                                   </div>
                               {%endif%}
@@ -74,7 +79,7 @@
                       <div class="form-group">
 
                           <div class="col-xs-6">
-                              <label for="phone"><h4>Số điện thoại</h4></label>
+                              <label for="phone"><h4><div style="font-family:'Times New Roman', Times, serif">Số điện thoại</div></h4></label>
                               <div class = "txtInfoUser" >
                               <input readonly type="text" class="form-control" name="phone" id="phone" placeholder="{{current_user.phone}}" title="enter your phone number if any.">
                               </div>
@@ -83,7 +88,7 @@
 
                       <div class="form-group">
                           <div class="col-xs-6">
-                             <label for="mobile"><h4>Ngày sinh</h4></label>
+                              <label for="mobile"><h4><div style="font-family:'Times New Roman', Times, serif">Ngày sinh</div></h4></label>
                               <div class = "txtInfoUser" >
                               <input  readonly type="text" class="form-control" name="mobile" id="mobile" placeholder="{{current_user.birthday}}" title="enter your mobile number if any.">
                               </div>
@@ -92,7 +97,7 @@
                       <div class="form-group">
 
                           <div class="col-xs-6">
-                              <label for="email"><h4>Email</h4></label>
+                              <label for="email"><h4><div style="font-family:'Times New Roman', Times, serif">Email</div></h4></label>
                               <div class = "txtInfoUser" >
                               <input  readonly type="email" class="form-control" name="email" id="email" placeholder="{{current_user.mail}}" title="enter your email.">
                               </div>
@@ -101,7 +106,7 @@
                       <div class="form-group">
 
                           <div class="col-xs-6">
-                              <label for="email"><h4>Địa chỉ</h4></label>
+                              <label for="email"><h4><div style="font-family:'Times New Roman', Times, serif">Địa chỉ</div></h4></label>
                               <div class = "txtInfoUser" >
                               <input  readonly type="text" class="form-control" id="location" placeholder="{{current_user.address}}" title="enter a location">
                               </div>
@@ -110,7 +115,7 @@
                       <div class="form-group">
 
                           <div class="col-xs-6">
-                              <label for="password"><h4>Quận</h4></label>
+                              <label for="password"><h4><div style="font-family:'Times New Roman', Times, serif">Quận/Huyện</div></h4></label>
                               <div class = "txtInfoUser" >
                               <input  readonly type="password" class="form-control" name="password" id="password" placeholder="{{current_user.district}}" title="enter your password.">
                                 </div>
@@ -119,7 +124,7 @@
                       <div class="form-group">
 
                           <div class="col-xs-6">
-                            <label for="password2"><h4>Tỉnh/ Thành phố</h4></label>
+                              <label for="password2"><h4><div style="font-family:'Times New Roman', Times, serif">Tỉnh/Thành phố</div></h4></label>
                               <div class = "txtInfoUser" >
                               <input  readonly type="password" class="form-control" name="password2" id="password2" placeholder="{{current_user.city}}" title="enter your password2.">
                                 </div>
@@ -128,7 +133,7 @@
                       <div class="form-group">
                            <div class="col-xs-12">
                                 <br>
-                              	<button class="btn btn-lg btn-success" type="button" data-toggle="modal" data-target="#myModal88"><i class="glyphicon glyphicon-ok-sign"></i> Edit</button>
+                              	<button class="btn btn-lg btn-success" type="button" data-toggle="modal" data-target="#myModal88"><i class="glyphicon glyphicon-ok-sign"></i> Chỉnh sửa </button>
 
                             </div>
                       </div>
@@ -146,7 +151,7 @@
                       <div class="form-group">
 
                           <div class="col-xs-6">
-                              <label for="first_name"><h4>Tên đăng nhập</h4></label>
+                              <label for="first_name"><h4><div style="font-family:'Times New Roman', Times, serif">Tên đăng nhập</div></h4></label>
                               <div class = "txtInfoUser" >
                               <input readonly type="text" class="form-control" name="username" id="usernameEdit" placeholder="" value="{{current_user.username}}">
                                 </div>
@@ -160,9 +165,9 @@
                       <div class="form-group">
 
                           <div class="col-xs-6">
-                              <label for="password"><h4>Nhập mật khẩu  mới</h4></label>
+                              <label for="password"><h4><div style="font-family:'Times New Roman', Times, serif">Mật khẩu mới</div></h4></label>
                               <div class = "txtInfoUser" >
-                              <input  type="password" class="form-control" name="password" id="passwordEdit" placeholder="password" >
+                              <input  type="password" class="form-control" name="password" id="passwordEdit" placeholder="Nhập mật khẩu mới" >
                                 </div>
                           </div>
                       </div>
@@ -171,9 +176,9 @@
                       <div class="form-group">
 
                           <div class="col-xs-6">
-                              <label for="password"><h4>Mật khẩu</h4></label>
+                              <label for="password"><h4><div style="font-family:'Times New Roman', Times, serif">Mật khẩu hiện tại</div></h4></label>
                               <div class = "txtInfoUser" >
-                              <input type="password" class="form-control" name="password" id="passwordOld" placeholder="password" value = "{{current_user.password}}">
+                              <input type="password" class="form-control" name="password" id="passwordOld" placeholder="Nhập mật khẩu hiện tại" value = "{{current_user.password}}">
                                 </div>
                               </div>
                       </div>
@@ -181,16 +186,16 @@
                       <div class="form-group">
 
                           <div class="col-xs-6">
-                            <label for="password2"><h4>Mời nhập lại mật khẩu !</h4></label>
+                            <label for="password2"><h4><div style="font-family:'Times New Roman', Times, serif">Xác nhận mật khẩu</div></h4></label>
                               <div class = "txtInfoUser" >
-                              <input type="password" class="form-control" name="password2" id="passwordEdit2" placeholder="Nhập lại pass" title="enter your password2.">
+                              <input type="password" class="form-control" name="password2" id="passwordEdit2" placeholder="Nhập lại mật khẩu mới">
                               </div>
                               </div>
                       </div>
                       <div class="form-group">
                            <div class="col-xs-12" style="text-align: right;">
                                 <br>
-                              	<button class="btn btn-lg btn-success pull-right" type="button" onclick="updateAccount({{ current_user.id}})"><i class="glyphicon glyphicon-ok-sign"></i> Save</button>
+                              	<button class="btn btn-lg btn-success pull-right" type="button" onclick="updateAccount({{ current_user.id}})"><i class="glyphicon glyphicon-ok-sign"></i> Lưu</button>
                                	<button class="btn btn-lg" type="reset"onclick="resetPass()" ><i class="glyphicon glyphicon-repeat"></i> Reset</button>
                             </div>
                       </div>

@@ -51,7 +51,7 @@
                                 </div>
                                 <div class="input-group"><a class="name_product" href="{{url_for('load_detail_book_by_id', id_book=list_best_sale_book[i].id)}}">{{ list_best_sale_book[i].name }}</a></div>
                                     <div class="simpleCart_shelfItem">
-                                    <p><span>{{ list_best_sale_book[i].price }}</span> <i class="item_price">{{ list_best_sale_book[i].price*(1-list_best_sale_book[i].discount) }}</i></p>
+                                    <p><span style="font-size:12px;">{{ list_best_sale_book[i].price }} VND</span> <i style="font-size:17px" class="item_price">{{ list_best_sale_book[i].price*(1-list_best_sale_book[i].discount) }} VND</i></p>
                                     </div>
                                     <input type="button" value="Thêm vào giỏ"
                                        onclick="addToCart({{ list_best_sale_book[i].id }}, '{{ list_best_sale_book[i].name }}', {{ list_best_sale_book[i].price }}, {{ list_best_sale_book[i].discount }}, 1)"
@@ -74,9 +74,9 @@
                                             <img src="{{url_for('static', filename = j.image )}}" alt="{{list_recommend_book[i].name}}" class="img-responsive" />
                                         {% endfor %}
                                 </div>
-                                <h5><a href="{{url_for('load_detail_book_by_id', id_book=list_recommend_book[i].id)}}">{{ list_recommend_book[i].name }}</a></h5>
+                                    <div class="input-group"><a class="name_product" href="{{url_for('load_detail_book_by_id', id_book=list_recommend_book[i].id)}}">{{ list_recommend_book[i].name }}</a></div>
                                     <div class="simpleCart_shelfItem">
-                                    <p><span>{{ list_recommend_book[i].price }}</span> <i class="item_price">{{ list_recommend_book[i].price*(1-list_recommend_book[i].discount) }}</i></p>
+                                    <p><span  style="font-size:12px;">{{ list_recommend_book[i].price }} VND</span> <i style="font-size:17px" class="item_price">{{ list_recommend_book[i].price*(1-list_recommend_book[i].discount) }} VND</i></p>
                                     </div>
                                     <input type="button" value="Thêm vào giỏ"
                                        onclick="addToCart({{ list_recommend_book[i].id }}, '{{ list_recommend_book[i].name }}', {{ list_recommend_book[i].price }}, {{list_recommend_book[i].discount}}, 1)"
