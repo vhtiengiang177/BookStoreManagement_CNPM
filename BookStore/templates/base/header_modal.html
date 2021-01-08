@@ -89,8 +89,22 @@
                                                                 this.classList.toggle('fa-eye-slash');
                                                             });
                                                 </script>
+
+                                                <script>
+
+                                                    document.getElementById('password2').onkeyup=function(){
+                                                        var password = $("#password1").val();
+                                                        var confirm_password = $("#password2").val();
+                                                        if(password != confirm_password) {
+                                                               $("#password2").css('border-color', "red");
+                                                        }
+                                                            else{
+                                                               $("#password2").css('border-color', "green");
+                                                            }
+                                                    }
+                                                </script>
                                                 <div class="sign-up">
-                                                    <input type="submit" value="Tạo tài khoản"/>
+                                                    <input type="submit" onclick="checkPass()" value="Tạo tài khoản"/>
                                                 </div>
                                             </form>
                                         </div>

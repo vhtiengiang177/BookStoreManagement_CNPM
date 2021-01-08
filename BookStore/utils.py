@@ -1,9 +1,13 @@
 # from BookStore import db
 from models import Book, Image, BookCategory, User, Cart, CartItem, BillDetail, Bill
-from __init__ import db
+from __init__ import db, app
 from sqlalchemy import desc,  asc
 # from flask import session, sessions
 # from BookStore.models import User
+import csv
+import os
+
+
 
 def loadImageByListIdBook(listBook):
     list_image = []
@@ -135,3 +139,15 @@ def list_book_literature():
     return Book.query.filter(Book.id_category <3).all()[0:3]
 
 
+def get_all_bill():
+    return Bill.query.all()
+
+def get_list_item_of_bill(id_bill):
+    return BillDetail.query.filter(BillDetail.id_bill == id_bill).all()
+
+
+def export_csv():
+    book = Book.query.all()
+    p = os.path.join(app.root_path, "products.csv")
+    # with open()
+    pass

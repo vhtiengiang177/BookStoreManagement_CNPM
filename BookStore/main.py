@@ -1,5 +1,5 @@
 from __init__ import app
-from flask import Flask, render_template, request, redirect, flash, session, jsonify,Response
+from flask import Flask, render_template, request, redirect, flash, session, jsonify,Response, send_file
 from admin_models import *
 from __init__ import login
 from models import User
@@ -143,6 +143,12 @@ def register():
             server.sendmail('thaonguyen.201.9b@gmail.com',username , msg=message)
             db.session.commit()
             return '<h1>Please Confirm your email to active account</h1>'
+        else:
+            return render_template('base/base.html', list_recommend_book_new=utils.recommend_bookNew(),
+                               list_recommend_book=utils.recommend_book(),
+                               list_best_sale_book=utils.best_sale_book(),
+                               list_book_image=utils.load_book_image(),
+                               list_book_category=utils.get_book_category(), err='Mật khẩu không trùng nhau')
     return redirect('/')
 
 #Thao
@@ -258,7 +264,7 @@ def add_to_cart():
             if str(l.id) == id_book:
                 book = l
                 break
-        if book.import_number - book.sold <= int(quantity):
+        if book.import_number - book.sold - int(quantity) <20:
             return jsonify({
                 "message": "Số lượng sách vượt quá!!!"
             })
@@ -362,6 +368,22 @@ def delete_item(item_id):
     })
 
 
+@app.route('/api/cancel_bill/<item_id>', methods=['post'])
+def cancel_bill(item_id):
+    # item id : id bill
+    list_bill = utils.get_all_bill()
+    for i in list_bill:
+        if(str(i.id) == item_id):
+            if(i.status == 1 or i.status ==2):
+                i.status =0
+                db.session.commit()
+                return jsonify({
+                    'message': 'Hủy đơn hàng thành công'
+                })
+    return jsonify({
+        'message': 'HỦy không thất bại'
+    })
+
 
 @app.route('/api/cart/<item_id>', methods=['post'])
 def update_item(item_id):
@@ -375,8 +397,7 @@ def update_item(item_id):
             if ('quantity' in data):
                 for book in list_book:
                     if str(book.id) == str(item.id_book):
-                        print('1')
-                        if book.import_number - book.sold <= int(data['quantity']):
+                        if book.import_number - book.sold - int(data['quantity']) <20:
                             return jsonify(({
                                 'code': 300
                             }))
@@ -394,6 +415,27 @@ def update_item(item_id):
         'code': 500
     }))
 
+@app.route('/billdetail/<id_bill>', methods=['post', 'get'])
+def bill_detail(id_bill):
+    name = ''
+    address =''
+    phone=''
+    status=0
+    list_all_bill = utils.get_all_bill()
+    total_amount = 0
+    id_b = id_bill
+    list_book = utils.load_Book()
+    for i in list_all_bill:
+        if(str(i.id) == id_bill):
+            name = i.name_delivery
+            address = i.address_delivery
+            phone =i.phone
+            status = i.status
+            total_amount = i.total_price
+
+    list_item = utils.get_list_item_of_bill(id_bill)
+    return  render_template('billdetail.html', list_book_category=utils.get_book_category() , list_item = list_item, name = name, address = address, phone = phone, status = status, total_amount = total_amount, idbill = id_b, list_book = list_book)
+
 #Thao
 @app.route('/search', methods=['GET', 'POST'])
 def search():
@@ -403,6 +445,10 @@ def search():
     n = len(listBook)
     return render_template('search.html', listBook = listBook , list_book_category=utils.get_book_category(),len = n,  listImage = utils.loadImageByListIdBook(listBook))
 
+
+@app.route("/product/export")
+def export_product():
+    return send_file(utils.export_csv())
 
 #Thao
 @app.route('/search/<id_category>', methods=['GET', 'POST'])
