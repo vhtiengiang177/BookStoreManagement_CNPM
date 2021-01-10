@@ -6,6 +6,8 @@ B3: chạy file models.py
     Lần 1: chạy tạo db: db.create_all()
     Lần 2: tạo csdl: những dòng dưới
     Hoàn thành nên cmt tất cả code lại, để hàm pass
+
+    chạy file query.txt để có data sách
 B4: chạy trigger:
     CREATE DEFINER=`root`@`localhost` TRIGGER `import_book_AFTER_INSERT` AFTER INSERT ON `import_book` FOR EACH ROW BEGIN
     update Book set Book.import_number = Book.import_number + NEW.amount where Book.id = NEW.id_book;

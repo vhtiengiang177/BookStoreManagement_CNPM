@@ -1,0 +1,62 @@
+use bookstoreteam2;
+
+insert into Book(name, author, description,  publisher, price, discount, id_category)
+values ( N'Mắt biếc', N'Nguyễn Nhật Ánh', N'Truyện ngắn', N'Nhà xuất bản trẻ', 89000, 0, 2);
+
+insert into Image(image, id_book)
+values ('images/matbiet.jpg', 4);
+
+insert into Book(name, author, description,  publisher, sold, import_number, price, discount, id_category)
+values ( N'Án mạng mười  một chữ', N' Higashino Keigo', N'Truyện ngắn', N'Nhà xuất bản Hà Nội', 0,0, 89000, 0, 2);
+
+insert into Image(image, id_book)
+values ('images/anmang11chu.jpg', 5);
+
+insert into Book(name, author, description,  publisher, sold, import_number, price, discount, id_category)
+values ( N'Đắc nhân tâm', N' Dale Carnegie', N'Truyện ngắn', N'Nhà xuất bản Hà Nội', 0,0, 76000, 0, 11);
+
+insert into Image(image, id_book)
+values ('images/dacnhantam.jpg', 6);
+
+
+insert into Book(name, author, description,  publisher, sold, import_number, price, discount, id_category)
+values ( N'Doreamon', N'Fujiko F. Fujio', N'Truyện thiếu nhi', N'Nhà xuất bản Hà Nội', 0,0, 76000, 0, 9);
+
+insert into Image(image, id_book)
+values ('images/doreamon.jpg', 7);
+
+
+insert into Book(name, author, description,  publisher, sold, import_number, price, discount, id_category)
+values ( N'Mãi mãi là bao xa', N'Diệp Lạc Vô Tâm', N'Ngôn tình', N'Nhà xuất bản Hà Nội', 0,0, 120000, 0, 3);
+
+insert into Image(image, id_book)
+values ('images/maimailabaoxa.jpg', 8);
+
+insert into Book(name, author, description,  publisher, sold, import_number, price, discount, id_category)
+values ( N'Góc nhìn Alan: Những bài chưa xuất bản', N'Alan', N'Kinh tế', N'Nhà xuất bản Hà Nội', 0,0, 150000, 0, 8);
+
+
+insert into Image(image, id_book)
+values ('images/nhungbaichuaxuatban.jpg', 9);
+
+insert into Book(name, author, description,  publisher, sold, import_number, price, discount, id_category)
+values ( N'Yêu những điều không hoàn hảo', N'Hae Min', N'Truyện ngắn', N'Nhà xuất bản Hà Nội', 0,0, 130000, 0, 2);
+
+insert into Image(image, id_book)
+values ('images/yeunhungdieukhonghoanhao.jpg', 10);
+
+
+insert into Book(name, author, description,  publisher, sold, import_number, price, discount, id_category)
+values ( N'Sự im lặng của bầy cừu ', N'Thomas harris', N'Trinh thám', N'Nhà Xuất Bản Hội Nhà Văn', 0,0, 92000, 0, 5);
+
+
+insert into Image(image, id_book)
+values ('images/suimlangcuabaycuu.jpg', 11);
+
+
+insert into Book(name, author, description,  publisher, sold, import_number, price, discount, id_category)
+values ( N'Sherlock Home', N'Conan Doyle', N'Trinh thám', N'Nhà xuất bản Hà Nội', 0,0, 92000, 0, 5);
+
+
+insert into Image(image, id_book)
+values ('images/sherlockhome.jpg', 12);
