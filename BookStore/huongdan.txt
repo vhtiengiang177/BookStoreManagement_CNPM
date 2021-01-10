@@ -1,0 +1,18 @@
+B1: tạo database bookstoreteam2
+    create database bookstoreteam2
+B2: đổi mk mysql trong __init__.py
+B3: chạy file models.py
+    có thể chạy thành 2 lần.
+    Lần 1: chạy tạo db: db.create_all()
+    Lần 2: tạo csdl: những dòng dưới
+    Hoàn thành nên cmt tất cả code lại, để hàm pass
+B4: chạy trigger:
+    CREATE DEFINER=`root`@`localhost` TRIGGER `import_book_AFTER_INSERT` AFTER INSERT ON `import_book` FOR EACH ROW BEGIN
+    update Book set Book.import_number = Book.import_number + NEW.amount where Book.id = NEW.id_book;
+    END
+
+    CREATE DEFINER=`root`@`localhost` TRIGGER `bill_detail_AFTER_INSERT` AFTER INSERT ON `bill_detail` FOR EACH ROW BEGIN
+    update Book set Book.sold = Book.sold + NEW.quantity where Book.id = NEW.id_book;
+    END
+B5: chạy main.py
+    Đăng nhập: admin@gmail.com      password: 123
